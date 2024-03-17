@@ -4,18 +4,25 @@ h1 {
 }
 
 section {
-    margin: 0px 50px;
+    // margin: 0px 50px;
+    // text-align: center;
 }
 
 .paragraphe1 {
-    padding: 20px 80px;
+    // padding: 20px 0px;
+    // width: 80%;
+    // text-align:left;
 }
 
 .image1 {
-    width: 700px;
+    // width: 100%;
 }
 
 .image2 {
-    width: 340px;
+    // width: 340px;
 }
 
+@media screen and (min-width: 900px) {
+
+}
+  
