@@ -17,7 +17,7 @@
     </div>
 </section>
 <section>
-    <app-habitat-card></app-habitat-card>
+    <app-habitat-card *ngFor="let habitat of habitats" [habitat]="habitat"></app-habitat-card>
 </section>
 <section>
     
