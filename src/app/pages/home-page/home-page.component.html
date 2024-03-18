@@ -16,11 +16,21 @@
         <img class="col-11" src="assets/images/antilope_accueil.jpg" alt="Antilope">
     </div>
 </section>
-<section>
-    <app-habitat-card *ngFor="let habitat of habitats" [habitat]="habitat"></app-habitat-card>
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Découvrez les animaux dans leur habitat</h2>
+    <div class="enveloppe-div">
+        <div class="content-div">
+            <app-habitat-card *ngFor="let habitat of habitats" [habitat]="habitat"></app-habitat-card>
+        </div>
+    </div>
 </section>
-<section>
-    <app-service-card *ngFor="let service of services" [service]="service"></app-service-card>
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Profitez des services mis à votre disposition</h2>
+    <div class="enveloppe-div">
+        <div class="content-div">
+            <app-service-card *ngFor="let service of services" [service]="service"></app-service-card>
+        </div>
+    </div>
 </section>
 <section>
     
