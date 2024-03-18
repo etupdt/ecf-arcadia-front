@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  useBackend: 'https://localhost:8080',
+  useBackend: 'http://localhost:8080/ecf-arcadia-back',
   useBackendImages: 'assets/images/',
 };

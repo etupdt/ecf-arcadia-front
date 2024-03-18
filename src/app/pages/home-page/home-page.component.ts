@@ -1,13 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Habitat } from 'src/app/interfaces/Habitat';
+import { HabitatService } from 'src/app/services/habitat.service';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
 
-  habitats = [
+  constructor(
+    private habitatService: HabitatService
+  ) { }
+
+  habitats: Habitat[] = []
+
+  ngOnInit(): void {
+
+    this.habitatService.getHabitats().subscribe({
+      next: (res: Habitat[]) => {
+        this.habitats = res
+      },
+      error: (error: { error: { message: any; }; }) => {
+        // this.dialog.open(MessageDialogComponent, {
+        //   data: {
+        //     type: 'Erreur',
+        //     message1: `Erreur lors de la lecture des options`,
+        //     message2: error.error.message,
+        //     delai: 0
+        //   }
+        // })
+      }
+    })
+
+  }
+
+  habitats2 = [
     {
       name: 'Savane',
       description: 'Sec',
@@ -58,4 +86,5 @@ export class HomePageComponent {
       ]
     }
   ]
+
 }

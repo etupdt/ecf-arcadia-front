@@ -1,5 +1,8 @@
+import { Habitat } from "./Habitat";
+import { Race } from "./Race";
 
-interface Animal {
+export interface Animal {
+    id: number,
     firstname: string,
     health: string,
     race: Race,
