@@ -32,7 +32,12 @@
         </div>
     </div>
 </section>
-<section>
-    
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Donnez votre avis sur le Zoo</h2>
+    <app-view-form class="enveloppe-div"></app-view-form>
+</section>
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Vos avis</h2>
+    <app-view-component class="enveloppe-div" *ngFor="let view of views" [view]="view"></app-view-component>
 </section>
  
