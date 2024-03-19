@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Habitat } from 'src/app/interfaces/Habitat';
+import { Service } from 'src/app/interfaces/Service';
 import { HabitatService } from 'src/app/services/habitat.service';
+import { ServiceService } from 'src/app/services/service.service';
 
 @Component({
   selector: 'app-home-page',
@@ -10,16 +12,35 @@ import { HabitatService } from 'src/app/services/habitat.service';
 export class HomePageComponent implements OnInit {
 
   constructor(
-    private habitatService: HabitatService
+    private habitatService: HabitatService,
+    private serviceService: ServiceService
   ) { }
 
   habitats: Habitat[] = []
+
+  services: Service[] = []
 
   ngOnInit(): void {
 
     this.habitatService.getHabitats().subscribe({
       next: (res: Habitat[]) => {
         this.habitats = res
+      },
+      error: (error: { error: { message: any; }; }) => {
+        // this.dialog.open(MessageDialogComponent, {
+        //   data: {
+        //     type: 'Erreur',
+        //     message1: `Erreur lors de la lecture des options`,
+        //     message2: error.error.message,
+        //     delai: 0
+        //   }
+        // })
+      }
+    })
+
+    this.serviceService.getServices().subscribe({
+      next: (res: Service[]) => {
+        this.services = res
       },
       error: (error: { error: { message: any; }; }) => {
         // this.dialog.open(MessageDialogComponent, {
@@ -57,7 +78,7 @@ export class HomePageComponent implements OnInit {
     }
   ]
 
-  services = [
+  services2 = [
     {
       name: 'Le Restaurant',
       description: 'Venez en famille vous régaler dans le restaurant du zoo.',
