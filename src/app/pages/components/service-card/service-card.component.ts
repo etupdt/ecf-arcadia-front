@@ -12,6 +12,10 @@ export class ServiceCardComponent {
 
   useBackendImages: string = `${environment.useBackendImages}`
 
-  @Input() service! : Service
+  @Input() service: Service = {
+    id: 0,
+    name: '',
+    description: ''
+  }
 
 }

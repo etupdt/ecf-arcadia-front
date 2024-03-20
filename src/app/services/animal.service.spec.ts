@@ -1,16 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { AnimalService } from './animal.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AnimalService', () => {
-  let service: AnimalService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AnimalService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [AnimalService]
+    });
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  it('should be created', inject([AnimalService], (animalService: AnimalService) => {
+    expect(animalService).toBeTruthy();
+  }));
+
 });

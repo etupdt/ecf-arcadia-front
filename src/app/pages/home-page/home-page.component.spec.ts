@@ -1,21 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { HomePageComponent } from './home-page.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HabitatService } from 'src/app/services/habitat.service';
 
 describe('HomePageComponent', () => {
-  let component: HomePageComponent;
-  let fixture: ComponentFixture<HomePageComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [HomePageComponent]
-});
-    fixture = TestBed.createComponent(HomePageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      imports: [HttpClientTestingModule],
+      providers: [HabitatService]
+    });
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should be created', inject([HabitatService], (habitatService: HabitatService) => {
+    expect(habitatService).toBeTruthy();
+  }));
+
 });

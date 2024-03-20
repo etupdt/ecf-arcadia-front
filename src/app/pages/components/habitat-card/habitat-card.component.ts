@@ -20,7 +20,12 @@ export class HabitatCardComponent {
     description: "",
     comment: '',
     animals: [],
-    images: []
+    images: [
+      {
+        id: 0,
+        imageName: ""
+      }
+    ]
   }
 
 }

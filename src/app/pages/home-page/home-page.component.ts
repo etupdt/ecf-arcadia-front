@@ -16,7 +16,8 @@ import { NgFor } from '@angular/common';
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     standalone: true,
-    imports: [NgFor, HabitatCardComponent, ServiceCardComponent, ViewFormComponent, ViewComponentComponent]
+    imports: [NgFor, HabitatCardComponent, ServiceCardComponent, ViewFormComponent, ViewComponentComponent],
+    providers: []
 })
 export class HomePageComponent implements OnInit {
 

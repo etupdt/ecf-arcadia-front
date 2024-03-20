@@ -1,16 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { RaceService } from './race.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('RaceService', () => {
-  let service: RaceService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(RaceService);
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [RaceService]
+    });
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  it('should be created', inject([RaceService], (raceService: RaceService) => {
+    expect(raceService).toBeTruthy();
+  }));
+
 });
