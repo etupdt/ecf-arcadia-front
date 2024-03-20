@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { View } from 'src/app/interfaces/View';
 
 @Component({
-  selector: 'app-view-component',
-  templateUrl: './view-component.component.html',
-  styleUrls: ['./view-component.component.scss']
+    selector: 'app-view-component',
+    templateUrl: './view-component.component.html',
+    styleUrls: ['./view-component.component.scss'],
+    standalone: true
 })
 export class ViewComponentComponent {
 

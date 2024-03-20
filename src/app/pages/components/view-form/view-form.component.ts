@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { View } from 'src/app/interfaces/View';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-view-form',
-  templateUrl: './view-form.component.html',
-  styleUrls: ['./view-form.component.scss']
+    selector: 'app-view-form',
+    templateUrl: './view-form.component.html',
+    styleUrls: ['./view-form.component.scss'],
+    standalone: true,
+    imports: [FormsModule]
 })
 export class ViewFormComponent {
 

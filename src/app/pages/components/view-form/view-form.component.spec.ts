@@ -8,8 +8,8 @@ describe('ViewFormComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ViewFormComponent]
-    });
+    imports: [ViewFormComponent]
+});
     fixture = TestBed.createComponent(ViewFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

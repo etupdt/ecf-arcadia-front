@@ -3,9 +3,10 @@ import { Service } from 'src/app/interfaces/Service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-service-card',
-  templateUrl: './service-card.component.html',
-  styleUrls: ['./service-card.component.scss']
+    selector: 'app-service-card',
+    templateUrl: './service-card.component.html',
+    styleUrls: ['./service-card.component.scss'],
+    standalone: true
 })
 export class ServiceCardComponent {
 

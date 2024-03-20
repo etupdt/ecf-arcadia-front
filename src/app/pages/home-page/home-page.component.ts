@@ -5,11 +5,18 @@ import { View } from 'src/app/interfaces/View';
 import { HabitatService } from 'src/app/services/habitat.service';
 import { ServiceService } from 'src/app/services/service.service';
 import { ViewService } from 'src/app/services/view.service';
+import { ViewComponentComponent } from '../components/view-component/view-component.component';
+import { ViewFormComponent } from '../components/view-form/view-form.component';
+import { ServiceCardComponent } from '../components/service-card/service-card.component';
+import { HabitatCardComponent } from '../components/habitat-card/habitat-card.component';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+    selector: 'app-home-page',
+    templateUrl: './home-page.component.html',
+    styleUrls: ['./home-page.component.scss'],
+    standalone: true,
+    imports: [NgFor, HabitatCardComponent, ServiceCardComponent, ViewFormComponent, ViewComponentComponent]
 })
 export class HomePageComponent implements OnInit {
 
