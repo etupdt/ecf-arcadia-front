@@ -1,11 +1,12 @@
 
-<div *ngIf="viewForm" [formGroup]="viewForm" class="w-75">
+<div class="w-75">
     <div class="mb-3">
         <label for="pseudo" class="form-label">Pseudo</label>
-        <input formControlName="pseudo" type="text" class="form-control" id="pseudo" placeholder="Pseudo">
+        <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" (keyup)="change()" [(ngModel)]="view.pseudo">
     </div>
     <div class="mb-3">
         <label for="view" class="form-label">Avis</label>
-        <textarea formControlName="view" class="form-control" id="view" rows="3"></textarea>
+        <textarea class="form-control" id="view" rows="3" (keyup)="change()" [(ngModel)]="view.comment"></textarea>
     </div>
+    <button type="button" class="btn btn-warning" (click)="save()" [disabled]="isUnChanged">Enregistrer</button>
 </div>

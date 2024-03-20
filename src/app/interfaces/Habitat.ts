@@ -1,5 +1,5 @@
 import { Animal } from "./Animal";
-import { IImage } from "./Image";
+import { IImage } from "./IImage";
 
 export interface Habitat {
     id: number,

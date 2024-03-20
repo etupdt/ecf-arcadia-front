@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Service } from 'src/app/interfaces/Service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,6 +11,6 @@ export class ServiceCardComponent {
 
   useBackendImages: string = `${environment.useBackendImages}`
 
-  @Input() service! : any
+  @Input() service! : Service
 
 }

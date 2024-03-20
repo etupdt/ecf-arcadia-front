@@ -23,9 +23,13 @@ export class HomePageComponent implements OnInit {
 
   services: Service[] = []
 
+  view!: View
+
   views: View[] = []
 
   ngOnInit(): void {
+
+    this.view = this.initForm()
 
     this.habitatService.getHabitats().subscribe({
       next: (res: Habitat[]) => {
@@ -75,6 +79,36 @@ export class HomePageComponent implements OnInit {
       }
     })
 
+  }
+
+  onFormSubmit = (view: View) => {
+
+    this.viewService.postView(view).subscribe({
+      next: (res: View[]) => {
+        this.view = this.initForm()
+        console.log(res)
+      },
+      error: (error: { error: { message: any; }; }) => {
+        // this.dialog.open(MessageDialogComponent, {
+        //   data: {
+        //     type: 'Erreur',
+        //     message1: `Erreur lors de la lecture des options`,
+        //     message2: error.error.message,
+        //     delai: 0
+        //   }
+        // })
+      }
+    })
+
+  }
+
+  initForm = (): View => {
+    return {
+      id : 0,
+      pseudo : "",
+      comment : "",
+      isVisible : false
+    }
   }
 
 }

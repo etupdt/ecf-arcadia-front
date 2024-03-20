@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { View } from 'src/app/interfaces/View';
 
 @Component({
   selector: 'app-view-component',
@@ -7,6 +8,11 @@ import { Component, Input } from '@angular/core';
 })
 export class ViewComponentComponent {
 
-  @Input() view! : any
+  @Input() view : View = {
+    id: 0,
+    pseudo: "",
+    comment: "",
+    isVisible: false
+  }
 
 }
