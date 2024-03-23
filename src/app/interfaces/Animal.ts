@@ -1,4 +1,5 @@
 import { Habitat } from "./Habitat";
+import { IImage } from "./IImage";
 import { Race } from "./Race";
 
 export interface Animal {
@@ -6,5 +7,6 @@ export interface Animal {
     firstname: string,
     health: string,
     race: Race,
-    habitat?: Habitat
+    habitat?: Habitat,
+    images: IImage[]
 }

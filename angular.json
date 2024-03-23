@@ -50,7 +50,7 @@
               ],
               "outputHashing": "all"
             },
-            "preprod": {
+            "test": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -60,7 +60,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.preprod.ts"
+                  "with": "src/environments/environment.test.ts"
                 }
               ]
             },

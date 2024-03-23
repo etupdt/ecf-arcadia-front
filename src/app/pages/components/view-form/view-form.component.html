@@ -8,5 +8,5 @@
         <label for="view" class="form-label">Avis</label>
         <textarea class="form-control" id="view" rows="3" (keyup)="change()" [(ngModel)]="view.comment"></textarea>
     </div>
-    <button type="button" class="btn btn-warning" (click)="save()" [disabled]="isUnChanged">Enregistrer</button>
+    <button type="button" id="button" class="btn btn-warning" (click)="save()" [disabled]="isUnChanged">Enregistrer</button>
 </div>

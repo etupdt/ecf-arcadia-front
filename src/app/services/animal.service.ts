@@ -14,6 +14,14 @@ export class AnimalService {
     private http: HttpClient
   ) { }
 
+  getAnimal(id : number): Observable<any> {
+
+    return this.http.get(
+      environment.useBackend + `/api/animals/${id}`
+    )
+
+  }
+
   getAnimals(): Observable<any> {
 
     return this.http.get(
