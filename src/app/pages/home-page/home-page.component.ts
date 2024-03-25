@@ -10,6 +10,7 @@ import { ViewFormComponent } from '../components/view-form/view-form.component';
 import { ServiceCardComponent } from '../components/service-card/service-card.component';
 import { HabitatCardComponent } from '../components/habitat-card/habitat-card.component';
 import { NgFor } from '@angular/common';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
     selector: 'app-home-page',
@@ -24,7 +25,8 @@ export class HomePageComponent implements OnInit {
   constructor(
     private habitatService: HabitatService,
     private serviceService: ServiceService,
-    private viewService: ViewService
+    private viewService: ViewService,
+    private headerService: HeaderService
   ) { }
 
   habitats: Habitat[] = []
@@ -36,6 +38,9 @@ export class HomePageComponent implements OnInit {
   views: View[] = []
 
   ngOnInit(): void {
+
+    this.headerService.selectedMenuItem = "Accueil"
+    this.headerService.signalItemSelected.set('Accueil')
 
     this.view = this.initForm()
 
