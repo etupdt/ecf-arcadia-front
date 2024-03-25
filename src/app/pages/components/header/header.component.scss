@@ -1,0 +1,41 @@
+
+nav {
+
+    padding: 0;
+    background-color: #9AAD90 !important;
+    height: 80px;
+
+    > div {
+        
+        > img {
+            height: 80px;
+        }
+
+        a {
+            color: white; // #FBF1D8;
+        }
+
+        ul {
+
+            margin: auto;
+
+            a {
+                font-size: 18px;
+            }
+
+            .active {
+                font-weight: 500;
+                color: white;
+                text-decoration: underline;
+                text-underline-offset: 6px;
+            }
+
+            li {
+                margin: 0 10px;
+            }
+
+        }
+
+    }
+
+}
