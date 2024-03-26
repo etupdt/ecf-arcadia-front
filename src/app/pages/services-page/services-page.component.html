@@ -3,7 +3,7 @@
 <section class="d-flex flex-column flex-lg-row-reverse align-items-center justify-content-evenly">
     <ul>
         <li *ngFor="let service of services$ | async">
-            {{service.name}}
+            <app-service-card [service]="service"></app-service-card>
         </li>
     </ul>
 </section>

@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { Service } from 'src/app/interfaces/Service';
 import { HeaderService } from 'src/app/services/header.service';
 import { ServiceService } from 'src/app/services/service.service';
+import { ServiceCardComponent } from "../components/service-card/service-card.component";
 
 @Component({
-  selector: 'app-services-page',
-  templateUrl: './services-page.component.html',
-  styleUrls: ['./services-page.component.scss'],
-  standalone: true,
-  imports: [CommonModule]
+    selector: 'app-services-page',
+    templateUrl: './services-page.component.html',
+    styleUrls: ['./services-page.component.scss'],
+    standalone: true,
+    imports: [CommonModule, ServiceCardComponent]
 })
 export class ServicesPageComponent {
 

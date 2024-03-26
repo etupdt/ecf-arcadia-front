@@ -1,0 +1,22 @@
+
+ul {
+
+    list-style: none;
+    padding: 0;
+    width: 80%;
+    height: fit-content;
+    margin: 30px;
+
+    li {
+
+        height: 100%;
+        margin: 10px 0;
+        
+        app-service-card {
+            height: 100px;
+            padding: 0;
+        }
+
+    }
+
+}
