@@ -1,40 +1,24 @@
 
-footer {
-    
-    background-color: #9AAD90;
+div:last-child {
+    text-align: left;
+    span {
+        margin: 0 8px;
+    }
+}
 
-    > div {
+div {
+    text-align: center;
+    padding: 0 30px;
+    margin: 8px 0;
+}
 
-        display: flex;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        color: white;
-        font-size: 0.8rem;
-    
-        > div:last-child {
-            text-align: left;
-            span {
-                margin: 0 8px;
-            }
-        }
+span {
+    font-weight: 600;
+}
 
-        > div {
-            text-align: center;
-            padding: 0 30px;
-            margin: 8px 0;
-        }
-        
-        span {
-            font-weight: 600;
-        }
-    
-        app-hours {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: fit-content;
-        }
-
-    }    
-    
+app-hours {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
 }

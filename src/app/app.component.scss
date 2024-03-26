@@ -1,5 +1,25 @@
 
-#zone {
-    max-width: 1320px;
-    margin: auto;
+
+main{
+    display: flex;
+    flex-direction: column;
+    max-width: 1320px;    
+}
+
+footer {
+
+    width: 100%;
+    background-color: #9AAD90;
+    margin-top: auto;
+
+    app-footer {
+
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        color: white;
+        font-size: 0.8rem;
+
+    }
+    
 }
