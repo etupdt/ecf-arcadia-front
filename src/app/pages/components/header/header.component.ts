@@ -11,7 +11,7 @@ import { LinksComponent } from '../links/links.component';
 })
 export class HeaderComponent {
 
-    selectedItem: string = 'Services'
+    selectedItem: string = ''
 
     constructor (
         private headerService: HeaderService

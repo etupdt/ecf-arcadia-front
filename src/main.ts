@@ -9,18 +9,26 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { HomePageComponent } from './app/pages/home-page/home-page.component';
 import { ViewService } from './app/services/view.service';
+import { ServicesPageComponent } from './app/pages/services-page/services-page.component';
 
 
 bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(FormsModule, ReactiveFormsModule),
         provideHttpClient(withInterceptorsFromDi()),
-//        provideHttpClient(),
         provideRouter([
             {
                 path: '',
                 component: HomePageComponent
-            }            
+            },            
+            {
+                path: 'Accueil',
+                component: HomePageComponent
+            },            
+            {
+                path: 'Services',
+                component: ServicesPageComponent
+            },            
         ]),
         {provide: ViewService, useClass: ViewService},
     ]

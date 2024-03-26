@@ -1,0 +1,9 @@
+
+<h1 class="px-3 px-sm-5">Consultez les services disponibles</h1>
+<section class="d-flex flex-column flex-lg-row-reverse align-items-center justify-content-evenly">
+    <ul>
+        <li *ngFor="let service of services$ | async">
+            {{service.name}}
+        </li>
+    </ul>
+</section>
