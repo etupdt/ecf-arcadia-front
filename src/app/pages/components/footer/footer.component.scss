@@ -1,4 +1,40 @@
 
 footer {
+    
     background-color: #9AAD90;
+
+    > div {
+
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        color: white;
+        font-size: 0.8rem;
+    
+        > div:last-child {
+            text-align: left;
+            span {
+                margin: 0 8px;
+            }
+        }
+
+        > div {
+            text-align: center;
+            padding: 0 30px;
+            margin-bottom: 10px;
+        }
+        
+        span {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+    
+        app-hours {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: fit-content;
+        }
+
+    }    
 }

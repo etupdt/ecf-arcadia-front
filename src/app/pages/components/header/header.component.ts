@@ -1,11 +1,13 @@
 import { Component, effect } from '@angular/core';
 import { HeaderService } from 'src/app/services/header.service';
+import { LinksComponent } from '../links/links.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  standalone: true
+  standalone: true,
+  imports: [LinksComponent]
 })
 export class HeaderComponent {
 
@@ -18,6 +20,5 @@ export class HeaderComponent {
             this.selectedItem = this.headerService.signalItemSelected()
         });
     }
-
 
 }
