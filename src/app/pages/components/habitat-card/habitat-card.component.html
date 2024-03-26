@@ -1,0 +1,9 @@
+<div class="card h-100" style="width: 18rem;">
+    <img src="{{ useBackendImages }}/{{ habitat.images[0].imageName }}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{ habitat.name }}</h5>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let animal of habitat.animals">{{ animal.firstname}}</li>
+        </ul>
+    </div>
+</div>

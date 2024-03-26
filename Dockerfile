@@ -11,8 +11,13 @@ RUN npm install -g npm@latest
 
 RUN npm install -g @angular/cli
 
-WORKDIR /usr/local/apache2/htdocs
+# WORKDIR /usr/local/apache2/htdocs
+WORKDIR /tmp/angular
 
 COPY ./ ./
+
+RUN ng build --configuration=preprod
+RUN cp -r /tmp/angular/dist/ecf-arcadia-front/* /usr/local/apache2/htdocs
+RUN rm -Rf /tmp/angular
 
 EXPOSE 80

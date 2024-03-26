@@ -1,0 +1,43 @@
+
+<h1 class="px-3 px-sm-5">Bienvenue dans Arcadia</h1>
+<section class="d-flex flex-column flex-lg-row-reverse align-items-center justify-content-evenly">
+    <img class="col-9 col-sm-6 col-lg-3" src="assets/images/pexels-photo-2078772.webp" alt="Perroquet">
+    <div class="d-flex flex-column align-items-center col-12 col-sm-8 col-lg-6">
+        <p class="col-lg-12 col-xl-10 p-4">
+            Arcadia est un zoo situé en France près de la forêt de Brocéliande, 
+            en bretagne depuis 1960. Ils possèdent tout un panel d’animaux, 
+            réparti par habitat (savane, jungle, marais) et font extrêmement 
+            attention à leurs santés. Chaque jour, plusieurs vétérinaires viennent 
+            afin d’effectuer les contrôles sur chaque animal avant l’ouverture du 
+            zoo afin de s’assurer que tout se passe bien, de même, toute la nourriture 
+            donnée est calculée afin d’avoir le bon grammage (le bon grammage est 
+            précisé dans le rapport du vétérinaire).
+        </p>
+        <img class="col-11" src="assets/images/antilope_accueil.jpg" alt="Antilope">
+    </div>
+</section>
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Découvrez les animaux dans leur habitat</h2>
+    <div class="enveloppe-div">
+        <div class="content-div">
+            <app-habitat-card *ngFor="let habitat of habitats" [habitat]="habitat"></app-habitat-card>
+        </div>
+    </div>
+</section>
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Profitez des services mis à votre disposition</h2>
+    <div class="enveloppe-div">
+        <div class="content-div">
+            <app-service-card *ngFor="let service of services" [service]="service"></app-service-card>
+        </div>
+    </div>
+</section>
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Donnez votre avis sur le Zoo</h2>
+    <app-view-form class="enveloppe-div" (return)="onFormSubmit($event)" [view]="view"></app-view-form>
+</section>
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Vos avis</h2>
+    <app-view-component class="enveloppe-div" *ngFor="let view of views" [view]="view"></app-view-component>
+</section>
+ 
