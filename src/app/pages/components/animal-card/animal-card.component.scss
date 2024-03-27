@@ -32,11 +32,14 @@ img {
 
     ul {
 
-        width: 50%;
-
         li {
-            text-align: right;
+
             list-style: none;
+            
+            span:first-child {
+                width: 350px;
+            }
+
         }
 
     }
