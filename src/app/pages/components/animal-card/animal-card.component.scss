@@ -20,3 +20,29 @@ img {
     }
     
 }
+
+.animal-detail {
+
+    height: 100%;
+    background-color: #FFE092;
+
+    img {
+        width: 200px;
+    }
+
+    ul {
+
+        width: 50%;
+
+        li {
+            text-align: right;
+            list-style: none;
+        }
+
+    }
+
+}
+
+.hidden {
+    display: none;
+}

@@ -10,22 +10,10 @@ import { environment } from 'src/environments/environment';
 })
 export class AnimalCardComponent {
 
-  useBackendImages: string = `${environment.useBackendImages}`
+    useBackendImages: string = `${environment.useBackendImages}`
 
-  @Input() animal : Animal = {
-    id: 0,
-    firstname: "",
-    images: [
-      {
-        id: 0,
-        imageName: ""
-      }
-    ],
-    health: '',
-    race: {
-      id: 0,
-      label: ''
-    }
-  }
+    @Input() animal!: Animal
+
+    collapse: boolean = false;
 
 }

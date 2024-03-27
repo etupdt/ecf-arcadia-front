@@ -17,6 +17,6 @@ export class HabitatCardComponent {
 
   @Input() habitat!: Habitat
 
-  collapse: boolean = true;
+  collapse: boolean = false;
 
 }
