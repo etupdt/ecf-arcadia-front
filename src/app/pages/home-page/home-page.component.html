@@ -20,7 +20,7 @@
     <h2 class="pt-5">Découvrez les animaux dans leur habitat</h2>
     <div class="enveloppe-div">
         <div class="content-div">
-            <app-habitat-card *ngFor="let habitat of habitats" [habitat]="habitat"></app-habitat-card>
+            <app-habitat-list *ngFor="let habitat of habitats$ | async" [habitat]="habitat"></app-habitat-list>
         </div>
     </div>
 </section>
@@ -28,7 +28,7 @@
     <h2 class="pt-5">Profitez des services mis à votre disposition</h2>
     <div class="enveloppe-div">
         <div class="content-div">
-            <app-service-card *ngFor="let service of services" [service]="service"></app-service-card>
+            <app-service-card *ngFor="let service of services$ | async" [service]="service"></app-service-card>
         </div>
     </div>
 </section>
@@ -38,6 +38,6 @@
 </section>
 <section class="d-flex flex-column align-items-center">
     <h2 class="pt-5">Vos avis</h2>
-    <app-view-component class="enveloppe-div" *ngFor="let view of views" [view]="view"></app-view-component>
+    <app-view-component class="enveloppe-div" *ngFor="let view of views$ | async" [view]="view"></app-view-component>
 </section>
  

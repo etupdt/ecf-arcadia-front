@@ -10,6 +10,7 @@ import { provideRouter } from '@angular/router';
 import { HomePageComponent } from './app/pages/home-page/home-page.component';
 import { ViewService } from './app/services/view.service';
 import { ServicesPageComponent } from './app/pages/services-page/services-page.component';
+import { HabitatsPageComponent } from './app/pages/habitats-page/habitats-page.component';
 
 
 bootstrapApplication(AppComponent, {
@@ -28,6 +29,10 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'Services',
                 component: ServicesPageComponent
+            },            
+            {
+                path: 'Habitats',
+                component: HabitatsPageComponent
             },            
         ]),
         {provide: ViewService, useClass: ViewService},

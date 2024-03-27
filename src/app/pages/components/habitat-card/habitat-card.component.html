@@ -1,9 +1,13 @@
-<div class="card h-100" style="width: 18rem;">
-    <img src="{{ useBackendImages }}/{{ habitat.images[0].imageName }}" class="card-img-top" alt="...">
-    <div class="card-body">
+
+<div class="d-flex flex-row align-items-center py-2">
+    <img src="assets/images/{{ collapse ? 'droite_jaune.jpg' : 'bas_jaune.jpg'}}" (click)="collapse = !collapse" alt="collapse arrow"/>
+    <div class="d-flex flex-row align-items-center habitat">
+        <img src="{{ useBackendImages }}/{{ habitat.images[0].imageName }}" alt="Habitat">
         <h5 class="card-title">{{ habitat.name }}</h5>
-        <ul class="list-group">
-            <li class="list-group-item" *ngFor="let animal of habitat.animals">{{ animal.firstname}}</li>
-        </ul>
     </div>
 </div>
+<ul class="{{ collapse ? 'hidden' : '' }}">
+    <li *ngFor="let animal of habitat.animals">
+        <app-animal-card [animal]="animal"></app-animal-card>
+    </li>
+</ul>
