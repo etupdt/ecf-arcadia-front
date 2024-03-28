@@ -1,9 +1,14 @@
-
-<div class="d-flex flex-row align-items-center py-2">
-    <img src="assets/images/{{ collapse ? 'droite_jaune.jpg' : 'bas_jaune.jpg'}}" (click)="collapse = !collapse" alt="habitat collapse arrow"/>
-    <div class="d-flex flex-row align-items-center habitat">
-        <img src="{{ useBackendImages }}/{{ habitat.images[0].imageName }}" alt="Habitat">
-        <h5 class="card-title">{{ habitat.name }}</h5>
+<div class="d-flex py-2">
+    <div class="d-flex flex-row align-items-center">
+        <img src="assets/images/{{ collapse ? 'droite_jaune.jpg' : 'bas_jaune.jpg'}}" (click)="collapse = !collapse" alt="habitat collapse arrow"/>
+        <div class="d-flex flex-row align-items-center habitat">
+            <img src="{{ useBackendImages }}/{{ habitat.images[0].imageName }}" alt="Habitat">
+            <h5 class="card-title">{{ habitat.name }}</h5>
+        </div>
+    </div>
+    <div class="habitat-detail {{ collapse ? 'hidden' : '' }}">
+        <p>{{ habitat.description }}</p>
+        <p>{{ habitat.comment }}</p>
     </div>
 </div>
 <ul class="{{ collapse ? 'hidden' : '' }}">

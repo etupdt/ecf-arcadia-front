@@ -1,21 +1,24 @@
 
 
-img {
-    width: 40px;
-}
-
 .animal {
-
-    background-color: white;
     
-    img {
-        width: 340px;
+    > img {
+        width: 40px;
+    }
+    
+    > div {
+
+        background-color: white;
+
+        img {
+            width: 250px;
+        }
+
     }
 
     h5 {
         padding:20px;
         min-width: 150px;
-        width: 100%;
         text-align: center;
     }
     
@@ -23,12 +26,9 @@ img {
 
 .animal-detail {
 
-    height: 100%;
     background-color: #FFE092;
-
-    img {
-        width: 200px;
-    }
+    padding: 20px !important;
+    font-size: 14px;
 
     ul {
 

@@ -1,22 +1,20 @@
 
-<div class="d-flex flex-row align-items-center py-2 px-5">
-    <img src="assets/images/{{ collapse ? 'droite_jaune.jpg' : 'bas_jaune.jpg'}}" (click)="collapse = !collapse" alt="animal collapse arrow"/>
-    <div class="d-flex flex-row align-items-center animal">
-        <img src="{{ useBackendImages }}/{{ animal.images[0].imageName }}" alt="Animal {{ animal.firstname }}">
-        <h5>{{ animal.firstname }}</h5>
-    </div>
-    <div class="animal-detail {{ collapse ? 'hidden' : '' }} p-3 ms-3 h-100">
-        <h5>{{ animal.firstname }}</h5>
-        <div class="d-flex">
+<div class="d-flex py-2">
+    <div class="d-flex flex-row align-items-center ps-4 animal">
+        <img src="assets/images/{{ collapse ? 'droite_jaune.jpg' : 'bas_jaune.jpg'}}" (click)="toggleCollapse()" alt="animal collapse arrow"/>
+        <div class="d-flex flex-row align-items-center">
             <img src="{{ useBackendImages }}/{{ animal.images[0].imageName }}" alt="Animal {{ animal.firstname }}">
-            <p class="pt-3 ps-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p>
+            <h5>{{ animal.firstname }}</h5>
         </div>
-        <ul class="pt-3">
+    </div>
+    <div class="animal-detail {{ collapse ? 'hidden' : '' }} p-2">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p>
+        <ul>
             <li><span>Race :</span><span> {{animal.race.label}}</span></li>
             <li><span>Etat de l'animal :</span><span> {{animal.health}}</span></li>
             <li><span>Nouriture proposée :</span><span> {{animal.race.label}}</span></li>
             <li><span>Grammage de la nouriture :</span><span> {{animal.race.label}}</span></li>
-            <li><span>Détail de l'état proposée :</span><span> {{animal.race.label}}</span></li>
+            <li><span>Détail de l'état :</span><span> {{animal.race.label}}</span></li>
         </ul>
     </div>
 </div>

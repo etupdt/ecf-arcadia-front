@@ -5,9 +5,12 @@ import { Injectable, signal } from '@angular/core';
 })
 export class HeaderService {
 
-  constructor() { }
+    constructor() { }
 
-  selectedMenuItem: string = "Habitats"
-  signalItemSelected = signal(this.selectedMenuItem)
+    selectedMenuItem: string = "Habitats"
+    signalItemSelected = signal(this.selectedMenuItem)
+
+    collapseAnimals: number =  0
+    signalCollapseAnimals = signal(this.collapseAnimals)
 
 }
