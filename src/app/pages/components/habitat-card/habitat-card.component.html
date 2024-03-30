@@ -13,6 +13,6 @@
 </div>
 <ul class="{{ collapse ? 'hidden' : '' }}">
     <li *ngFor="let animal of habitat.animals">
-        <app-animal-card [animal]="animal"></app-animal-card>
+        <app-animal-card [animal]="animal | uniqReport"></app-animal-card>
     </li>
 </ul>

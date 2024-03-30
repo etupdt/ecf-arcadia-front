@@ -15,9 +15,8 @@ export class AnimalCardComponent {
     private headerService: HeaderService
   ) {
     effect(() => {
-        console.log("effect", this.headerService.signalCollapseAnimals())
-        if (this.animal && this.animal.id !== this.headerService.signalCollapseAnimals()) {
-            console.log("effect2")
+        const idNotCollapse = this.headerService.signalCollapseAnimals()
+        if (this.animal && this.animal.id !== idNotCollapse) {
             this.collapse = true
         }
     });

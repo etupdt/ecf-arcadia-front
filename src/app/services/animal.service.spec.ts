@@ -27,11 +27,9 @@ describe('AnimalService', () => {
     animalService.getAnimals().subscribe({
       
       next : data => {
-        console.log('toto')  
 
         flag = true
         const animal = data   
-        console.log('toto')
 
         expect(animal.id).toEqual(7)
         
@@ -47,7 +45,6 @@ describe('AnimalService', () => {
     // },10000)
 
     const testRequest = httpTestingController.expectOne(environment.useBackend + '/api/animals');
-console.log(testRequest)
     expect(7).toEqual(7)
 
     testRequest.flush

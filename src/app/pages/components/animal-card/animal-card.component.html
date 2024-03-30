@@ -12,9 +12,9 @@
         <ul>
             <li><span>Race :</span><span> {{animal.race.label}}</span></li>
             <li><span>Etat de l'animal :</span><span> {{animal.health}}</span></li>
-            <li><span>Nouriture proposée :</span><span> {{animal.race.label}}</span></li>
-            <li><span>Grammage de la nouriture :</span><span> {{animal.race.label}}</span></li>
-            <li><span>Détail de l'état :</span><span> {{animal.race.label}}</span></li>
+            <li><span>Nouriture proposée :</span><span> {{animal.veterinaryReports[0].food.name}}</span></li>
+            <li><span>Grammage de la nouriture :</span><span> {{animal.veterinaryReports[0].gramage}}</span></li>
+            <li><span>Détail de l'état :</span><span> {{animal.veterinaryReports[0].detail}}</span></li>
         </ul>
     </div>
 </div>

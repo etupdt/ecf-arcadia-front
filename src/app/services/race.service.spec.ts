@@ -28,11 +28,7 @@ describe('HttpClient testing', () => {
     const requests = httpTestingController.match('/');
     expect(requests.length).toBeGreaterThan(0);
   
-    // console.log('requests length : ', requests.length)
-    // console.log('request : ', requests[0].request.headers.getAll)
-    
     requests.forEach(request => {
-      // console.log(request)
       request.flush
     })
 

@@ -51,7 +51,6 @@ export class HomePageComponent implements OnInit {
     this.viewService.postView(view).subscribe({
       next: (res: View[]) => {
         this.view = this.initForm()
-        console.log(res)
       },
       error: (error: { error: { message: any; }; }) => {
         // this.dialog.open(MessageDialogComponent, {

@@ -3,13 +3,14 @@ import { Habitat } from 'src/app/interfaces/Habitat';
 import { environment } from 'src/environments/environment';
 import { NgFor } from '@angular/common';
 import { AnimalCardComponent } from '../animal-card/animal-card.component';
+import { UniqReportPipe } from "../../pipes/uniq-report.pipe";
 
 @Component({
     selector: 'app-habitat-card',
     templateUrl: './habitat-card.component.html',
     styleUrls: ['./habitat-card.component.scss'],
     standalone: true,
-    imports: [NgFor, AnimalCardComponent]
+    imports: [NgFor, AnimalCardComponent, UniqReportPipe]
 })
 export class HabitatCardComponent {
 
