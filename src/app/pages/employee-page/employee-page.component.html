@@ -1,0 +1,24 @@
+
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Gestion des avis</h2>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let view of views$ | async">
+            <label class="form-check-label" for="view{{view.id}}">
+                {{view.comment}}
+            </label>
+            <input class="form-check-input me-1" type="checkbox" value="" id="view{{view.id}}">
+        </li>
+    </ul>
+</section>
+<section class="d-flex flex-column align-items-center">
+    <h2 class="pt-5">Gestion des services</h2>
+    <div class="enveloppe-div">
+        <div class="content-div">
+            <app-service-card *ngFor="let service of services$ | async; let index = index" [service]="service" [updatable]="true" (updateServiceList)="updateService(index)"></app-service-card>
+            <app-service-card class="{{new ? '' : 'hidden'}}" [service]="service" [updatable]="true" (updateServiceList)="updateCreateService(0)"></app-service-card>
+            <div class="d-flex justify-content-end w-100 p-2">
+                <button type="button" id="button" class="btn btn-warning" (click)="addService()" [disabled]="new">Ajouter un service</button>
+            </div>
+        </div>
+    </div>
+</section>

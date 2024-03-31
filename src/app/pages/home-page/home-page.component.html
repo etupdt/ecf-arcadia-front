@@ -38,6 +38,8 @@
 </section>
 <section class="d-flex flex-column align-items-center">
     <h2 class="pt-5">Vos avis</h2>
-    <app-view-component class="enveloppe-div" *ngFor="let view of views$ | async" [view]="view"></app-view-component>
+    <div class="view-display-content w-80">
+        <app-view-form ngFor="let view of views$ | async" [view]="view"></app-view-form>
+    </div>
 </section>
  

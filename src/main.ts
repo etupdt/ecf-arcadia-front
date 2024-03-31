@@ -11,11 +11,12 @@ import { HomePageComponent } from './app/pages/home-page/home-page.component';
 import { ViewService } from './app/services/view.service';
 import { ServicesPageComponent } from './app/pages/services-page/services-page.component';
 import { HabitatsPageComponent } from './app/pages/habitats-page/habitats-page.component';
+import { EmployeePageComponent } from './app/pages/employee-page/employee-page.component';
 
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(FormsModule, ReactiveFormsModule),
+        importProvidersFrom(ReactiveFormsModule),
         provideHttpClient(withInterceptorsFromDi()),
         provideRouter([
             {
@@ -33,6 +34,10 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'Habitats',
                 component: HabitatsPageComponent
+            },            
+            {
+                path: 'Employé',
+                component: EmployeePageComponent
             },            
         ]),
         {provide: ViewService, useClass: ViewService},

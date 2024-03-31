@@ -1,9 +1,9 @@
 
 <h1 class="px-3 px-sm-5">Consultez les services disponibles</h1>
 <section class="d-flex flex-column flex-lg-row-reverse align-items-center justify-content-evenly">
-    <ul>
-        <li *ngFor="let service of services$ | async">
-            <app-service-card [service]="service"></app-service-card>
-        </li>
-    </ul>
+    <div class="enveloppe-div">
+        <div class="content-div">
+            <app-service-card *ngFor="let service of services$ | async" [service]="service"></app-service-card>
+        </div>
+    </div>
 </section>
