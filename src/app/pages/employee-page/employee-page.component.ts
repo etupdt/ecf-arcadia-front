@@ -9,13 +9,14 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Service } from 'src/app/interfaces/Service';
 import { ServiceService } from 'src/app/services/service.service';
 import { ServiceCardComponent } from "../components/service-card/service-card.component";
+import { ViewFormComponent } from "../components/view-form/view-form.component";
 
 @Component({
     selector: 'app-employee-page',
     templateUrl: './employee-page.component.html',
     styleUrls: ['./employee-page.component.scss'],
     standalone: true,
-    imports: [NgFor, CommonModule, ViewComponentComponent, ServiceCardComponent]
+    imports: [NgFor, CommonModule, ViewComponentComponent, ServiceCardComponent, ViewFormComponent]
 })
 export class EmployeePageComponent {
 
