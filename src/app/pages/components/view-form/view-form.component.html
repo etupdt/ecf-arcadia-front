@@ -1,12 +1,23 @@
 
-<div class="w-75">
-    <div class="mb-3">
+<form class="card w-100 {{updatable ? '' : 'display'}}" [formGroup]="viewForm">
+    <div class="card-body">
         <label for="pseudo" class="form-label">Pseudo</label>
-        <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" (keyup)="change()" [(ngModel)]="view.pseudo">
-    </div>
-    <div class="mb-3">
+        <input 
+        id="pseudo" 
+        formControlName="pseudo"
+        type="text" 
+        class="form-control m-1" 
+        >
         <label for="view" class="form-label">Avis</label>
-        <textarea class="form-control" id="view" rows="3" (keyup)="change()" [(ngModel)]="view.comment"></textarea>
+        <textarea 
+        id="view"
+        formControlName="comment"
+        class="form-control m-1" 
+        rows="3"
+        >
+        </textarea>
     </div>
-    <button type="button" id="button" class="btn btn-warning" (click)="save()" [disabled]="isUnChanged">Enregistrer</button>
-</div>
+    <div class="d-flex justify-content-end w-100 p-2">
+        <button type="button" id="button" class="btn btn-warning" (click)="save()">Enregistrer</button>
+    </div>
+</form>

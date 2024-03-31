@@ -1,0 +1,17 @@
+
+.display {
+    
+    background-color: transparent;
+    
+    label, button {
+        display: none;
+    }
+
+    input, textarea {
+        background-color: transparent;
+        border: none;
+        resize: none;
+        pointer-events: none;
+    }
+
+}

@@ -34,12 +34,10 @@
 </section>
 <section class="d-flex flex-column align-items-center">
     <h2 class="pt-5">Donnez votre avis sur le Zoo</h2>
-    <app-view-form class="enveloppe-div" (return)="onFormSubmit($event)" [view]="view"></app-view-form>
+    <app-view-form (return)="onFormSubmit($event)" [view]="view" [updatable]="true"></app-view-form>
 </section>
 <section class="d-flex flex-column align-items-center">
     <h2 class="pt-5">Vos avis</h2>
-    <div class="view-display-content w-80">
-        <app-view-form ngFor="let view of views$ | async" [view]="view"></app-view-form>
-    </div>
+    <app-view-form *ngFor="let view of views$ | async" [view]="view" [updatable]="false"></app-view-form>
 </section>
  

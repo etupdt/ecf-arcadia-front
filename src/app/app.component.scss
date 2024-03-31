@@ -3,6 +3,7 @@ header {
     top: 0;
     position: fixed;
     width: 100%;
+    z-index: 2;
 }
 
 main{
@@ -10,6 +11,7 @@ main{
     display: flex;
     flex-direction: column;
     max-width: 1320px;    
+    z-index: 0;
 }
 
 footer {
