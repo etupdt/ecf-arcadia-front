@@ -1,0 +1,23 @@
+
+<form class="card w-100 {{updatable ? '' : 'display'}}" [formGroup]="animalForm">
+    <div class="card-body">
+        <label for="firstname" class="form-label">Prénom</label>
+        <input 
+        id="firstname" 
+        formControlName="firstname"
+        type="text" 
+        class="form-control m-1" 
+        >
+        <label for="health" class="form-label">Etat de santé</label>
+        <textarea 
+        id="health"
+        formControlName="health"
+        class="form-control m-1" 
+        rows="3"
+        >
+        </textarea>
+    </div>
+    <div class="d-flex justify-content-end w-100 p-2">
+        <button type="button" id="button" class="btn btn-warning" (click)="create()" [disabled]="!updated || animalForm.invalid">Enregistrer</button>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+<form class="card w-100 {{updatable ? '' : 'display'}}" [formGroup]="animalForm">
+    <div class="card-body">
+        <label for="time" class="form-label">Date</label>
+        <input 
+        id="time" 
+        formControlName="time"
+        type="datetime" 
+        class="form-control m-1" 
+        >
+    </div>
+    <div class="card-body">
+        <label for="food" class="form-label">Nouriture</label>
+        <input 
+        id="food" 
+        formControlName="food"
+        type="text" 
+        class="form-control m-1" 
+        >
+    </div>
+    <div class="card-body">
+        <label for="gramage" class="form-label">Quantité</label>
+        <input 
+        id="gramage" 
+        formControlName="gramage"
+        type="number" 
+        class="form-control m-1" 
+        >
+    </div>
+    <div class="d-flex justify-content-end w-100 p-2">
+        <button type="button" id="button" class="btn btn-warning" (click)="create()" [disabled]="!updated || animalForm.invalid">Enregistrer</button>
+    </div>
+</form>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HabitatService } from 'src/app/services/habitat.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { ViewComponentComponent } from "../components/view-component/view-component.component";
 import { Observable } from 'rxjs';
@@ -10,13 +9,16 @@ import { Service } from 'src/app/interfaces/Service';
 import { ServiceService } from 'src/app/services/service.service';
 import { ServiceCardComponent } from "../components/service-card/service-card.component";
 import { ViewFormComponent } from "../components/view-form/view-form.component";
+import { AnimalListComponent } from "../components/animal-list/animal-list.component";
+import { AnimalFormComponent } from "../components/animal-form/animal-form.component";
+import { Animal } from 'src/app/interfaces/Animal';
 
 @Component({
     selector: 'app-employee-page',
     templateUrl: './employee-page.component.html',
     styleUrls: ['./employee-page.component.scss'],
     standalone: true,
-    imports: [NgFor, CommonModule, ViewComponentComponent, ServiceCardComponent, ViewFormComponent]
+    imports: [NgFor, CommonModule, ViewComponentComponent, ServiceCardComponent, ViewFormComponent, AnimalListComponent, AnimalFormComponent]
 })
 export class EmployeePageComponent {
 
