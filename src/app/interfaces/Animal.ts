@@ -1,3 +1,4 @@
+import { FoodAnimal } from "./FoodAnimal";
 import { Habitat } from "./Habitat";
 import { IImage } from "./IImage";
 import { Race } from "./Race";
@@ -11,4 +12,5 @@ export interface Animal {
     habitat?: Habitat,
     images: IImage[],
     veterinaryReports: VeterinaryReport[]
+    foodAnimals: FoodAnimal[]
 }

@@ -1,11 +1,12 @@
 <form class="card w-100 {{updatable ? '' : 'display'}}" [formGroup]="animalForm">
     <div class="card-body">
-        <label for="time" class="form-label">Date</label>
+        <label for="dateFood" class="form-label">Date</label>
         <input 
-        id="time" 
-        formControlName="time"
-        type="datetime" 
+        id="dateFood" 
+        formControlName="dateFood"
+        type="date" 
         class="form-control m-1" 
+        (change)="initForm()"
         >
     </div>
     <div class="card-body">

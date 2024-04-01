@@ -31,7 +31,8 @@ export class AnimalListComponent {
             label: ''
         },
         images: [],
-        veterinaryReports: []
+        veterinaryReports: [],
+        foodAnimals: []
     }
 
     animals$: Observable<Animal[]> = this.animalService.getAnimals()
@@ -48,7 +49,8 @@ export class AnimalListComponent {
                 label: ''
             },
             images: [],
-            veterinaryReports: []
+            veterinaryReports: [],
+            foodAnimals: []
         }
         this.new = true
     }
