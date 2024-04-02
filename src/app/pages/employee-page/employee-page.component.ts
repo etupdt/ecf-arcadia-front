@@ -11,7 +11,6 @@ import { ServiceCardComponent } from "../components/service-card/service-card.co
 import { ViewFormComponent } from "../components/view-form/view-form.component";
 import { AnimalListComponent } from "../components/animal-list/animal-list.component";
 import { AnimalFormComponent } from "../components/animal-form/animal-form.component";
-import { Animal } from 'src/app/interfaces/Animal';
 
 @Component({
     selector: 'app-employee-page',

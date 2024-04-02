@@ -1,22 +1,25 @@
-<form class="card w-100 {{updatable ? '' : 'display'}}" [formGroup]="animalForm">
-    <div class="card-body">
-        <label for="dateFood" class="form-label">Date</label>
-        <input 
-        id="dateFood" 
-        formControlName="dateFood"
-        type="date" 
-        class="form-control m-1" 
-        (change)="initForm()"
-        >
-    </div>
+
+<div class="w-25">
+    <label for="dateFood" class="form-label">Date</label>
+    <input 
+    id="dateFood" 
+    type="date" 
+    class="form-control" 
+    [(ngModel)]="dateFood"
+    (change)="initForm()"
+    >
+</div>
+<form class="card w-100" [formGroup]="animalForm">
     <div class="card-body">
         <label for="food" class="form-label">Nouriture</label>
-        <input 
+        <select
         id="food" 
         formControlName="food"
         type="text" 
         class="form-control m-1" 
         >
+            <option class="form-control m-1" *ngFor="let food of foods$ | async" [ngValue]="food.id">{{food.name}}</option>
+        </select>
     </div>
     <div class="card-body">
         <label for="gramage" class="form-label">Quantité</label>
@@ -28,6 +31,6 @@
         >
     </div>
     <div class="d-flex justify-content-end w-100 p-2">
-        <button type="button" id="button" class="btn btn-warning" (click)="create()" [disabled]="!updated || animalForm.invalid">Enregistrer</button>
+        <button type="button" id="button" class="btn btn-warning" (click)="update()" [disabled]="!updated || animalForm.invalid">Enregistrer</button>
     </div>
 </form>

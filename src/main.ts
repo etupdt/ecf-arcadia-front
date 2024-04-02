@@ -14,6 +14,7 @@ import { ViewService } from './app/services/view.service';
 import { ServicesPageComponent } from './app/pages/services-page/services-page.component';
 import { HabitatsPageComponent } from './app/pages/habitats-page/habitats-page.component';
 import { EmployeePageComponent } from './app/pages/employee-page/employee-page.component';
+import { DatePipe } from '@angular/common';
 
 
 bootstrapApplication(AppComponent, {
@@ -43,6 +44,7 @@ bootstrapApplication(AppComponent, {
             },            
         ]),
         {provide: ViewService, useClass: ViewService},
+        DatePipe
     ]
 })
   .catch(err => console.error(err));

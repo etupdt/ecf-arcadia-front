@@ -1,10 +1,11 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Animal } from 'src/app/interfaces/Animal';
 import { AnimalService } from 'src/app/services/animal.service';
 import { AnimalFormComponent } from "../animal-form/animal-form.component";
 import { AnimalFoodComponent } from '../animal-food/animal-food.component';
+import { FoodAnimal } from 'src/app/interfaces/FoodAnimal';
 
 @Component({
     selector: 'app-animal-list',
@@ -17,11 +18,12 @@ export class AnimalListComponent {
 
     constructor (
         private animalService: AnimalService,
-    ) {}
+    ) {
+        this.animals$.subscribe(animals => this.selectedAnimal = animals[0])
+    }
 
     @Input() template: string = 'food'
-
-    @Output() selectAnimal: EventEmitter<Animal> = new EventEmitter()
+    
     selectedAnimal: Animal = {
         id: 0,
         firstname: '',
@@ -37,26 +39,9 @@ export class AnimalListComponent {
 
     animals$: Observable<Animal[]> = this.animalService.getAnimals()
 
-    new: boolean = false
-
-    addAnimal = () => {
-        this.selectedAnimal = {
-            id: 0,
-            firstname: '',
-            health: '',
-            race: {
-                id: 0,
-                label: ''
-            },
-            images: [],
-            veterinaryReports: [],
-            foodAnimals: []
-        }
-        this.new = true
+    onAnimalUpdate = (foodAnimals: FoodAnimal[]) => {
+        this.selectedAnimal.foodAnimals = foodAnimals
     }
 
-    clickAnimal = (animal: Animal) => {
-        this.selectedAnimal = Object.assign({}, animal)
-    }
+}    
 
-}
