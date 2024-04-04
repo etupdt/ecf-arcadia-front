@@ -11,13 +11,16 @@ import { ServiceCardComponent } from "../components/service-card/service-card.co
 import { ViewFormComponent } from "../components/view-form/view-form.component";
 import { AnimalListComponent } from "../components/animal-list/animal-list.component";
 import { AnimalFormComponent } from "../components/animal-form/animal-form.component";
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { CrudPageComponent } from "../crud-page/crud-page.component";
+import { ServicesPageComponent } from '../services-page/services-page.component';
 
 @Component({
     selector: 'app-employee-page',
     templateUrl: './employee-page.component.html',
     styleUrls: ['./employee-page.component.scss'],
     standalone: true,
-    imports: [NgFor, CommonModule, ViewComponentComponent, ServiceCardComponent, ViewFormComponent, AnimalListComponent, AnimalFormComponent]
+    imports: [NgFor, RouterOutlet, CommonModule, ViewComponentComponent, ServiceCardComponent, ViewFormComponent, AnimalListComponent, AnimalFormComponent, CrudPageComponent]
 })
 export class EmployeePageComponent {
 
@@ -25,7 +28,11 @@ export class EmployeePageComponent {
         private headerService: HeaderService,
         private viewService: ViewService,
         private serviceService: ServiceService,
+        private route: ActivatedRoute
     ) { }  
+
+
+    fields: (keyof Service)[] = ['name', 'description']
 
     views$: Observable<View[]> = this.viewService.getViews()
     services$: Observable<Service[]> = this.serviceService.getServices()
@@ -42,6 +49,7 @@ export class EmployeePageComponent {
 
         this.headerService.selectedMenuItem = "Employé"
         this.headerService.signalItemSelected.set('Employé')
+        console.log(this.route.snapshot.paramMap.get('feature'))
 
     }
 

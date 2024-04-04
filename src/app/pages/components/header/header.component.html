@@ -20,10 +20,18 @@
                 <li class="nav-item">
                     <a class="nav-link {{selectedItem === 'Contact' ? 'active' : ''}}" href="#">Contact</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{selectedItem === 'Employé' ? 'active' : ''}}" href="Employé">Employé</a>
-                </li>
-            </ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Employé
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]="['/Services2']">Services</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                  </li>
+                </ul>
             <form class="d-flex" role="search">
             <button class="btn btn-outline-light" type="submit">Connexion</button>
             </form>

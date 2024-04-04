@@ -8,17 +8,21 @@ nav {
 
     > div {
         
+        background-color: inherit;
+
         > img {
             height: 80px;
         }
 
         a {
             color: white; // #FBF1D8;
+            background-color: #9AAD90 !important;
         }
 
         ul {
 
             margin: auto;
+            background-color: #9AAD90 !important;
 
             a {
                 font-size: 18px;
@@ -33,6 +37,7 @@ nav {
 
             li {
                 margin: 0 10px;
+                background-color: inherit;
             }
 
         }

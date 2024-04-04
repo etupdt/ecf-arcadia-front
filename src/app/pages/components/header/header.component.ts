@@ -1,13 +1,14 @@
 import { Component, effect } from '@angular/core';
 import { HeaderService } from 'src/app/services/header.service';
 import { LinksComponent } from '../links/links.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [LinksComponent]
+  imports: [LinksComponent, RouterModule]
 })
 export class HeaderComponent {
 
@@ -17,6 +18,7 @@ export class HeaderComponent {
         private headerService: HeaderService
     ) {
         effect(() => {
+            console.log('header')
             this.selectedItem = this.headerService.signalItemSelected()
         });
     }

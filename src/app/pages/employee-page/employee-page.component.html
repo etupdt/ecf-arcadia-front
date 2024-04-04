@@ -1,5 +1,11 @@
 
-<section class="d-flex flex-column align-items-center">
+<router-outlet></router-outlet>
+
+
+
+<!-- <app-crud-page [items$]="services$" [fields]="field"></app-crud-page> -->
+
+<!-- <section class="d-flex flex-column align-items-center">
     <h2 class="pt-5">Gestion des avis</h2>
     <app-view-form *ngFor="let view of views$ | async" [view]="view" [updatable]="false"></app-view-form>
 </section>
@@ -14,4 +20,4 @@
 <section class="d-flex flex-column align-items-center">
     <h2 class="pt-5">Gestion de l'alimentation des animaux</h2>
     <app-animal-list template="food"></app-animal-list>    
-</section>
+</section> -->
