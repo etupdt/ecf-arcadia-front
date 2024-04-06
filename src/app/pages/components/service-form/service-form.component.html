@@ -1,11 +1,13 @@
 
 <form *ngIf="serviceForm" class="card w-100" [formGroup]="serviceForm">
     <div class="card-body">
+        <label for="firstname" class="form-label">Nom</label>
         <input 
         formControlName="name"
         type="text" 
         class="form-control m-1"
         >
+        <label for="firstname" class="form-label">Description</label>
         <textarea 
         formControlName="description"
         class="form-control m-1" 

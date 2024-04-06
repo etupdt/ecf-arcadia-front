@@ -9,18 +9,16 @@ import { Service } from 'src/app/interfaces/Service';
 import { ServiceService } from 'src/app/services/service.service';
 import { ServiceCardComponent } from "../components/service-card/service-card.component";
 import { ViewFormComponent } from "../components/view-form/view-form.component";
-import { AnimalListComponent } from "../components/animal-list/animal-list.component";
 import { AnimalFormComponent } from "../components/animal-form/animal-form.component";
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { CrudPageComponent } from "../crud-page/crud-page.component";
-import { ServicesPageComponent } from '../services-page/services-page.component';
 
 @Component({
     selector: 'app-employee-page',
     templateUrl: './employee-page.component.html',
     styleUrls: ['./employee-page.component.scss'],
     standalone: true,
-    imports: [NgFor, RouterOutlet, CommonModule, ViewComponentComponent, ServiceCardComponent, ViewFormComponent, AnimalListComponent, AnimalFormComponent, CrudPageComponent]
+    imports: [NgFor, RouterOutlet, CommonModule, ViewComponentComponent, ServiceCardComponent, ViewFormComponent, AnimalFormComponent, CrudPageComponent]
 })
 export class EmployeePageComponent {
 
@@ -49,7 +47,6 @@ export class EmployeePageComponent {
 
         this.headerService.selectedMenuItem = "Employé"
         this.headerService.signalItemSelected.set('Employé')
-        console.log(this.route.snapshot.paramMap.get('feature'))
 
     }
 

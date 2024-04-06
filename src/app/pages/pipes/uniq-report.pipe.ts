@@ -14,14 +14,14 @@ export class UniqReportPipe implements PipeTransform {
 
         let recent: string = '1901-01-01'
 
-        animal.veterinaryReports.forEach(v => {
+        animal.veterinaryReports?.forEach(v => {
             if (v.date > recent) {
                 newAnimal.veterinaryReports = [v]
                 recent = v.date
             }
         })
 
-        if (newAnimal.veterinaryReports.length === 0) newAnimal.veterinaryReports = [
+        if (newAnimal.veterinaryReports?.length === 0) newAnimal.veterinaryReports = [
             {
                 id: 0,
                 date: '',

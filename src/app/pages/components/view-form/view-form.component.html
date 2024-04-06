@@ -1,6 +1,5 @@
 
-<input class="form-check-input me-1" type="checkbox" value="" id="view{{view.id}}">
-<form class="card w-100 {{updatable ? '' : 'display'}}" [formGroup]="viewForm">
+<form class="d-flex card w-100 {{updatable ? 'updatable' : 'display'}}" [formGroup]="viewForm">
     <div class="card-body">
         <label for="pseudo" class="form-label">Pseudo</label>
         <input 
@@ -19,6 +18,6 @@
         </textarea>
     </div>
     <div class="d-flex justify-content-end w-100 p-2">
-        <button type="button" id="button" class="btn btn-warning" (click)="save()">Enregistrer</button>
+        <button type="button" id="button" class="btn btn-warning" (click)="update()">Enregistrer</button>
     </div>
 </form>

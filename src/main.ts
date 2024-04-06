@@ -7,7 +7,7 @@ import { InjectionToken, importProvidersFrom } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { bootstrapApplication } from '@angular/platform-browser';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { HomePageComponent } from './app/pages/home-page/home-page.component';
 import { ViewService } from './app/services/view.service';
@@ -20,12 +20,15 @@ import { ServiceService } from './app/services/service.service';
 import { ItemsService } from './app/services/items.service';
 import { ServiceCardComponent } from './app/pages/components/service-card/service-card.component';
 import { ServiceFormComponent } from './app/pages/components/service-form/service-form.component';
+import { ViewsPageComponent } from './app/pages/views-page/views-page.component';
+import { AnimalFormComponent } from './app/pages/components/animal-form/animal-form.component';
+import { FoodAnimalPageComponent } from './app/pages/food-animal-page/food-animal-page.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(ReactiveFormsModule),
+        importProvidersFrom(ReactiveFormsModule, BrowserModule, FormsModule),
         provideHttpClient(withInterceptorsFromDi()),
         provideRouter([
             {
@@ -45,11 +48,11 @@ bootstrapApplication(AppComponent, {
                 component: HabitatsPageComponent
             },            
             {
-                path: 'Employé',
-                component: EmployeePageComponent,
+                path: 'Avis',
+                component: ViewsPageComponent,
             },            
             {
-                path: 'Services2',
+                path: 'ServicesAdmin',
                 component: CrudPageComponent,
                 children: [
                     {
@@ -64,6 +67,27 @@ bootstrapApplication(AppComponent, {
                     fields: ['id', 'name', 'description'],
                     requiredService: SERVICE
                 }            
+            },            
+            {
+                path: 'AnimalsAdmin',
+                component: CrudPageComponent,
+                children: [
+                    {
+                        path: 'sub/:id',
+                        component: AnimalFormComponent,
+                        outlet: 'sub',
+                        data: { requiredService: SERVICE }
+                    },            
+                ],
+                data: {
+                    feature: 'animals',
+                    fields: ['id', 'firstname', "description"],
+                    requiredService: SERVICE
+                }            
+            },            
+            {
+                path: 'FoodAnimalAdmin',
+                component: FoodAnimalPageComponent,
             },            
         ]),
         {provide: ViewService, useClass: ViewService},

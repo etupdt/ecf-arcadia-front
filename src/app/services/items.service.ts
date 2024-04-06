@@ -10,9 +10,7 @@ export class ItemsService<Tdata> {
 
     constructor(
         private http: HttpClient
-    ) { 
-        console.log(this)
-    }
+    ) {}
 
     selectedItem!: Tdata | null
     signalSelectedItem = signal(this.selectedItem)

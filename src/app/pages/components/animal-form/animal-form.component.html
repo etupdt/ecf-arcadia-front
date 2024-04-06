@@ -1,5 +1,5 @@
 
-<form class="card w-100 {{updatable ? '' : 'display'}}" [formGroup]="animalForm">
+<form *ngIf="animalForm" class="card w-100" [formGroup]="animalForm">
     <div class="card-body">
         <label for="firstname" class="form-label">Prénom</label>
         <input 
@@ -16,8 +16,23 @@
         rows="3"
         >
         </textarea>
-    </div>
-    <div class="d-flex justify-content-end w-100 p-2">
-        <button type="button" id="button" class="btn btn-warning" (click)="create()" [disabled]="!updated || animalForm.invalid">Enregistrer</button>
+        <label for="race" class="form-label">Race</label>
+        <select
+            id="race" 
+            formControlName="race"
+            type="text" 
+            class="form-control m-1" 
+        >
+            <option class="form-control m-1" *ngFor="let race of races$ | async" [ngValue]="race.id">{{race.label}}</option>
+        </select>
+        <label for="race" class="form-label">Habitat</label>
+        <select
+            id="habitat" 
+            formControlName="habitat"
+            type="text" 
+            class="form-control m-1" 
+        >
+            <option class="form-control m-1" *ngFor="let habitat of habitat$ | async" [ngValue]="habitat.id">{{habitat.name}}</option>
+        </select>
     </div>
 </form>

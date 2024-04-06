@@ -1,17 +1,38 @@
 
 .display {
     
+    display: flex;
+    justify-content: space-around;
     background-color: transparent;
     
     label, button {
         display: none;
     }
-
+    
     input, textarea {
         background-color: transparent;
         border: none;
         resize: none;
         pointer-events: none;
     }
+    
+    .form-check-input {
+        background-color: black;
+        display: block;
+        pointer-events: initial;
+    }
+    
+}
 
+.updatable {
+    
+    display: flex;
+    justify-content: space-around;
+    background-color: transparent;
+    
+    .form-check-input {
+        display: none;
+        pointer-events: none;
+    }
+    
 }

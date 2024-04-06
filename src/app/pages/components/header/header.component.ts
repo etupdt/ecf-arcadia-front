@@ -18,7 +18,6 @@ export class HeaderComponent {
         private headerService: HeaderService
     ) {
         effect(() => {
-            console.log('header')
             this.selectedItem = this.headerService.signalItemSelected()
         });
     }

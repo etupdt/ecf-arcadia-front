@@ -59,7 +59,6 @@ export class AnimalFoodComponent {
     update = () => {
 
         if (this.foodAnimalIndex === -1) {
-            console.log('create')
             const foodAnimal = {
                 id: 0,
                 dateFood: this.dateFood,
@@ -79,7 +78,6 @@ export class AnimalFoodComponent {
                 }
             })
         } else {
-            console.log('update')
 
             this.animal.foodAnimals[this.foodAnimalIndex].dateFood = this.dateFood!
             this.animal.foodAnimals[this.foodAnimalIndex].food = {id: this.food.value}

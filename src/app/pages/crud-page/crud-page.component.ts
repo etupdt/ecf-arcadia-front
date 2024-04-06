@@ -1,7 +1,7 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { ChangeDetectorRef, Component, Injector, Input, OnInit, effect } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
-import { Observable } from 'rxjs';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
   selector: 'app-crud-page',
@@ -18,7 +18,8 @@ export class CrudPageComponent<Tdata> implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private injector: Injector,
-        private cdRef:ChangeDetectorRef
+        private cdRef:ChangeDetectorRef,
+        private headerService: HeaderService
     ) {
         this.genericService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
@@ -28,22 +29,16 @@ export class CrudPageComponent<Tdata> implements OnInit {
     }
 
     uri: string = this.route.snapshot.data['feature']
-
+    
     items!: Tdata[]
     selectedIndex!: number
-
+    
     selectedItemInitial!: Tdata
     
     isUpdated: boolean = false
     isValid: boolean = false
-
+    
     inCreation: boolean = false
-    
-    get selectedItem(): Tdata {return this.genericService.selectedItem}
-    set selectedItem(item: Tdata) {this.genericService.selectedItem = item}
-    
-    get updatedItem() {return this.genericService.updatedItem}
-    set updatedItem(item: Tdata) {this.genericService.updatedItem = item}
     
     fields!: (keyof Tdata)[]
     
@@ -51,6 +46,9 @@ export class CrudPageComponent<Tdata> implements OnInit {
         this.fields = this.route.snapshot.data['fields']
         this.router.navigate([{ outlets: { sub: [ 'sub', -1 ] }}], {relativeTo:this.route})
         this.readAll()
+
+        this.headerService.selectedMenuItem = "Admin"
+        this.headerService.signalItemSelected.set('Admin')
     }
 
     readAll = () => {
@@ -58,7 +56,7 @@ export class CrudPageComponent<Tdata> implements OnInit {
             next: (res: Tdata[]) => {
                 this.items = res
                 this.selectedIndex = 0
-                this.selectedItem = this.items[this.selectedIndex]
+                this.genericService.selectedItem = this.items[this.selectedIndex]
                 this.read(this.selectedIndex)
             },
             error: (error: { error: { message: any; }; }) => {
@@ -68,27 +66,27 @@ export class CrudPageComponent<Tdata> implements OnInit {
 
     create = () => {
         this.inCreation = true
-        this.genericService.signalSelectedItem.set(this.selectedItem)
+        this.genericService.signalSelectedItem.set(this.genericService.selectedItem)
         this.router.navigate([{ outlets: { sub: [ 'sub', '-1' ] }}], {relativeTo:this.route})
     }
     
     read = (index: number) => {
         if (index > -1 && index < this.items.length) {
             this.selectedIndex = index
-            this.selectedItem = this.items[index]
-            this.genericService.signalSelectedItem.set(this.selectedItem)
-            this.router.navigate([{ outlets: { sub: [ 'sub', this.items[index][this.fields[0]] ] }}], {relativeTo:this.route})
+            this.genericService.selectedItem = this.items[index]
+            this.genericService.signalSelectedItem.set(this.genericService.selectedItem)
+            this.router.navigate([{ outlets: { sub: [ 'sub', this.genericService.selectedItem['id'] ] }}], {relativeTo:this.route})
             this.genericService.signalIsUpdated.set(false)
         } else {
             this.selectedIndex = -1
             this.router.navigate([{ outlets: { sub: [ 'sub', -1 ] }}], {relativeTo:this.route})
-            this.genericService.signalSelectedItem.set(this.selectedItem)
+            this.genericService.signalSelectedItem.set(this.genericService.selectedItem)
         }        
     }        
     
     update = () => {
-        if (this.genericService.updatedItem[this.fields[0]] === 0) {
-            this.genericService.postItem(this.uri, this.updatedItem).subscribe({
+        if (this.genericService.updatedItem['id'] === 0) {
+            this.genericService.postItem(this.uri, this.genericService.updatedItem).subscribe({
                 next: (res: Tdata) => {
                     this.items.push(res)
                     this.read(this.items.length - 1)
@@ -97,7 +95,7 @@ export class CrudPageComponent<Tdata> implements OnInit {
                 }    
             })    
         } else {
-            this.genericService.putItem(this.uri, this.updatedItem[this.fields[0]], this.updatedItem).subscribe({
+            this.genericService.putItem(this.uri, this.genericService.updatedItem['id'], this.genericService.updatedItem).subscribe({
                 next: (res: Tdata) => {
                     this.items[this.selectedIndex] = res
                     this.read(this.selectedIndex)
@@ -109,7 +107,7 @@ export class CrudPageComponent<Tdata> implements OnInit {
     }    
 
     delete = () => {
-        this.genericService.deleteItem(this.uri, this.selectedItem[this.fields[0]], this.selectedItem).subscribe({
+        this.genericService.deleteItem(this.uri, this.genericService.selectedItem['id'], this.genericService.selectedItem).subscribe({
             next: (res: Tdata) => {
                 this.items.splice(this.selectedIndex, 1)
                 if (this.items.length > 0) {

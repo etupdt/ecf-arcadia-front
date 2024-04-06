@@ -29,6 +29,7 @@ export class ViewFormComponent implements OnInit {
         this.viewForm = new FormGroup({
             pseudo: new FormControl(this.view.pseudo, Validators.required),
             comment: new FormControl(this.view.comment, Validators.required),
+            isVisible: new FormControl(this.view.isVisible, Validators.required),
         });    
         if (!this.updatable) {
             this.pseudo.disable()
@@ -40,18 +41,19 @@ export class ViewFormComponent implements OnInit {
 
     }        
 
-    save(): void {
+    update(): void {
 
         this.view.pseudo = this.pseudo.value
         this.view.comment = this.comment.value
+        this.view.isVisible = false
 
-        this.viewService.putView(this.view).subscribe({
+        this.viewService.postView(this.view).subscribe({
             next: (res) => {
             },
             error: (error: { error: { message: any; }; }) => {
             }
         })
-
+    
     }
 
     isUpdated = () => {
