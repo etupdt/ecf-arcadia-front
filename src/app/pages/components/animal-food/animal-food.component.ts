@@ -71,7 +71,7 @@ export class AnimalFoodComponent {
             this.foodAnimalService.postFoodAnimal(foodAnimal as FoodAnimal).subscribe({
                 next: (res: FoodAnimal) => {
                     this.updated = false
-                    this.animal.foodAnimals.push(res)
+                    this.animal.foodAnimals!.push(res)
                     this.animalUpdated.emit(this.animal.foodAnimals)
                 },
                 error: (error: { error: { message: any; }; }) => {
@@ -79,11 +79,11 @@ export class AnimalFoodComponent {
             })
         } else {
 
-            this.animal.foodAnimals[this.foodAnimalIndex].dateFood = this.dateFood!
-            this.animal.foodAnimals[this.foodAnimalIndex].food = {id: this.food.value}
-            this.animal.foodAnimals[this.foodAnimalIndex].gramage = this.gramage.value!
+            this.animal.foodAnimals![this.foodAnimalIndex].dateFood = this.dateFood!
+            this.animal.foodAnimals![this.foodAnimalIndex].food = {id: this.food.value}
+            this.animal.foodAnimals![this.foodAnimalIndex].gramage = this.gramage.value!
 
-            this.foodAnimalService.putFoodAnimal(this.animal.foodAnimals[this.foodAnimalIndex]).subscribe({
+            this.foodAnimalService.putFoodAnimal(this.animal.foodAnimals![this.foodAnimalIndex]).subscribe({
                 next: (res: FoodAnimal) => {
                     this.updated = false
                     this.animalUpdated.emit(this.animal.foodAnimals)
@@ -104,8 +104,8 @@ export class AnimalFoodComponent {
     get gramage() { return this.animalForm.get('gramage')! as FormControl }
 
     get foodAnimal() {
-        this.foodAnimalIndex = this.animal.foodAnimals.findIndex(f => f.dateFood === this.dateFood)
-        return this.animal.foodAnimals[this.foodAnimalIndex] 
+        this.foodAnimalIndex = this.animal.foodAnimals!.findIndex(f => f.dateFood === this.dateFood)
+        return this.animal.foodAnimals![this.foodAnimalIndex] 
     }
 
 }

@@ -7,6 +7,7 @@ import { Race } from "./Race";
 export interface Animal {
     id: number,
     firstname: string,
+    description: string,
     health: string,
     race?: Race,
     habitat?: Habitat,

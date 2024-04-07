@@ -43,6 +43,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
                     this.animal = {
                         id: 0,
                         firstname: '',
+                        description: '',
                         health: '',
                         race: {
                             id: 0,
@@ -57,6 +58,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
                     this.animal = {
                         id: this.itemsService.selectedItem.id,
                         firstname: this.itemsService.selectedItem.firstname,
+                        description: this.itemsService.selectedItem.description,
                         health: this.itemsService.selectedItem.health,
                         race: this.itemsService.selectedItem.race,
                         habitat: this.itemsService.selectedItem.habitat
@@ -90,6 +92,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
         this.animal = {
             id: 0,
             firstname: '',
+            description: '',
             health: '',
             race: {
                 id: 0,
