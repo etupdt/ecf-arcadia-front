@@ -23,6 +23,8 @@ import { ServiceFormComponent } from './app/pages/components/service-form/servic
 import { ViewsPageComponent } from './app/pages/views-page/views-page.component';
 import { AnimalFormComponent } from './app/pages/components/animal-form/animal-form.component';
 import { FoodAnimalPageComponent } from './app/pages/food-animal-page/food-animal-page.component';
+import { ListComponent } from './app/pages/components/list/list.component';
+import { AnimalFoodComponent } from './app/pages/components/animal-food/animal-food.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -54,36 +56,86 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'ServicesAdmin',
                 component: CrudPageComponent,
-                children: [
-                    {
-                        path: 'sub/:id',
-                        component: ServiceFormComponent,
-                        outlet: 'sub',
-                        data: { requiredService: SERVICE }
-                    },            
-                ],
                 data: {
                     feature: 'services',
-                    fields: ['id', 'name', 'description'],
                     requiredService: SERVICE
-                }            
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: ServiceFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'services',
+                            fields: ['id', 'name', 'description'],
+                        }
+                    },            
+                ],
             },            
             {
                 path: 'AnimalsAdmin',
                 component: CrudPageComponent,
-                children: [
-                    {
-                        path: 'sub/:id',
-                        component: AnimalFormComponent,
-                        outlet: 'sub',
-                        data: { requiredService: SERVICE }
-                    },            
-                ],
                 data: {
                     feature: 'animals',
-                    fields: ['id', 'firstname', "description"],
                     requiredService: SERVICE
-                }            
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: AnimalFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'animals',
+                            fields: ['id', 'firstname', "description"],
+                        }
+                    },            
+                ],
+            },            
+            {
+                path: 'FoodAnimalAdmin',
+                component: FoodAnimalPageComponent,
+                data: {
+                    feature: 'foodanimals',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: AnimalFoodComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'animals',
+                            fields: ['id', 'firstname', "description"],
+                        }
+                    },            
+                ],
             },            
             {
                 path: 'FoodAnimalAdmin',
@@ -92,10 +144,7 @@ bootstrapApplication(AppComponent, {
         ]),
         {provide: ViewService, useClass: ViewService},
         DatePipe,
-        {
-            provide: SERVICE,
-            useClass: ItemsService
-        }         
+        { provide: SERVICE, useClass: ItemsService }         
     ]
 })
   .catch(err => console.error(err));

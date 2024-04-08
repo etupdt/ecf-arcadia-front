@@ -34,28 +34,30 @@ export class ServiceFormComponent implements OnInit, OnDestroy {
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
-            if (this.itemsService.signalSelectedItem()) {
-                if ( this.params['id'] === '-1') {
-                    this.service = {
-                        id: 0,
-                        name: '',
-                        description: ''
-                    }
-                } else {
-                    this.service = {
-                        id: this.itemsService.selectedItem.id,
-                        name: this.itemsService.selectedItem.name,
-                        description: this.itemsService.selectedItem.description
-                    }    
+            const selectedIndex = this.itemsService.signalSelectedIndex()
+            if (selectedIndex === -1) {
+                this.service = {
+                    id: 0,
+                    name: '',
+                    description: ''
                 }
-                this.initForm()
+            } else {
+                this.service = {
+                    id: this.selectedItem.id,
+                    name: this.selectedItem.name,
+                    description: this.selectedItem.description
+                }    
             }
+            this.initForm()
         })
     }    
 
     ngOnDestroy(): void {
         this.parameters.unsubscribe()
     }
+
+    get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
+    set selectedItem(item: Service) {this.itemsService.items[this.itemsService.selectedIndex]}
 
     get service() { return this.itemsService.updatedItem }
     set service(service : Service) { this.itemsService.updatedItem = service }

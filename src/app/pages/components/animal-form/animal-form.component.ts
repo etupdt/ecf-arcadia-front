@@ -6,7 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Animal } from 'src/app/interfaces/Animal';
 import { Habitat } from 'src/app/interfaces/Habitat';
 import { Race } from 'src/app/interfaces/Race';
-import { ItemsService } from 'src/app/services/items.service';
+import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -24,60 +24,56 @@ export class AnimalFormComponent implements OnInit, OnChanges {
 
     private itemsService: any
 
-    params!: Params
-
-    parameters: Subscription = this.route.params.subscribe(params => {
-        this.params = params
-    })
-
     constructor (
         private injector: Injector,
         private route: ActivatedRoute,
-        private raceService: ItemsService<Race>,
-        private habitatService: ItemsService<Habitat>
+        private raceService: ApiService<Race>,
+        private habitatService: ApiService<Habitat>
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
-            if (this.itemsService.signalSelectedItem()) {
-                if ( this.params['id'] === '-1') {
-                    this.animal = {
+            const selectedIndex = this.itemsService.signalSelectedIndex()
+            if (selectedIndex === -1) {
+                this.animal = {
+                    id: 0,
+                    firstname: '',
+                    description: '',
+                    health: '',
+                    race: {
                         id: 0,
-                        firstname: '',
-                        description: '',
-                        health: '',
-                        race: {
-                            id: 0,
-                            label: ""
-                        },
-                                    habitat: {
-                            id: 0,
-                            name: ""
-                        }
+                        label: ""
+                    },
+                                habitat: {
+                        id: 0,
+                        name: ""
                     }
-                } else {
-                    this.animal = {
-                        id: this.itemsService.selectedItem.id,
-                        firstname: this.itemsService.selectedItem.firstname,
-                        description: this.itemsService.selectedItem.description,
-                        health: this.itemsService.selectedItem.health,
-                        race: this.itemsService.selectedItem.race,
-                        habitat: this.itemsService.selectedItem.habitat
-                    }    
                 }
-                this.initForm()
+            } else {
+                this.animal = {
+                    id: this.selectedItem.id,
+                    firstname: this.selectedItem.firstname,
+                    description: this.selectedItem.description,
+                    health: this.selectedItem.health,
+                    race: this.selectedItem.race,
+                    habitat: this.selectedItem.habitat
+                }    
             }
+            this.initForm()
         })
     }    
+
     ngOnChanges(changes: SimpleChanges): void {
         throw new Error('Method not implemented.');
     }
 
     ngOnDestroy(): void {
-        this.parameters.unsubscribe()
     }
 
     races$: Observable<Race[]> = this.raceService.getItems('races')
     habitat$: Observable<Habitat[]> = this.habitatService.getItems('habitats')
+
+    get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
+    set selectedItem(item: Animal) {this.itemsService.items[this.itemsService.selectedIndex]}
 
     get animal() { return this.itemsService.updatedItem }
     set animal(animal : Animal) { this.itemsService.updatedItem = animal }

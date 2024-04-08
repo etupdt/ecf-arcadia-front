@@ -4,12 +4,12 @@
     <input 
     id="dateFood" 
     type="date" 
-    class="form-control" 
-    [(ngModel)]="dateFood"
-    (change)="initForm()"
+    class="form-control m-1"
+    [(ngModel)]="dateFood" 
+    (change)="onChangeDateFood()"
     >
 </div>
-<form class="card w-100" [formGroup]="animalForm">
+<form *ngIf="animalForm" class="card w-100" [formGroup]="animalForm">
     <div class="card-body">
         <label for="food" class="form-label">Nouriture</label>
         <select
@@ -29,8 +29,5 @@
         type="number" 
         class="form-control m-1" 
         >
-    </div>
-    <div class="d-flex justify-content-end w-100 p-2">
-        <button type="button" id="button" class="btn btn-warning" (click)="update()" [disabled]="!updated || animalForm.invalid">Enregistrer</button>
     </div>
 </form>

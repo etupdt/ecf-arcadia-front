@@ -8,56 +8,17 @@ import { environment } from 'src/environments/environment';
 })
 export class ItemsService<Tdata> {
 
-    constructor(
-        private http: HttpClient
-    ) {}
+    items!: Tdata[]
 
-    selectedItem!: Tdata | null
-    signalSelectedItem = signal(this.selectedItem)
+    updatedItem!: any
+
+    isUpdatedItem: number = 0
+    signalIsUpdatedItem = signal(this.isUpdatedItem)
+
+    selectedIndex: number = -1
+    signalSelectedIndex = signal(this.selectedIndex)
 
     signalIsUpdated = signal(false)
     signalIsValid = signal(false)
 
-    getItems(type: string): Observable<Tdata[]> {
-
-        return this.http.get<Tdata[]>(
-        environment.useBackend + `/api/${type}`
-        )
-
-    }
-
-    getItem(type: string, id: number): Observable<Tdata> {
-
-        return this.http.get<Tdata>(
-        environment.useBackend + `/api/${type}/${id}`
-        )
-
-    }
-
-    putItem(type: string, id: number, item: Tdata): Observable<Tdata> {
-
-        return this.http.put<Tdata>(
-        environment.useBackend + `/api/${type}/${id}`,
-        item
-        )
-
-    }
-
-    postItem(type: string, item: Tdata): Observable<Tdata> {
-
-        return this.http.post<Tdata>(
-        environment.useBackend + `/api/${type}`,
-        item
-        )
-
-    }
-
-    deleteItem(type: string, id: number): Observable<Tdata>{
-
-        return this.http.delete<Tdata>(
-        environment.useBackend + `/api/${type}/${id}`
-        )
-
-    }
-    
 }

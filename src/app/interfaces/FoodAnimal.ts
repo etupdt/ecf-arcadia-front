@@ -5,6 +5,6 @@ export interface FoodAnimal {
     id: number,
     dateFood: string,
     gramage: number,
-    animal: Animal,
+    animal?: Animal,
     food: Food
 }

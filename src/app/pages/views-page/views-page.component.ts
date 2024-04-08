@@ -8,6 +8,7 @@ import { Service } from 'src/app/interfaces/Service';
 import { ViewService } from 'src/app/services/view.service';
 import { FormsModule, NgModel } from '@angular/forms';
 import { HeaderService } from 'src/app/services/header.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-views-page',
@@ -20,7 +21,7 @@ import { HeaderService } from 'src/app/services/header.service';
 export class ViewsPageComponent implements OnInit{
 
     constructor (
-        private itemsService: ItemsService<View>,
+        private itemsService: ApiService<View>,
         private headerService: HeaderService
     ) {}
 

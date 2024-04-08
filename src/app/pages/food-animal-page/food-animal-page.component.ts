@@ -1,84 +1,103 @@
-import { Component, effect } from '@angular/core';
+import { Component, Injector, effect } from '@angular/core';
 import { Animal } from 'src/app/interfaces/Animal';
-import { FoodAnimalService } from 'src/app/services/food-animal.service';
 import { HeaderService } from 'src/app/services/header.service';
-import { ItemsService } from 'src/app/services/items.service';
 import { AnimalFoodComponent } from "../components/animal-food/animal-food.component";
+import { ApiService } from 'src/app/services/api.service';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { FoodAnimal } from 'src/app/interfaces/FoodAnimal';
+import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-food-animal-page',
     templateUrl: './food-animal-page.component.html',
     styleUrls: ['./food-animal-page.component.scss'],
     standalone: true,
-    imports: [AnimalFoodComponent]
+    imports: [AnimalFoodComponent, FormsModule, RouterOutlet]
 })
-export class FoodAnimalPageComponent {
+export class FoodAnimalPageComponent<Tdata> {
+
+    private genericService: any
 
     constructor (
         private headerService: HeaderService,
-        private animalService: ItemsService<Animal>,
-        private foodAnimalService: ItemsService<FoodAnimalService>,
+        private animalService: ApiService<Animal>,
+        private injector: Injector,
+        private foodAnimalService: ApiService<FoodAnimal>,
+        private router: Router,
+        private route: ActivatedRoute,
+        public datepipe: DatePipe
     ) {
+        this.genericService = injector.get<string>(<any>route.snapshot.data['requiredService']);
+        this.router.navigate([{ outlets: { form: [ 'form' ] }}], {relativeTo:this.route})
         effect(() => {
-            this.isUpdated = this.animalService.signalIsUpdated()
-            this.isValid = this.animalService.signalIsValid()
+            this.isUpdated = this.genericService.signalIsUpdated()
+            this.isValid = this.genericService.signalIsValid()
         });
     }
 
-    animals!: Animal[]
-
-    selectedIndex!: number
+    uri: string = 'foodanimals'
     
+    get items(): Animal[] {return this.genericService.items}
+    
+    get updatedItem(): FoodAnimal {return this.genericService.updatedItem}
+
+    get selectedIndex(): number {return this.genericService.selectedIndex}
+    set selectedIndex(index: number) {
+        this.inCreation = false
+        this.genericService.signalIsUpdated.set(false)
+        this.genericService.selectedIndex = index
+        this.genericService.signalSelectedIndex.set(index)
+    }    
+
     isUpdated: boolean = false
     isValid: boolean = false
     
     inCreation: boolean = false
     
-    fields: (keyof Animal)[] = ['id', 'firstname', "description"]
+    foodAnimalIndex: number = -1
 
-    get selectedItem() {return this.animalService.selectedItem}
-    
     ngOnInit(): void {
-
-        this.readAll()
-
+        this.router.navigate([{ outlets: { list: [ 'list' ] }}], {relativeTo:this.route})
         this.headerService.selectedMenuItem = "Admin"
         this.headerService.signalItemSelected.set('Admin')
     }
 
-    readAll = () => {
-        this.animalService.getItems('animals').subscribe({
-            next: (res: Animal[]) => {
-                this.animals = res
-                this.selectedIndex = 0
-                this.animalService.selectedItem = this.animals[this.selectedIndex]
-                this.read(this.selectedIndex)
-            },
-            error: (error: { error: { message: any; }; }) => {
-            }
-        })
+    create = () => {
+        // this.inCreation = this.dateFood
+    }
+    
+    update = () => {
+
+        // this.updatedItem.dateFood = this.dateFood!
+
+        if (this.updatedItem.id === 0) {
+            this.foodAnimalService.postItem('foodanimals', this.updatedItem).subscribe({
+                next: (res: FoodAnimal) => {
+                    this.genericService.signalIsUpdated.set(false)
+                    this.items[this.selectedIndex].foodAnimals!.push(res)
+                },
+                error: (error: { error: { message: any; }; }) => {
+                }
+            })
+        } else {
+
+            this.foodAnimalService.putItem('foodanimals', this.updatedItem.id, this.updatedItem).subscribe({
+                next: (res: FoodAnimal) => {
+                    this.genericService.signalIsUpdated.set(false)
+                    this.items[this.selectedIndex].foodAnimals![this.foodAnimalIndex] = res
+                },
+                error: (error: { error: { message: any; }; }) => {
+                }
+            })
+        }
+
     }
 
-    create = () => {
-        this.inCreation = true
-        this.animalService.signalSelectedItem.set(this.animalService.selectedItem)
-    }
-    
-    read = (index: number) => {
-        if (index > -1 && index < this.animals.length) {
-            this.selectedIndex = index
-            this.animalService.selectedItem = this.animals[index]
-            this.animalService.signalSelectedItem.set(this.animalService.selectedItem)
-            this.animalService.signalIsUpdated.set(false)
-        } else {
-            this.selectedIndex = -1
-            this.animalService.signalSelectedItem.set(this.animalService.selectedItem)
-        }        
-    }        
-    
     cancel = () => {
-        this.inCreation = false
-        this.read(this.selectedIndex)
+        this.genericService.isUpdatedItem++
+        this.genericService.signalIsUpdatedItem.set(this.genericService.isUpdatedItem)
+        this.selectedIndex = this.selectedIndex
     }
 
 }
