@@ -1,0 +1,9 @@
+
+<h2 class="pt-5">Gestion des rapports vétérinaires</h2>
+<div class="card" *ngFor="let veterinaryReport of veterinaryReports$ | async">
+    <span>{{ veterinaryReport.date }}</span>
+    <span>{{ veterinaryReport.animal?.firstname }}</span>
+    <span>{{ veterinaryReport.food.name }}</span>
+    <span>{{ veterinaryReport.gramage }}</span>
+    <span>{{ veterinaryReport.detail }}</span>
+</div>

@@ -28,6 +28,7 @@ import { AnimalFoodComponent } from './app/pages/components/animal-food/animal-f
 import { UserFormComponent } from './app/pages/components/user-form/user-form.component';
 import { HoursFormComponent } from './app/pages/components/hours-form/hours-form.component';
 import { HabitatFormComponent } from './app/pages/components/habitat-form/habitat-form.component';
+import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -55,6 +56,10 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'Avis',
                 component: ViewsPageComponent,
+            },            
+            {
+                path: 'Reports',
+                component: ReportsPageComponent,
             },            
             {
                 path: 'ServicesAdmin',
