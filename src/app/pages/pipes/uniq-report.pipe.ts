@@ -30,6 +30,12 @@ export class UniqReportPipe implements PipeTransform {
                 food: {
                     id: 0,
                     name: "",
+                },
+                user: {
+                    id: 0,
+                    username: '',
+                    firstname: '',
+                    lastname: ''
                 }
             }
         ]

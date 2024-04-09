@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hours } from 'src/app/interfaces/Hours';
@@ -8,7 +9,8 @@ import { ItemsService } from 'src/app/services/items.service';
   selector: 'app-hours',
   templateUrl: './hours.component.html',
   styleUrls: ['./hours.component.scss'],
-  standalone: true
+  standalone: true,
+  imports: [NgIf]
 })
 export class HoursComponent implements OnInit {
 

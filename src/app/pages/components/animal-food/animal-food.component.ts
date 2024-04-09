@@ -33,13 +33,11 @@ export class AnimalFoodComponent {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
             if (this.itemsService.signalIsUpdatedItem()) {
-                console.log(this.itemsService.isUpdatedItem)
                 this.onChangeDateFood()
             }
         })
         effect(() => {
             if (this.itemsService.signalSelectedIndex() !== -1) {
-                console.log(this.itemsService.isUpdatedItem)
                 this.onChangeDateFood()
             }
         })
@@ -65,7 +63,6 @@ export class AnimalFoodComponent {
             gramage: new FormControl(this.foodAnimal.gramage, Validators.required),
         })
         this.animalForm.valueChanges.subscribe(changes => { 
-            console.log(this.animalForm.valid, this.foodAnimal.food.id, this.food.value)
             this.itemsService.signalIsUpdated.set(
                 this.foodAnimal.food.id !== this.food.value ||
                 this.foodAnimal.gramage !== this.gramage.value 
@@ -90,6 +87,7 @@ export class AnimalFoodComponent {
         const foodAnimal = this.getFoodAnimal(this.dateFood!)
 
         if (foodAnimal) {
+            
             this.foodAnimal = {
                 id: foodAnimal.id,
                 dateFood: foodAnimal.dateFood,
@@ -97,8 +95,6 @@ export class AnimalFoodComponent {
                 food: foodAnimal.food,
                 animal: this.selectedItem
             }
-            console.log(this.foodAnimal)
-            console.log(this.selectedItem)
 
         } else {
 
