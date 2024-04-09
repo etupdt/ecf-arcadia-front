@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hours } from 'src/app/interfaces/Hours';
@@ -8,25 +9,15 @@ import { ItemsService } from 'src/app/services/items.service';
   selector: 'app-hours',
   templateUrl: './hours.component.html',
   styleUrls: ['./hours.component.scss'],
-  standalone: true
+  standalone: true,
+  imports: [CommonModule]
 })
-export class HoursComponent implements OnInit {
+export class HoursComponent {
 
     constructor (
         private hoursService: ApiService<Hours>
     ) {}
     
-    hours!: Hours[]
-    
-    ngOnInit(): void {
-        this.hoursService.getItems('hours').subscribe({
-            next: (res: Hours[]) => {
-                this.hours = res
-            },
-            error: (error: { error: { message: any; }; }) => {
-            }
-        })
-        
-    }
+    hours$: Observable<Hours[]> = this.hoursService.getItems('hours')
 
 }

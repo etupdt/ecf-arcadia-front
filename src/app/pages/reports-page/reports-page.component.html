@@ -1,9 +1,44 @@
 
 <h2 class="pt-5">Gestion des rapports vétérinaires</h2>
-<div class="card" *ngFor="let veterinaryReport of veterinaryReports$ | async">
-    <span>{{ veterinaryReport.date }}</span>
-    <span>{{ veterinaryReport.animal?.firstname }}</span>
-    <span>{{ veterinaryReport.food.name }}</span>
-    <span>{{ veterinaryReport.gramage }}</span>
-    <span>{{ veterinaryReport.detail }}</span>
+
+<form>
+    <div class="w-25">
+        <label for="dateFood" class="form-label">Date</label>
+        <input 
+        id="dateFood" 
+        name="dateFood" 
+        type="date" 
+        class="form-control m-1"
+        [(ngModel)]="date" 
+        >
+    </div>
+    <div class="card-body">
+        <ng-multiselect-dropdown
+            [placeholder]="'custom placeholder'"
+            [settings]="dropdownSettings"
+            [data]="animalList"
+            [(ngModel)]="selectedItems"
+        >
+        </ng-multiselect-dropdown>
+    </div>
+    <div class="card-body">
+        <label for="food" class="form-label">Animal</label>
+        <select
+            id="animal" 
+            type="text" 
+            class="form-control m-1"
+            multiple 
+        >
+            <option class="form-control m-1" *ngFor="let animal of animals$ | async" [ngValue]="animal.id">{{animal.firstname}}</option>
+        </select>
+    </div>
+</form>
+<div class="card d-flex" *ngFor="let veterinaryReport of veterinaryReports$ | async | filters:date">
+    <div>
+        <span>{{ veterinaryReport.date }}</span>
+        <span>{{ veterinaryReport.animal?.firstname }}</span>
+        <span>{{ veterinaryReport.food.name }}</span>
+        <span>{{ veterinaryReport.gramage }}</span>
+        <span>{{ veterinaryReport.detail }}</span>
+    </div>
 </div>
