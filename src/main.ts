@@ -25,6 +25,9 @@ import { AnimalFormComponent } from './app/pages/components/animal-form/animal-f
 import { FoodAnimalPageComponent } from './app/pages/food-animal-page/food-animal-page.component';
 import { ListComponent } from './app/pages/components/list/list.component';
 import { AnimalFoodComponent } from './app/pages/components/animal-food/animal-food.component';
+import { UserFormComponent } from './app/pages/components/user-form/user-form.component';
+import { HoursFormComponent } from './app/pages/components/hours-form/hours-form.component';
+import { HabitatFormComponent } from './app/pages/components/habitat-form/habitat-form.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -77,6 +80,90 @@ bootstrapApplication(AppComponent, {
                             requiredService: SERVICE,
                             feature: 'services',
                             fields: ['id', 'name', 'description'],
+                        }
+                    },            
+                ],
+            },            
+            {
+                path: 'UsersAdmin',
+                component: CrudPageComponent,
+                data: {
+                    feature: 'users',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: UserFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'users',
+                            fields: ['id', 'username', 'firstname', 'lastname'],
+                        }
+                    },            
+                ],
+            },            
+            {
+                path: 'HoursAdmin',
+                component: CrudPageComponent,
+                data: {
+                    feature: 'hours',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: HoursFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'hours',
+                            fields: ['id', 'monday', 'tuesday', 'wednesday'],
+                        }
+                    },            
+                ],
+            },            
+            {
+                path: 'HabitatsAdmin',
+                component: CrudPageComponent,
+                data: {
+                    feature: 'habitats',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: HabitatFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'habitats',
+                            fields: ['id', 'name', "description"],
                         }
                     },            
                 ],

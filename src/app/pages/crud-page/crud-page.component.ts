@@ -56,8 +56,9 @@ export class CrudPageComponent<Tdata> implements OnInit {
     }
 
     create = () => {
-        this.inCreation = this.selectedIndex
+        const temp = this.selectedIndex
         this.selectedIndex = -1
+        this.inCreation = temp
     }
     
     update = () => {
@@ -83,7 +84,13 @@ export class CrudPageComponent<Tdata> implements OnInit {
     }    
 
     cancel = () => {
-        this.selectedIndex = this.inCreation
+        if (this.inCreation !== -1) {
+            this.selectedIndex = this.inCreation
+        } else {
+            this.genericService.isUpdatedItem++
+            this.genericService.signalIsUpdatedItem.set(this.genericService.isUpdatedItem)
+            this.selectedIndex = this.selectedIndex
+        }
     }
 
 }

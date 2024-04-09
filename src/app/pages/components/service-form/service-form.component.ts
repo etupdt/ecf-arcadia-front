@@ -4,7 +4,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Service } from 'src/app/interfaces/Service';
-import { ItemsService } from 'src/app/services/items.service';
 import { environment } from 'src/environments/environment';
 
 @Component({

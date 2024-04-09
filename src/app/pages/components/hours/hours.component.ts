@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Hours } from 'src/app/interfaces/Hours';
+import { ApiService } from 'src/app/services/api.service';
+import { ItemsService } from 'src/app/services/items.service';
 
 @Component({
   selector: 'app-hours',
@@ -6,6 +10,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./hours.component.scss'],
   standalone: true
 })
-export class HoursComponent {
+export class HoursComponent implements OnInit {
+
+    constructor (
+        private hoursService: ApiService<Hours>
+    ) {}
+    
+    hours!: Hours[]
+    
+    ngOnInit(): void {
+        this.hoursService.getItems('hours').subscribe({
+            next: (res: Hours[]) => {
+                this.hours = res
+            },
+            error: (error: { error: { message: any; }; }) => {
+            }
+        })
+        
+    }
 
 }

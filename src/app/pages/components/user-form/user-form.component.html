@@ -1,0 +1,26 @@
+
+<form *ngIf="userForm" class="card w-100" [formGroup]="userForm">
+    <div class="card-body">
+        <label for="username" class="form-label">Email</label>
+        <input 
+        id="username"
+        formControlName="username"
+        type="text" 
+        class="form-control m-1"
+        >
+        <label for="firstname" class="form-label">Nom</label>
+        <input 
+        id="firstname"
+        formControlName="firstname"
+        type="text" 
+        class="form-control m-1"
+        >
+        <label for="lastname" class="form-label">Prénom</label>
+        <input 
+        id="lastname"
+        formControlName="lastname"
+        type="text" 
+        class="form-control m-1"
+        >
+    </div>
+</form>
