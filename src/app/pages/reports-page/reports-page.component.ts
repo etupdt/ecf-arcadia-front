@@ -6,46 +6,41 @@ import { Animal } from 'src/app/interfaces/Animal';
 import { VeterinaryReport } from 'src/app/interfaces/VeterinaryReport';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
-import { FiltersPipe } from '../pipes/filters.pipe';
+import { ReportFilterPipe } from '../pipes/report-filter.pipe';
 import { IDropdownSettings, NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { Dropdown } from 'src/app/interfaces/Dropdown';
+import { AnimalFilterPipe } from "../pipes/animal-filter.pipe";
 
 @Component({
     selector: 'app-reports-page',
     templateUrl: './reports-page.component.html',
     styleUrls: ['./reports-page.component.scss'],
     standalone: true,
-    imports: [NgFor, CommonModule, FormsModule, FiltersPipe, NgMultiSelectDropDownModule]
-  
+    imports: [NgFor, CommonModule, FormsModule, ReportFilterPipe, NgMultiSelectDropDownModule, AnimalFilterPipe]
 })
 export class ReportsPageComponent {
 
     constructor (
-        private veterinaryReportService: ApiService<VeterinaryReport>,
         private animalService: ApiService<Animal>,
         private headerService: HeaderService
     ) {}
 
     date: string = ""
 
-    animalList: {
-        item_id: number, 
-        item_text: string
-    }[] = []
-
+    
+    animalList!: Dropdown[]
+    animalsSelected!: Dropdown[]
+    
     dropdownSettings: IDropdownSettings = {
         singleSelection: false,
-        idField: 'item_id',
+        idField: 'id',
         textField: 'item_text',
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
-        itemsShowLimit: 4,
+        itemsShowLimit: 5,
         allowSearchFilter: true
     };
-
-    selectedItems = []
-  
-    veterinaryReports$: Observable<VeterinaryReport[]> = this.veterinaryReportService.getItems('veterinaryreports')
-
+    
     animals$: Observable<Animal[]> = this.animalService.getItems('animals')
 
     ngOnInit(): void {
@@ -53,12 +48,19 @@ export class ReportsPageComponent {
         this.headerService.selectedMenuItem = "Admin"
         this.headerService.signalItemSelected.set('Admin')
 
-        this.animals$.subscribe({
+        let animalList: Dropdown[] = []
+        let animalsSelected: Dropdown[] = []
+
+        this.animalService.getItems('animals').subscribe({
             next: ((res: Animal[]) => {
-                res.forEach(animal => this.animalList.push({ 
-                    item_id: animal.id, 
-                    item_text: animal.firstname
-                }))
+                res.forEach(animal => {
+                    animalList.push({ 
+                        id: animal.id, 
+                        item_text: animal.firstname
+                    })
+                })
+                this.animalList = animalList
+                this.animalsSelected = animalsSelected
             })
         })
     

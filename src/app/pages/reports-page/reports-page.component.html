@@ -1,8 +1,8 @@
 
 <h2 class="pt-5">Gestion des rapports vétérinaires</h2>
 
-<form>
-    <div class="w-25">
+<form class="d-flex col-12">
+    <div class="form-group col-4 p-2">
         <label for="dateFood" class="form-label">Date</label>
         <input 
         id="dateFood" 
@@ -12,33 +12,35 @@
         [(ngModel)]="date" 
         >
     </div>
-    <div class="card-body">
-        <ng-multiselect-dropdown
-            [placeholder]="'custom placeholder'"
+    <div class="form-group col-8 p-2">
+        <label for="animalList" class="form-label dropdown-label">Animaux</label>
+        <ng-multiselect-dropdown class="m-1"
+            [placeholder]="'Animal'"
             [settings]="dropdownSettings"
             [data]="animalList"
-            [(ngModel)]="selectedItems"
+            [(ngModel)]="animalsSelected"
+            id="animalList"
+            name="animalList"
         >
         </ng-multiselect-dropdown>
     </div>
-    <div class="card-body">
-        <label for="food" class="form-label">Animal</label>
-        <select
-            id="animal" 
-            type="text" 
-            class="form-control m-1"
-            multiple 
-        >
-            <option class="form-control m-1" *ngFor="let animal of animals$ | async" [ngValue]="animal.id">{{animal.firstname}}</option>
-        </select>
-    </div>
 </form>
-<div class="card d-flex" *ngFor="let veterinaryReport of veterinaryReports$ | async | filters:date">
-    <div>
-        <span>{{ veterinaryReport.date }}</span>
-        <span>{{ veterinaryReport.animal?.firstname }}</span>
-        <span>{{ veterinaryReport.food.name }}</span>
-        <span>{{ veterinaryReport.gramage }}</span>
-        <span>{{ veterinaryReport.detail }}</span>
+<div class="card d-flex flex-column pb-3" *ngFor="let animal of animals$ | async | animalFilter:date:animalsSelected">
+    <div class="d-flex flex-row col-12 m-2">
+        <p class="col-5"><b>Prénom</b> {{ animal.firstname }}</p> 
+        <p class="col-6"><b>Race</b> {{ animal.race?.label }}</p>
+        <p class="col-1"><b>Etat</b> {{ animal.health }}</p>
+    </div>
+    <div class="d-flex flex-row col-12">
+        <span class="titre col-2"></span>
+        <span class="titre col-2">Date</span>
+        <span class="titre col-3">Nourriture</span>
+        <span class="titre">Détail</span>
+    </div>
+    <div class="d-flex flex-row" *ngFor="let veterinaryReport of animal.veterinaryReports! | reportFilter:date">
+        <span class="col-2"></span>
+        <span class="col-2">{{ veterinaryReport.date }}</span>
+        <span class="col-3">{{ veterinaryReport.food.name }} {{ veterinaryReport.gramage }} g</span>
+        <span class="">{{ veterinaryReport.detail }}</span>
     </div>
 </div>
