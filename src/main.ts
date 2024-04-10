@@ -28,6 +28,9 @@ import { AnimalFoodComponent } from './app/pages/components/animal-food/animal-f
 import { UserFormComponent } from './app/pages/components/user-form/user-form.component';
 import { HoursFormComponent } from './app/pages/components/hours-form/hours-form.component';
 import { HabitatFormComponent } from './app/pages/components/habitat-form/habitat-form.component';
+import { AnimalReportComponent } from './app/pages/components/animal-report/animal-report.component';
+import { ReportAnimalPageComponent } from './app/pages/report-animal-page/report-animal-page.component';
+import { AnimalFoodListComponent } from './app/pages/components/animal-food-list/animal-food-list.component';
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
@@ -230,8 +233,40 @@ bootstrapApplication(AppComponent, {
                 ],
             },            
             {
-                path: 'FoodAnimalAdmin',
-                component: FoodAnimalPageComponent,
+                path: 'ReportAnimalAdmin',
+                component: ReportAnimalPageComponent,
+                data: {
+                    feature: 'veterinaryreports',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: AnimalReportComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'food',
+                        component: AnimalFoodListComponent,
+                        outlet: 'food',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'animals',
+                            fields: ['id', 'firstname', "description"],
+                        }
+                    },            
+                ],
             },            
         ]),
         {provide: ViewService, useClass: ViewService},

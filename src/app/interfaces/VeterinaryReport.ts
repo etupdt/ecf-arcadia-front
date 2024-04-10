@@ -8,6 +8,6 @@ export interface VeterinaryReport {
     detail: string,
     gramage: number,
     animal?: Animal,
-    user?: User,
+    user: User,
     food: Food
 }

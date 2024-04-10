@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgIf, CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hours } from 'src/app/interfaces/Hours';
@@ -10,7 +10,7 @@ import { ItemsService } from 'src/app/services/items.service';
   templateUrl: './hours.component.html',
   styleUrls: ['./hours.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [NgIf, CommonModule]
 })
 export class HoursComponent {
 
