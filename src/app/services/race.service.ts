@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Race } from '../interfaces/Race';
+import { Race } from '../interfaces/IRace';
 
 @Injectable({
   providedIn: 'root'

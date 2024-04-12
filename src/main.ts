@@ -15,7 +15,6 @@ import { HabitatsPageComponent } from './app/pages/habitats-page/habitats-page.c
 import { DatePipe } from '@angular/common';
 import { CrudPageComponent } from './app/pages/crud-page/crud-page.component';
 import { ItemsService } from './app/services/items.service';
-import { ServiceCardComponent } from './app/pages/components/service-card/service-card.component';
 import { ServiceFormComponent } from './app/pages/components/service-form/service-form.component';
 import { ViewsPageComponent } from './app/pages/views-page/views-page.component';
 import { AnimalFormComponent } from './app/pages/components/animal-form/animal-form.component';
@@ -26,6 +25,7 @@ import { UserFormComponent } from './app/pages/components/user-form/user-form.co
 import { HoursFormComponent } from './app/pages/components/hours-form/hours-form.component';
 import { HabitatFormComponent } from './app/pages/components/habitat-form/habitat-form.component';
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
+import { RaceFormComponent } from './app/pages/components/race-form/race-form.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -85,6 +85,34 @@ bootstrapApplication(AppComponent, {
                             requiredService: SERVICE,
                             feature: 'services',
                             fields: ['id', 'name', 'description'],
+                        }
+                    },            
+                ],
+            },            
+            {
+                path: 'RacesAdmin',
+                component: CrudPageComponent,
+                data: {
+                    feature: 'races',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: RaceFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'races',
+                            fields: ['id', 'label'],
                         }
                     },            
                 ],

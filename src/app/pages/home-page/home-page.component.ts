@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { HabitatListComponent } from "../components/habitat-list/habitat-list.component";
 import { IHabitat } from 'src/app/interfaces/IHabitat';
 import { ApiService } from 'src/app/services/api.service';
-import { View } from 'src/app/models/View';
+import { View } from 'src/app/models/View copy';
 
 @Component({
     selector: 'app-home-page',

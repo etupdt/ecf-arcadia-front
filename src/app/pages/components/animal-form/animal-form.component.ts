@@ -5,8 +5,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Animal } from 'src/app/interfaces/Animal';
 import { IHabitat } from 'src/app/interfaces/IHabitat';
-import { Race } from 'src/app/interfaces/Race';
+import { IRace } from 'src/app/interfaces/IRace';
 import { Habitat } from 'src/app/models/Habitat';
+import { Race } from 'src/app/models/Race';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 
@@ -28,7 +29,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
     constructor (
         private injector: Injector,
         private route: ActivatedRoute,
-        private raceService: ApiService<Race>,
+        private raceService: ApiService<IRace>,
         private habitatService: ApiService<IHabitat>
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
@@ -40,11 +41,8 @@ export class AnimalFormComponent implements OnInit, OnChanges {
                     firstname: '',
                     description: '',
                     health: '',
-                    race: {
-                        id: 0,
-                        label: ""
-                    },
-                        habitat: new Habitat (0, '', '', '', [], [])
+                    race: new Race(0, ''),
+                    habitat: new Habitat (0, '', '', '', [], [])
                 }
             } else {
                 this.animal = {
@@ -67,7 +65,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
     ngOnDestroy(): void {
     }
 
-    races$: Observable<Race[]> = this.raceService.getItems('races')
+    races$: Observable<IRace[]> = this.raceService.getItems('races')
     habitat$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
 
     get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
@@ -88,10 +86,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
             firstname: '',
             description: '',
             health: '',
-            race: {
-                id: 0,
-                label: ""
-            },
+            race: new Race(0, ''),
             habitat: new Habitat (0, '', '', '', [], [])
         }
         

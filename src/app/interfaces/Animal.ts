@@ -1,6 +1,6 @@
 import { IImage } from "./IImage";
 import { VeterinaryReport } from "./VeterinaryReport";
-import { Race } from "./Race";
+import { IRace } from "./IRace";
 import { IHabitat } from "./IHabitat";
 import { IFoodAnimal } from "./IFoodAnimal";
 
@@ -9,7 +9,7 @@ export interface Animal {
     firstname: string,
     description: string,
     health: string,
-    race?: Race,
+    race?: IRace,
     habitat?: IHabitat,
     images?: IImage[],
     veterinaryReports?: VeterinaryReport[]

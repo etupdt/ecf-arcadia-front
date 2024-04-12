@@ -7,9 +7,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ItemsService<Tdata> {
-    getItems(arg0: string): Observable<import("src/app/interfaces/IHabitat").IHabitat[]> {
-      throw new Error('Method not implemented.');
-    }
 
     items!: Tdata[]
 

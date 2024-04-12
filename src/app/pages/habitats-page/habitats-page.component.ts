@@ -5,6 +5,7 @@ import { HeaderService } from 'src/app/services/header.service';
 import { Observable } from 'rxjs';
 import { IHabitat } from 'src/app/interfaces/IHabitat';
 import { ItemsService } from 'src/app/services/items.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
     selector: 'app-habitats-page',
@@ -18,7 +19,7 @@ export class HabitatsPageComponent {
   habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
 
   constructor(
-    private habitatService: ItemsService<IHabitat>,
+    private habitatService: ApiService<IHabitat>,
     private headerService: HeaderService,
   ) { }  
 

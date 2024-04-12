@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { IHabitat } from 'src/app/interfaces/IHabitat';
 import { environment } from 'src/environments/environment';
@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './habitat-list.component.html',
   styleUrls: ['./habitat-list.component.scss'],
   standalone: true,
-  imports: [NgFor]
+  imports: [NgFor, NgIf]
 })
 export class HabitatListComponent {
 
