@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, effect } from '@angular/core';
-import { Animal } from 'src/app/interfaces/Animal';
+import { IAnimal } from 'src/app/interfaces/IAnimal';
 import { HeaderService } from 'src/app/services/header.service';
 import { environment } from 'src/environments/environment';
 
@@ -24,7 +24,7 @@ export class AnimalCardComponent {
 
     useBackendImages: string = `${environment.useBackendImages}`
 
-    @Input() animal!: Animal
+    @Input() animal!: IAnimal
 
     collapse: boolean = true;
 

@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Animal } from 'src/app/interfaces/Animal';
 import * as _ from 'lodash';
-import { Dropdown } from 'src/app/interfaces/Dropdown';
+import { IAnimal } from 'src/app/interfaces/IAnimal';
 
 @Pipe({
     name: 'animalFilter',
@@ -9,7 +8,7 @@ import { Dropdown } from 'src/app/interfaces/Dropdown';
 })
 export class AnimalFilterPipe implements PipeTransform {
 
-    transform(animals: Animal[] | null, ...args: any[]): Animal[] {
+    transform(animals: IAnimal[] | null, ...args: any[]): IAnimal[] {
 
         let animalsToReturn = animals ? animals : []
 

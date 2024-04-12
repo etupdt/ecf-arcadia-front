@@ -24,5 +24,7 @@
         rows="3"
         >
         </textarea>
+        <app-carousel [carousel]="habitat.images"  (deleteCarouselImage)="onDeleteImage($event)"></app-carousel>
+        <app-image-crop [carousel]="habitat.images!" (addCarouselImage)="onAddImage($event)"></app-image-crop>
     </div>
 </form>

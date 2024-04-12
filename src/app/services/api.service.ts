@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IImage } from '../interfaces/IImage';
+import { IElement } from '../interfaces/IElement';
 
 @Injectable({
   providedIn: 'root'
@@ -28,20 +30,20 @@ export class ApiService<Tdata> {
 
     }
 
-    putItem(type: string, id: number, item: Tdata): Observable<Tdata> {
+    putItem(type: string, id: number, item: IElement): Observable<Tdata> {
 
         return this.http.put<Tdata>(
         environment.useBackend + `/api/${type}/${id}`,
-        item
+        item.getApiItemBody()
         )
 
     }
 
-    postItem(type: string, item: Tdata): Observable<Tdata> {
+    postItem(type: string, item: IElement): Observable<Tdata> {
 
         return this.http.post<Tdata>(
-        environment.useBackend + `/api/${type}`,
-        item
+            environment.useBackend + `/api/${type}`,
+            item.getApiItemBody()
         )
 
     }

@@ -1,9 +1,8 @@
 import { NgIf, CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Hours } from 'src/app/interfaces/Hours';
+import { Hours } from 'src/app/models/Hours';
 import { ApiService } from 'src/app/services/api.service';
-import { ItemsService } from 'src/app/services/items.service';
 
 @Component({
   selector: 'app-hours',

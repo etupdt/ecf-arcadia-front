@@ -10,15 +10,11 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { HomePageComponent } from './app/pages/home-page/home-page.component';
-import { ViewService } from './app/services/view.service';
 import { ServicesPageComponent } from './app/pages/services-page/services-page.component';
 import { HabitatsPageComponent } from './app/pages/habitats-page/habitats-page.component';
-import { EmployeePageComponent } from './app/pages/employee-page/employee-page.component';
 import { DatePipe } from '@angular/common';
 import { CrudPageComponent } from './app/pages/crud-page/crud-page.component';
-import { ServiceService } from './app/services/service.service';
 import { ItemsService } from './app/services/items.service';
-import { ServiceCardComponent } from './app/pages/components/service-card/service-card.component';
 import { ServiceFormComponent } from './app/pages/components/service-form/service-form.component';
 import { ViewsPageComponent } from './app/pages/views-page/views-page.component';
 import { AnimalFormComponent } from './app/pages/components/animal-form/animal-form.component';
@@ -32,6 +28,8 @@ import { AnimalReportComponent } from './app/pages/components/animal-report/anim
 import { ReportAnimalPageComponent } from './app/pages/report-animal-page/report-animal-page.component';
 import { AnimalFoodListComponent } from './app/pages/components/animal-food-list/animal-food-list.component';
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
+import { RaceFormComponent } from './app/pages/components/race-form/race-form.component';
+import { FoodFormComponent } from './app/pages/components/food-form/food-form.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -39,6 +37,9 @@ bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(ReactiveFormsModule, BrowserModule, FormsModule),
         provideHttpClient(withInterceptorsFromDi()),
+        // {provide: ViewService, useClass: ViewService},
+        DatePipe,
+        { provide: SERVICE, useClass: ItemsService },        
         provideRouter([
             {
                 path: '',
@@ -88,6 +89,62 @@ bootstrapApplication(AppComponent, {
                             requiredService: SERVICE,
                             feature: 'services',
                             fields: ['id', 'name', 'description'],
+                        }
+                    },            
+                ],
+            },            
+            {
+                path: 'RacesAdmin',
+                component: CrudPageComponent,
+                data: {
+                    feature: 'races',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: RaceFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'races',
+                            fields: ['id', 'label'],
+                        }
+                    },            
+                ],
+            },            
+            {
+                path: 'FoodsAdmin',
+                component: CrudPageComponent,
+                data: {
+                    feature: 'foods',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: FoodFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'foods',
+                            fields: ['id', 'name'],
                         }
                     },            
                 ],
@@ -269,9 +326,6 @@ bootstrapApplication(AppComponent, {
                 ],
             },            
         ]),
-        {provide: ViewService, useClass: ViewService},
-        DatePipe,
-        { provide: SERVICE, useClass: ItemsService }         
     ]
 })
   .catch(err => console.error(err));

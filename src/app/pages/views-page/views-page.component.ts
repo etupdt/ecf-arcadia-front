@@ -2,13 +2,10 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ViewFormComponent } from '../components/view-form/view-form.component';
 import { Observable } from 'rxjs';
-import { View } from 'src/app/interfaces/View';
-import { ItemsService } from 'src/app/services/items.service';
-import { Service } from 'src/app/interfaces/Service';
-import { ViewService } from 'src/app/services/view.service';
-import { FormsModule, NgModel } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HeaderService } from 'src/app/services/header.service';
 import { ApiService } from 'src/app/services/api.service';
+import { IView } from 'src/app/interfaces/IView';
 
 @Component({
   selector: 'app-views-page',
@@ -21,13 +18,13 @@ import { ApiService } from 'src/app/services/api.service';
 export class ViewsPageComponent implements OnInit{
 
     constructor (
-        private itemsService: ApiService<View>,
+        private viewService: ApiService<IView>,
         private headerService: HeaderService
     ) {}
 
-    views$: Observable<View[]> = this.itemsService.getItems('views')
+    views$: Observable<IView[]> = this.viewService.getItems('views')
 
-    fields: (keyof View)[] = ['id', 'comment', 'isVisible']
+    fields: (keyof IView)[] = ['id', 'comment', 'isVisible']
     
     ngOnInit(): void {
 
@@ -36,11 +33,11 @@ export class ViewsPageComponent implements OnInit{
     
     }
 
-    update(view: View): void {
+    update(view: IView): void {
 
         view.isVisible = !view.isVisible
 
-        this.itemsService.putItem('views', view.id, view).subscribe({
+        this.viewService.putItem('views', view.id, view).subscribe({
             next: (res) => {
             },
             error: (error: { error: { message: any; }; }) => {

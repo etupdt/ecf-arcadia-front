@@ -1,6 +1,6 @@
 
 <div class="card h-100" style="width: 18rem;">
-    <img src="{{ useBackendImages }}/{{ habitat.images![0].imageName }}" class="card-img-top" alt="Habitat">
+    <img *ngIf="habitat.images.length > 0" src="{{ useBackendImages }}/{{ habitat.images[0].imageName }}" class="card-img-top" alt="Habitat">
     <div class="card-body">
         <h5 class="card-title">{{ habitat.name }}</h5>
         <ul class="list-group">

@@ -1,12 +1,14 @@
 import { Component, Injector, effect } from '@angular/core';
-import { Animal } from 'src/app/interfaces/Animal';
 import { HeaderService } from 'src/app/services/header.service';
 import { AnimalFoodComponent } from "../components/animal-food/animal-food.component";
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { FoodAnimal } from 'src/app/interfaces/FoodAnimal';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IFoodAnimal } from 'src/app/interfaces/IFoodAnimal';
+import { FoodAnimal } from 'src/app/models/FoodAnimal';
+import { IAnimal } from 'src/app/interfaces/IAnimal';
+import { Animal } from 'src/app/models/Animal';
 
 @Component({
     selector: 'app-food-animal-page',

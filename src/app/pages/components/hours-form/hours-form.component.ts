@@ -2,7 +2,8 @@ import { NgIf } from '@angular/common';
 import { Component, Injector, effect } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Hours } from 'src/app/interfaces/Hours';
+import { IHours } from 'src/app/interfaces/IHours';
+import { Hours } from 'src/app/models/Hours';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -36,10 +37,10 @@ export class HoursFormComponent {
     }    
 
     get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
-    set selectedItem(item: Hours) {this.itemsService.items[this.itemsService.selectedIndex]}
+    set selectedItem(item: IHours) {this.itemsService.items[this.itemsService.selectedIndex]}
 
     get hours() { return this.itemsService.updatedItem }
-    set hours(hours : Hours) { this.itemsService.updatedItem = hours }
+    set hours(hours : IHours) { this.itemsService.updatedItem = hours }
 
     get monday() { return this.hoursForm.get('monday')! as FormControl }
     get tuesday() { return this.hoursForm.get('tuesday')! as FormControl }
@@ -51,16 +52,7 @@ export class HoursFormComponent {
 
     ngOnInit(): void {
 
-        this.hours = {
-            id: 0,
-            monday: '',
-            tuesday: '',
-            wednesday: '',
-            thursday: '',
-            friday: '',
-            saturday: '',
-            sunday: '',
-        }
+        this.hours = new Hours()
         
         this.initForm()
     
@@ -99,27 +91,16 @@ export class HoursFormComponent {
 
     initItem = (selectedIndex: number) => {
         if (selectedIndex === -1) {
-            this.hours = {
-                id: 0,
-                monday: '',
-                tuesday: '',
-                wednesday: '',
-                thursday: '',
-                friday: '',
-                saturday: '',
-                sunday: '',
-                    }
+            this.hours = new Hours
         } else {
-            this.hours = {
-                id: this.selectedItem.id,
-                monday: this.selectedItem.monday,
-                tuesday: this.selectedItem.tuesday,
-                wednesday: this.selectedItem.wednesday,
-                thursday: this.selectedItem.thursday,
-                friday: this.selectedItem.friday,
-                saturday: this.selectedItem.saturday,
-                sunday: this.selectedItem.sunday,
-            }    
+            this.hours = new Hours(this.selectedItem.id, 
+                this.selectedItem.monday, 
+                this.selectedItem.tuesday,
+                this.selectedItem.wednesday,
+                this.selectedItem.thursday,
+                this.selectedItem.friday,
+                this.selectedItem.saturday,
+                this.selectedItem.sunday)
         }
         this.initForm()
     }

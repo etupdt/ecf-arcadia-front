@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Animal } from 'src/app/interfaces/Animal';
-import { VeterinaryReport } from 'src/app/interfaces/VeterinaryReport';
+import { IAnimal } from 'src/app/interfaces/IAnimal';
+import { VeterinaryReport } from 'src/app/models/VeterinaryReport';
 
 @Pipe({
   name: 'uniqReport',
@@ -8,9 +8,9 @@ import { VeterinaryReport } from 'src/app/interfaces/VeterinaryReport';
 })
 export class UniqReportPipe implements PipeTransform {
 
-    transform(animal: Animal, ...args: unknown[]): Animal {
+    transform(animal: IAnimal, ...args: unknown[]): IAnimal {
 
-        let newAnimal: Animal = animal
+        let newAnimal: IAnimal = animal
 
         let recent: string = '1901-01-01'
 
@@ -21,24 +21,7 @@ export class UniqReportPipe implements PipeTransform {
             }
         })
 
-        if (newAnimal.veterinaryReports?.length === 0) newAnimal.veterinaryReports = [
-            {
-                id: 0,
-                date: '',
-                detail: '',
-                gramage: 0,
-                food: {
-                    id: 0,
-                    name: "",
-                },
-                user: {
-                    id: 0,
-                    username: '',
-                    firstname: '',
-                    lastname: ''
-                }
-            }
-        ]
+        if (newAnimal.veterinaryReports?.length === 0) newAnimal.veterinaryReports = [new VeterinaryReport()]
         
         return newAnimal
 
