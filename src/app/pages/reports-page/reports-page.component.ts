@@ -2,14 +2,13 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Animal } from 'src/app/interfaces/Animal';
-import { VeterinaryReport } from 'src/app/interfaces/VeterinaryReport';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { ReportFilterPipe } from '../pipes/report-filter.pipe';
 import { IDropdownSettings, NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { Dropdown } from 'src/app/interfaces/Dropdown';
 import { AnimalFilterPipe } from "../pipes/animal-filter.pipe";
+import { IDropdown } from 'src/app/interfaces/IDropdown';
+import { IAnimal } from 'src/app/interfaces/IAnimal';
 
 @Component({
     selector: 'app-reports-page',
@@ -21,15 +20,15 @@ import { AnimalFilterPipe } from "../pipes/animal-filter.pipe";
 export class ReportsPageComponent {
 
     constructor (
-        private animalService: ApiService<Animal>,
+        private animalService: ApiService<IAnimal>,
         private headerService: HeaderService
     ) {}
 
     date: string = ""
 
     
-    animalList!: Dropdown[]
-    animalsSelected!: Dropdown[]
+    animalList!: IDropdown[]
+    animalsSelected!: IDropdown[]
     
     dropdownSettings: IDropdownSettings = {
         singleSelection: false,
@@ -41,18 +40,18 @@ export class ReportsPageComponent {
         allowSearchFilter: true
     };
     
-    animals$: Observable<Animal[]> = this.animalService.getItems('animals')
+    animals$: Observable<IAnimal[]> = this.animalService.getItems('animals')
 
     ngOnInit(): void {
 
         this.headerService.selectedMenuItem = "Admin"
         this.headerService.signalItemSelected.set('Admin')
 
-        let animalList: Dropdown[] = []
-        let animalsSelected: Dropdown[] = []
+        let animalList: IDropdown[] = []
+        let animalsSelected: IDropdown[] = []
 
         this.animalService.getItems('animals').subscribe({
-            next: ((res: Animal[]) => {
+            next: ((res: IAnimal[]) => {
                 res.forEach(animal => {
                     animalList.push({ 
                         id: animal.id, 

@@ -2,8 +2,8 @@ import { NgIf } from '@angular/common';
 import { Component, Injector, effect } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { User } from 'src/app/interfaces/User';
+import { IUser } from 'src/app/interfaces/IUser';
+import { User } from 'src/app/models/User';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -37,10 +37,10 @@ export class UserFormComponent {
     }    
 
     get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
-    set selectedItem(item: User) {this.itemsService.items[this.itemsService.selectedIndex]}
+    set selectedItem(item: IUser) {this.itemsService.items[this.itemsService.selectedIndex]}
 
     get user() { return this.itemsService.updatedItem }
-    set user(user : User) { this.itemsService.updatedItem = user }
+    set user(user : IUser) { this.itemsService.updatedItem = user }
 
     get username() { return this.userForm.get('username')! as FormControl }
     get firstname() { return this.userForm.get('firstname')! as FormControl }
@@ -48,12 +48,7 @@ export class UserFormComponent {
 
     ngOnInit(): void {
 
-        this.user = {
-            id: 0,
-            username: '',
-            firstname: '',
-            lastname: '',
-        }
+        this.user = new User()
         
         this.initForm()
     
@@ -80,19 +75,9 @@ export class UserFormComponent {
 
     initItem = (selectedIndex: number) => {
         if (selectedIndex === -1) {
-            this.user = {
-                id: 0,
-                username: '',
-                firstname: '',
-                lastname: '',
-                    }
+            this.user = new User()
         } else {
-            this.user = {
-                id: this.selectedItem.id,
-                username: this.selectedItem.username,
-                firstname: this.selectedItem.firstname,
-                lastname: this.selectedItem.lastname,
-            }    
+            this.user = new User(this.selectedItem.id, this.selectedItem.username, this.selectedItem.firstname, this.selectedItem.lastname)
         }
         this.initForm()
     }

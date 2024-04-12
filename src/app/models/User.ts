@@ -1,11 +1,14 @@
 import { HttpHeaders } from "@angular/common/http";
-import { IRace } from "../interfaces/IRace";
+import { IUser } from "../interfaces/IUser";
 
-export class Race implements IRace {
+export class User implements IUser {
 
     constructor (
         public id: number = 0,
-        public label: string = '',
+        public username: string = '',
+        public firstname: string = '',
+        public lastname: string = '',
+        public password?: string
     ) {}
 
     getApiItemBody (): any {

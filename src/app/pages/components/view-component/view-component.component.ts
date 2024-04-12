@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { View } from 'src/app/models/View copy';
+import { View } from 'src/app/models/View';
 
 @Component({
     selector: 'app-view-component',

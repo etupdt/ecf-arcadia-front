@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Service } from 'src/app/interfaces/Service';
 import { HeaderService } from 'src/app/services/header.service';
-import { ServiceService } from 'src/app/services/service.service';
 import { ServiceCardComponent } from "../components/service-card/service-card.component";
+import { IService } from 'src/app/interfaces/IService';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
     selector: 'app-services-page',
@@ -15,10 +15,10 @@ import { ServiceCardComponent } from "../components/service-card/service-card.co
 })
 export class ServicesPageComponent {
 
-  services$: Observable<Service[]> = this.serviceService.getServices()
+  services$: Observable<IService[]> = this.serviceService.getItems('services')
 
   constructor(
-    private serviceService: ServiceService,
+    private serviceService: ApiService<IService>,
     private headerService: HeaderService,
   ) { }  
 

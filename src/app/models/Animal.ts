@@ -1,19 +1,25 @@
 import { HttpHeaders } from "@angular/common/http";
-import { IHabitat } from "../interfaces/IHabitat";
+import { IAnimal } from "../interfaces/IAnimal";
 import { Md5 } from 'ts-md5';
 import { IImage } from "../interfaces/IImage";
-import { Image } from "../models/Image";
-import { Animal } from "./Animal";
+import { Image } from "./Image";
+import { FoodAnimal } from "../models/FoodAnimal";
+import { Race } from "./Race";
+import { Habitat } from "./Habitat";
+import { VeterinaryReport } from "./VeterinaryReport";
 
-export class Habitat implements IHabitat {
+export class Animal implements IAnimal {
 
     constructor (
         public id: number = 0,
-        public name: string = '',
+        public firstname: string = '',
+        public health: string = '',
         public description: string = '',
-        public comment: string = '',
-        public animals: Animal[] = [],
-        public images: Image[] = []
+        public race: Race= new Race(),
+        public habitat: Habitat = new Habitat(),
+        public images: Image[] = [],
+        public veterinaryReports: VeterinaryReport[] = [],
+        public foodAnimals: FoodAnimal[] = [],
     ) {}
 
     getApiItemBody (): any {
@@ -28,7 +34,7 @@ export class Habitat implements IHabitat {
            
             if (image.imageBlob) {
                 hash = Md5.hashStr(image.imageName);
-                imageName = `habitat_${hash}.webp`
+                imageName = `animal_${hash}.webp`
                 formData.append('files', image.imageBlob, imageName) 
             }
            
@@ -42,11 +48,14 @@ export class Habitat implements IHabitat {
 
         formData.append('item', JSON.stringify({
             id: this.id,
-            name: this.name,
+            firstname: this.firstname,
+            health: this.health,
             description: this.description,
-            comment: this.comment,
-            animals: this.animals,
-            images: images
+            race: this.race,
+            habitat: this.habitat,
+            images: images,
+            veterinaryReports: this.veterinaryReports,
+            foodAnimals: this.foodAnimals
         }))
 
         return formData

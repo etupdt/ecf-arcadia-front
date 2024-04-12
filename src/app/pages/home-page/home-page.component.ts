@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Service } from 'src/app/interfaces/Service';
 import { IView } from 'src/app/interfaces/IView';
-import { ServiceService } from 'src/app/services/service.service';
 import { ViewComponentComponent } from '../components/view-component/view-component.component';
 import { ViewFormComponent } from '../components/view-form/view-form.component';
 import { ServiceCardComponent } from '../components/service-card/service-card.component';
@@ -12,7 +10,8 @@ import { Observable } from 'rxjs';
 import { HabitatListComponent } from "../components/habitat-list/habitat-list.component";
 import { IHabitat } from 'src/app/interfaces/IHabitat';
 import { ApiService } from 'src/app/services/api.service';
-import { View } from 'src/app/models/View copy';
+import { View } from 'src/app/models/View';
+import { Service } from 'src/app/models/Service';
 
 @Component({
     selector: 'app-home-page',
@@ -26,13 +25,13 @@ export class HomePageComponent implements OnInit {
 
     constructor(
         private habitatService: ApiService<IHabitat>,
-        private serviceService: ServiceService,
+        private serviceService: ApiService<Service>,
         private viewService: ApiService<IView>,
         private headerService: HeaderService
     ) { }
 
     habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
-    services$: Observable<Service[]> = this.serviceService.getServices()
+    services$: Observable<Service[]> = this.serviceService.getItems('services')
     views$: Observable<IView[]> = this.viewService.getItems('views')
 
     view!: IView

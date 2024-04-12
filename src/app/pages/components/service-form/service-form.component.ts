@@ -3,7 +3,8 @@ import { Component, Injector, Input, OnChanges, OnDestroy, OnInit, SimpleChanges
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Service } from 'src/app/interfaces/Service';
+import { IService } from 'src/app/interfaces/IService';
+import { Service } from 'src/app/models/Service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,19 +14,13 @@ import { environment } from 'src/environments/environment';
   standalone: true,
   imports: [NgIf, FormsModule, ReactiveFormsModule]
 })
-export class ServiceFormComponent implements OnInit, OnDestroy {
+export class ServiceFormComponent implements OnInit {
 
     useBackendImages: string = `${environment.useBackendImages}`
         
     serviceForm!: FormGroup
 
     private itemsService: any
-
-    params!: Params
-
-    parameters: Subscription = this.route.params.subscribe(params => {
-        this.params = params
-    })
 
     constructor (
         private injector: Injector,
@@ -35,42 +30,26 @@ export class ServiceFormComponent implements OnInit, OnDestroy {
         effect(() => {
             const selectedIndex = this.itemsService.signalSelectedIndex()
             if (selectedIndex === -1) {
-                this.service = {
-                    id: 0,
-                    name: '',
-                    description: ''
-                }
+                this.service = new Service()
             } else {
-                this.service = {
-                    id: this.selectedItem.id,
-                    name: this.selectedItem.name,
-                    description: this.selectedItem.description
-                }    
+                this.service = new Service(this.selectedItem.id, this.selectedItem.name, this.selectedItem.description)    
             }
             this.initForm()
         })
     }    
 
-    ngOnDestroy(): void {
-        this.parameters.unsubscribe()
-    }
-
     get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
-    set selectedItem(item: Service) {this.itemsService.items[this.itemsService.selectedIndex]}
+    set selectedItem(item: IService) {this.itemsService.items[this.itemsService.selectedIndex]}
 
     get service() { return this.itemsService.updatedItem }
-    set service(service : Service) { this.itemsService.updatedItem = service }
+    set service(service : IService) { this.itemsService.updatedItem = service }
 
     get name() { return this.serviceForm.get('name')! as FormControl }
     get description() { return this.serviceForm.get('description')! as FormControl }
 
     ngOnInit(): void {
 
-        this.service = {
-            id: 0,
-            name: '',
-            description: ''
-        }
+        this.service = new Service()
         
         this.initForm()
     

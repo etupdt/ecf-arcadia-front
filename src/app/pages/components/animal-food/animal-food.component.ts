@@ -3,9 +3,10 @@ import { Component, Injector, effect } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Animal } from 'src/app/interfaces/Animal';
-import { Food } from 'src/app/interfaces/Food';
-import { IFoodAnimal } from 'src/app/interfaces/IFoodAnimal';
+import { IAnimal } from 'src/app/interfaces/IAnimal';
+   import { IFoodAnimal } from 'src/app/interfaces/IFoodAnimal';
+import { Animal } from 'src/app/models/Animal';
+import { Food } from 'src/app/models/Food';
 import { FoodAnimal } from 'src/app/models/FoodAnimal';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
@@ -47,8 +48,8 @@ export class AnimalFoodComponent {
     dateFood: string | null = this.datepipe.transform(Date.now(), 'y-MM-dd')
     foods$: Observable<Food[]> = this.foodService.getItems('foods')
     
-    get selectedItem(): Animal { return this.itemsService.items[this.itemsService.selectedIndex]}
-    set selectedItem(item: Animal) {this.itemsService.items[this.itemsService.selectedIndex]}
+    get selectedItem(): IAnimal { return this.itemsService.items[this.itemsService.selectedIndex]}
+    set selectedItem(item: IAnimal) {this.itemsService.items[this.itemsService.selectedIndex]}
 
     get foodAnimal() { return this.itemsService.updatedItem }
     set foodAnimal(foodAnimal : FoodAnimal) { this.itemsService.updatedItem = foodAnimal }

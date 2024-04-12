@@ -1,16 +1,19 @@
 import { HttpHeaders } from "@angular/common/http";
-import { IFoodAnimal } from "../interfaces/IFoodAnimal";
+import { IVeterinaryReport } from "../interfaces/IVeterinaryReport";
 import { Animal } from "./Animal";
 import { Food } from "./Food";
+import { User } from "./User";
 
-export class FoodAnimal implements IFoodAnimal {
+export class VeterinaryReport implements IVeterinaryReport {
 
     constructor (
         public id: number = 0,
-        public dateFood: string = '',
+        public date: string = '',
+        public detail: string = '',
         public gramage: number = 0,
         public animal: Animal = new Animal(),
-        public food: Food = new Food()
+        public user: User = new User(),
+        public food: Food = new Food(),
     ) {}
 
     getApiItemBody (): any {

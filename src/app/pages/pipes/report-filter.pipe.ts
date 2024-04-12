@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { VeterinaryReport } from 'src/app/interfaces/VeterinaryReport';
 import * as _ from 'lodash';
-import { Animal } from 'src/app/interfaces/Animal';
+import { IVeterinaryReport } from 'src/app/interfaces/IVeterinaryReport';
 
 @Pipe({
     name: 'reportFilter',
@@ -10,11 +9,11 @@ import { Animal } from 'src/app/interfaces/Animal';
 export class ReportFilterPipe implements PipeTransform {
 
     
-    transform(value: VeterinaryReport[] | null, ...args: any[]): VeterinaryReport[] {
+    transform(value: IVeterinaryReport[] | null, ...args: any[]): IVeterinaryReport[] {
 
-        const veterinariesReport: VeterinaryReport[] = value ? value : []
+        const veterinariesReport: IVeterinaryReport[] = value ? value : []
 
-        const valueByDate: VeterinaryReport[] = veterinariesReport.filter(v => 
+        const valueByDate: IVeterinaryReport[] = veterinariesReport.filter(v => 
             v.date === args[0] || !args[0]
         )
 

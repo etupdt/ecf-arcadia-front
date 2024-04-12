@@ -1,11 +1,11 @@
 import { HttpHeaders } from "@angular/common/http";
-import { IRace } from "../interfaces/IRace";
+import { IFood } from "../interfaces/IFood";
 
-export class Race implements IRace {
+export class Food implements IFood {
 
     constructor (
         public id: number = 0,
-        public label: string = '',
+        public name: string = '',
     ) {}
 
     getApiItemBody (): any {

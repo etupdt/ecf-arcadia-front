@@ -1,11 +1,12 @@
 import { HttpHeaders } from "@angular/common/http";
-import { IRace } from "../interfaces/IRace";
+import { IService } from "../interfaces/IService";
 
-export class Race implements IRace {
+export class Service implements IService {
 
     constructor (
         public id: number = 0,
-        public label: string = '',
+        public name: string= '',
+        public description: string = '',
     ) {}
 
     getApiItemBody (): any {

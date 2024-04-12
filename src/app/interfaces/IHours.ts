@@ -1,5 +1,6 @@
+import { IElement } from "./IElement"
 
-export interface Hours {
+export interface IHours extends IElement{
     id: number,
     monday: string
     tuesday: string

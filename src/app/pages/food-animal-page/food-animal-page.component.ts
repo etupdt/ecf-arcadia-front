@@ -1,5 +1,4 @@
 import { Component, Injector, effect } from '@angular/core';
-import { Animal } from 'src/app/interfaces/Animal';
 import { HeaderService } from 'src/app/services/header.service';
 import { AnimalFoodComponent } from "../components/animal-food/animal-food.component";
 import { ApiService } from 'src/app/services/api.service';
@@ -8,6 +7,8 @@ import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IFoodAnimal } from 'src/app/interfaces/IFoodAnimal';
 import { FoodAnimal } from 'src/app/models/FoodAnimal';
+import { IAnimal } from 'src/app/interfaces/IAnimal';
+import { Animal } from 'src/app/models/Animal';
 
 @Component({
     selector: 'app-food-animal-page',
@@ -24,7 +25,7 @@ export class FoodAnimalPageComponent<Tdata> {
         private headerService: HeaderService,
         private animalService: ApiService<Animal>,
         private injector: Injector,
-        private foodAnimalService: ApiService<IFoodAnimal>,
+        private foodAnimalService: ApiService<FoodAnimal>,
         private router: Router,
         private route: ActivatedRoute,
         public datepipe: DatePipe
@@ -74,7 +75,7 @@ export class FoodAnimalPageComponent<Tdata> {
 
         if (this.updatedItem.id === 0) {
             this.foodAnimalService.postItem('foodanimals', this.updatedItem).subscribe({
-                next: (res: IFoodAnimal) => {
+                next: (res: FoodAnimal) => {
                     this.genericService.signalIsUpdated.set(false)
                     this.items[this.selectedIndex].foodAnimals!.push(res)
                 },
@@ -84,7 +85,7 @@ export class FoodAnimalPageComponent<Tdata> {
         } else {
 
             this.foodAnimalService.putItem('foodanimals', this.updatedItem.id, this.updatedItem).subscribe({
-                next: (res: IFoodAnimal) => {
+                next: (res: FoodAnimal) => {
                     this.genericService.signalIsUpdated.set(false)
                     this.items[this.selectedIndex].foodAnimals![this.foodAnimalIndex] = res
                 },

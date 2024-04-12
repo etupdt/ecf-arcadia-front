@@ -1,4 +1,4 @@
-import { Animal } from "./Animal";
+import { Animal } from "../models/Animal";
 import { IElement } from "./IElement";
 import { IImage } from "./IImage";
 

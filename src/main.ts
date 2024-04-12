@@ -26,6 +26,7 @@ import { HoursFormComponent } from './app/pages/components/hours-form/hours-form
 import { HabitatFormComponent } from './app/pages/components/habitat-form/habitat-form.component';
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
 import { RaceFormComponent } from './app/pages/components/race-form/race-form.component';
+import { FoodFormComponent } from './app/pages/components/food-form/food-form.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -113,6 +114,34 @@ bootstrapApplication(AppComponent, {
                             requiredService: SERVICE,
                             feature: 'races',
                             fields: ['id', 'label'],
+                        }
+                    },            
+                ],
+            },            
+            {
+                path: 'FoodsAdmin',
+                component: CrudPageComponent,
+                data: {
+                    feature: 'foods',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: FoodFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'foods',
+                            fields: ['id', 'name'],
                         }
                     },            
                 ],

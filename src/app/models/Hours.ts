@@ -1,11 +1,18 @@
 import { HttpHeaders } from "@angular/common/http";
 import { IRace } from "../interfaces/IRace";
+import { IHours } from "../interfaces/IHours";
 
-export class Race implements IRace {
+export class Hours implements IHours {
 
     constructor (
         public id: number = 0,
-        public label: string = '',
+        public monday: string = '',
+        public tuesday: string = '',
+        public wednesday: string = '',
+        public thursday: string = '',
+        public friday: string = '',
+        public saturday: string = '',
+        public sunday: string = '',
     ) {}
 
     getApiItemBody (): any {
