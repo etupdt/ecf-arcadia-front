@@ -8,6 +8,7 @@ export class User implements IUser {
         public username: string = '',
         public firstname: string = '',
         public lastname: string = '',
+        public role: string = 'ROLE_EMPLOYE',
         public password?: string
     ) {}
 

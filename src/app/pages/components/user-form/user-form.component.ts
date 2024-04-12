@@ -45,6 +45,7 @@ export class UserFormComponent {
     get username() { return this.userForm.get('username')! as FormControl }
     get firstname() { return this.userForm.get('firstname')! as FormControl }
     get lastname() { return this.userForm.get('lastname')! as FormControl }
+    get role() { return this.userForm.get('role')! as FormControl }
 
     ngOnInit(): void {
 
@@ -59,25 +60,34 @@ export class UserFormComponent {
             username: new FormControl(this.user.username, Validators.required),
             firstname: new FormControl(this.user.firstname, Validators.required),
             lastname: new FormControl(this.user.lastname, Validators.required),
+            role: new FormControl(this.user.role, Validators.required),
         });    
         this.userForm.valueChanges.subscribe(changes => { 
             this.itemsService.signalIsUpdated.set(
                 this.user.username !== this.username.value ||
                 this.user.firstname !== this.firstname.value ||
-                this.user.lastname !== this.lastname.value
+                this.user.lastname !== this.lastname.value ||
+                this.user.role !== this.role.value
             )
             this.itemsService.signalIsValid.set(this.userForm.valid)
             this.user.username = this.username.value
             this.user.firstname = this.firstname.value
             this.user.lastname = this.lastname.value
+            this.user.role = this.role.value
         })
     }
 
     initItem = (selectedIndex: number) => {
         if (selectedIndex === -1) {
             this.user = new User()
+            console.log('user', this.user)
         } else {
-            this.user = new User(this.selectedItem.id, this.selectedItem.username, this.selectedItem.firstname, this.selectedItem.lastname)
+            this.user = new User(this.selectedItem.id, 
+                this.selectedItem.username, 
+                this.selectedItem.firstname, 
+                this.selectedItem.lastname,
+                this.selectedItem.role
+            )
         }
         this.initForm()
     }
