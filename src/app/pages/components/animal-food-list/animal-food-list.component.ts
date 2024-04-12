@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component, Injector, effect } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FoodAnimal } from 'src/app/interfaces/FoodAnimal';
+import { FoodAnimal } from 'src/app/models/FoodAnimal';
 
 @Component({
   selector: 'app-animal-food-list',

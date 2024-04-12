@@ -28,7 +28,7 @@
 <div class="card d-flex flex-column pb-3" *ngFor="let animal of animals$ | async | animalFilter:date:animalsSelected">
     <div class="d-flex flex-row col-12 m-2">
         <p class="col-5"><b>Prénom</b> {{ animal.firstname }}</p> 
-        <p class="col-6"><b>Race</b> {{ animal.race?.label }}</p>
+        <p class="col-6"><b>Race</b> {{ animal.race.label }}</p>
         <p class="col-1"><b>Etat</b> {{ animal.health }}</p>
     </div>
     <div class="d-flex flex-row col-12">

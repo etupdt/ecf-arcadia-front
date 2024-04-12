@@ -3,9 +3,9 @@ import { Component, Injector, effect } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Animal } from 'src/app/interfaces/Animal';
-import { Food } from 'src/app/interfaces/Food';
-import { VeterinaryReport } from 'src/app/interfaces/VeterinaryReport';
+import { Animal } from 'src/app/models/Animal';
+import { Food } from 'src/app/models/Food';
+import { VeterinaryReport } from 'src/app/models/VeterinaryReport';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 
@@ -94,36 +94,19 @@ export class AnimalReportComponent {
         const veterinaryReport = this.getVeterinaryReport(this.date!)
 
         if (veterinaryReport) {
-            this.veterinaryReport = {
-                id: veterinaryReport.id,
-                date: veterinaryReport.date,
-                detail: veterinaryReport.detail,
-                gramage: veterinaryReport.gramage,
-                food: veterinaryReport.food,
-                animal: this.selectedItem,
-                user: veterinaryReport.user
-            }
+            this.veterinaryReport = new VeterinaryReport (
+                veterinaryReport.id,
+                veterinaryReport.date,
+                veterinaryReport.detail,
+                veterinaryReport.gramage,
+                this.selectedItem,
+                veterinaryReport.user,
+                veterinaryReport.food
+            )
 
         } else {
 
-            this.veterinaryReport = {
-                id: 0,
-                date: this.datepipe.transform(Date.now(), 'y-MM-dd')!,
-                detail: '',
-                gramage: 0,
-                food: {
-                    id: 0,
-                    name: '',
-                },
-                animal: this.selectedItem,
-                user: {
-                    id: 0,
-                    username: '',
-                    firstname: '',
-                    lastname: ''
-                }
-            }
-
+            this.veterinaryReport = new VeterinaryReport()
         }
 
         this.initForm()

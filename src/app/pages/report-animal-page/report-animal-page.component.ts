@@ -1,12 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, HostListener, Injector, OnDestroy, OnInit, effect } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { Animal } from 'src/app/interfaces/Animal';
-import { VeterinaryReport } from 'src/app/interfaces/VeterinaryReport';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { AnimalFoodComponent } from '../components/animal-food/animal-food.component';
 import { FormsModule } from '@angular/forms';
+import { Animal } from 'src/app/models/Animal';
+import { VeterinaryReport } from 'src/app/models/VeterinaryReport';
 
 @Component({
   selector: 'app-veterinary-page',
