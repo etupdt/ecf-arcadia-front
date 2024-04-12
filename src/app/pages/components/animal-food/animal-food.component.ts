@@ -5,7 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Animal } from 'src/app/interfaces/Animal';
 import { Food } from 'src/app/interfaces/Food';
-import { FoodAnimal } from 'src/app/interfaces/FoodAnimal';
+import { IFoodAnimal } from 'src/app/interfaces/IFoodAnimal';
+import { FoodAnimal } from 'src/app/models/FoodAnimal';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 
@@ -33,13 +34,11 @@ export class AnimalFoodComponent {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
             if (this.itemsService.signalIsUpdatedItem()) {
-                console.log(this.itemsService.isUpdatedItem)
                 this.onChangeDateFood()
             }
         })
         effect(() => {
             if (this.itemsService.signalSelectedIndex() !== -1) {
-                console.log(this.itemsService.isUpdatedItem)
                 this.onChangeDateFood()
             }
         })
@@ -65,7 +64,6 @@ export class AnimalFoodComponent {
             gramage: new FormControl(this.foodAnimal.gramage, Validators.required),
         })
         this.animalForm.valueChanges.subscribe(changes => { 
-            console.log(this.animalForm.valid, this.foodAnimal.food.id, this.food.value)
             this.itemsService.signalIsUpdated.set(
                 this.foodAnimal.food.id !== this.food.value ||
                 this.foodAnimal.gramage !== this.gramage.value 
@@ -77,9 +75,9 @@ export class AnimalFoodComponent {
         })
     }
 
-    getFoodAnimal(dateFood: string): FoodAnimal | undefined {
+    getFoodAnimal(dateFood: string): IFoodAnimal | undefined {
 
-        return this.selectedItem.foodAnimals!.find((f: FoodAnimal) => {
+        return this.selectedItem.foodAnimals!.find((f: IFoodAnimal) => {
             return f.dateFood === dateFood
         })
         
@@ -90,28 +88,21 @@ export class AnimalFoodComponent {
         const foodAnimal = this.getFoodAnimal(this.dateFood!)
 
         if (foodAnimal) {
-            this.foodAnimal = {
-                id: foodAnimal.id,
-                dateFood: foodAnimal.dateFood,
-                gramage: foodAnimal.gramage,
-                food: foodAnimal.food,
-                animal: this.selectedItem
-            }
-            console.log(this.foodAnimal)
-            console.log(this.selectedItem)
+            this.foodAnimal = new FoodAnimal(
+                foodAnimal.id,
+                foodAnimal.dateFood,
+                foodAnimal.gramage,
+                this.selectedItem as Animal,
+                foodAnimal.food,
+            )
 
         } else {
 
-            this.foodAnimal = {
-                id: 0,
-                dateFood: this.datepipe.transform(Date.now(), 'y-MM-dd')!,
-                gramage: 0,
-                food: {
+            this.foodAnimal = new FoodAnimal (0, this.datepipe.transform(Date.now(), 'y-MM-dd')!, 0, this.selectedItem as Animal, {
                     id: 0,
-                    name: '',
-                },
-                animal: this.selectedItem
-            }
+                    name: ''
+                } as Food
+            )
 
         }
 

@@ -67,6 +67,7 @@ export class CrudPageComponent<Tdata> implements OnInit {
                 next: (res: Tdata) => {
                     this.items.push(res)
                     this.selectedIndex = this.items.length - 1
+                    this.genericService.updatedItem['id'] = this.genericService.items[this.selectedIndex]['id']
                 },    
                 error: (error: { error: { message: any; }; }) => {
                 }    

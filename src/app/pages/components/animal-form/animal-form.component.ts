@@ -4,8 +4,9 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Animal } from 'src/app/interfaces/Animal';
-import { Habitat } from 'src/app/interfaces/Habitat';
+import { IHabitat } from 'src/app/interfaces/IHabitat';
 import { Race } from 'src/app/interfaces/Race';
+import { Habitat } from 'src/app/models/Habitat';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 
@@ -28,7 +29,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
         private injector: Injector,
         private route: ActivatedRoute,
         private raceService: ApiService<Race>,
-        private habitatService: ApiService<Habitat>
+        private habitatService: ApiService<IHabitat>
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
@@ -43,10 +44,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
                         id: 0,
                         label: ""
                     },
-                                habitat: {
-                        id: 0,
-                        name: ""
-                    }
+                        habitat: new Habitat (0, '', '', '', [], [])
                 }
             } else {
                 this.animal = {
@@ -70,7 +68,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
     }
 
     races$: Observable<Race[]> = this.raceService.getItems('races')
-    habitat$: Observable<Habitat[]> = this.habitatService.getItems('habitats')
+    habitat$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
 
     get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
     set selectedItem(item: Animal) {this.itemsService.items[this.itemsService.selectedIndex]}
@@ -94,10 +92,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
                 id: 0,
                 label: ""
             },
-            habitat: {
-                id: 0,
-                name: ""
-            }
+            habitat: new Habitat (0, '', '', '', [], [])
         }
         
         this.initForm()

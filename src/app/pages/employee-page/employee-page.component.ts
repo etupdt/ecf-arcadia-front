@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderService } from 'src/app/services/header.service';
 import { ViewComponentComponent } from "../components/view-component/view-component.component";
 import { Observable } from 'rxjs';
-import { View } from 'src/app/interfaces/View';
+import { View } from 'src/app/interfaces/IView';
 import { ViewService } from 'src/app/services/view.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { Service } from 'src/app/interfaces/Service';

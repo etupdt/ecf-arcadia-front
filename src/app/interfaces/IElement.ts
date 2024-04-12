@@ -1,4 +1,6 @@
 
 export interface IElement {
-    displayLabel (): string 
+
+    getApiItemBody: () => any
+
 }

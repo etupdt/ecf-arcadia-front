@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { Habitat } from 'src/app/interfaces/Habitat';
+import { IHabitat } from 'src/app/interfaces/IHabitat';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -14,6 +14,6 @@ export class HabitatListComponent {
 
   useBackendImages: string = `${environment.useBackendImages}`
 
-  @Input() habitat!: Habitat
+  @Input() habitat!: IHabitat
 
 }

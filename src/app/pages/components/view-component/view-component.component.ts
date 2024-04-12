@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { View } from 'src/app/interfaces/View';
+import { View } from 'src/app/models/View';
 
 @Component({
     selector: 'app-view-component',
@@ -9,11 +9,6 @@ import { View } from 'src/app/interfaces/View';
 })
 export class ViewComponentComponent {
 
-  @Input() view : View = {
-    id: 0,
-    pseudo: "",
-    comment: "",
-    isVisible: false
-  }
+  @Input() view : View = new View (0, '', '', false)
 
 }

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { View } from 'src/app/interfaces/View';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ViewService } from 'src/app/services/view.service';
+import { ItemsService } from 'src/app/services/items.service';
+import { ApiService } from 'src/app/services/api.service';
+import { IView } from 'src/app/interfaces/IView';
 
 @Component({
     selector: 'app-view-form',
@@ -13,13 +14,13 @@ import { ViewService } from 'src/app/services/view.service';
 export class ViewFormComponent implements OnInit {
 
     constructor (
-        private viewService: ViewService
+        private viewService: ApiService<IView>
     ) {}
 
-    @Input() view!: View
+    @Input() view!: IView
     @Input() updatable: Boolean = false
 
-    @Output() return: EventEmitter<View> = new EventEmitter()
+    @Output() return: EventEmitter<IView> = new EventEmitter()
     
     viewForm!: FormGroup
 
@@ -47,7 +48,7 @@ export class ViewFormComponent implements OnInit {
         this.view.comment = this.comment.value
         this.view.isVisible = false
 
-        this.viewService.postView(this.view).subscribe({
+        this.viewService.postItem('views', this.view).subscribe({
             next: (res) => {
             },
             error: (error: { error: { message: any; }; }) => {

@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Habitat } from 'src/app/interfaces/Habitat';
 import { Service } from 'src/app/interfaces/Service';
-import { View } from 'src/app/interfaces/View';
-import { HabitatService } from 'src/app/services/habitat.service';
+import { IView } from 'src/app/interfaces/IView';
 import { ServiceService } from 'src/app/services/service.service';
-import { ViewService } from 'src/app/services/view.service';
 import { ViewComponentComponent } from '../components/view-component/view-component.component';
 import { ViewFormComponent } from '../components/view-form/view-form.component';
 import { ServiceCardComponent } from '../components/service-card/service-card.component';
@@ -13,6 +10,9 @@ import { CommonModule, NgFor } from '@angular/common';
 import { HeaderService } from 'src/app/services/header.service';
 import { Observable } from 'rxjs';
 import { HabitatListComponent } from "../components/habitat-list/habitat-list.component";
+import { IHabitat } from 'src/app/interfaces/IHabitat';
+import { ApiService } from 'src/app/services/api.service';
+import { View } from 'src/app/models/View';
 
 @Component({
     selector: 'app-home-page',
@@ -24,55 +24,42 @@ import { HabitatListComponent } from "../components/habitat-list/habitat-list.co
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(
-    private habitatService: HabitatService,
-    private serviceService: ServiceService,
-    private viewService: ViewService,
-    private headerService: HeaderService
-  ) { }
+    constructor(
+        private habitatService: ApiService<IHabitat>,
+        private serviceService: ServiceService,
+        private viewService: ApiService<IView>,
+        private headerService: HeaderService
+    ) { }
 
-  habitats$: Observable<Habitat[]> = this.habitatService.getHabitats()
-  services$: Observable<Service[]> = this.serviceService.getServices()
-  views$: Observable<View[]> = this.viewService.getViews()
+    habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
+    services$: Observable<Service[]> = this.serviceService.getServices()
+    views$: Observable<IView[]> = this.viewService.getItems('views')
 
-  view!: View
+    view!: IView
 
-  ngOnInit(): void {
+    ngOnInit(): void {
 
-    this.headerService.selectedMenuItem = "Accueil"
-    this.headerService.signalItemSelected.set('Accueil')
+        this.headerService.selectedMenuItem = "Accueil"
+        this.headerService.signalItemSelected.set('Accueil')
 
-    this.view = this.initForm()
-
-  }
-
-  onFormSubmit = (view: View) => {
-
-    this.viewService.postView(view).subscribe({
-      next: (res: View[]) => {
         this.view = this.initForm()
-      },
-      error: (error: { error: { message: any; }; }) => {
-        // this.dialog.open(MessageDialogComponent, {
-        //   data: {
-        //     type: 'Erreur',
-        //     message1: `Erreur lors de la lecture des options`,
-        //     message2: error.error.message,
-        //     delai: 0
-        //   }
-        // })
-      }
-    })
 
-  }
-
-  initForm = (): View => {
-    return {
-      id : 0,
-      pseudo : "",
-      comment : "",
-      isVisible : false
     }
-  }
+
+    onFormSubmit = (view: IView) => {
+
+        this.viewService.postItem('views', view).subscribe({
+        next: (res: IView) => {
+            this.view = this.initForm()
+        },
+        error: (error: { error: { message: any; }; }) => {
+        }
+        })
+
+    }
+
+    initForm = (): View => {
+        return new View(0, "", "", false)
+    }
 
 }

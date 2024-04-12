@@ -1,11 +1,10 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { HabitatCardComponent } from "../components/habitat-card/habitat-card.component";
-import { HabitatService } from 'src/app/services/habitat.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { Observable } from 'rxjs';
-import { Habitat } from 'src/app/interfaces/Habitat';
-import { HabitatListComponent } from "../components/habitat-list/habitat-list.component";
+import { IHabitat } from 'src/app/interfaces/IHabitat';
+import { ItemsService } from 'src/app/services/items.service';
 
 @Component({
     selector: 'app-habitats-page',
@@ -16,10 +15,10 @@ import { HabitatListComponent } from "../components/habitat-list/habitat-list.co
 })
 export class HabitatsPageComponent {
 
-  habitats$: Observable<Habitat[]> = this.habitatService.getHabitats()
+  habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
 
   constructor(
-    private habitatService: HabitatService,
+    private habitatService: ItemsService<IHabitat>,
     private headerService: HeaderService,
   ) { }  
 

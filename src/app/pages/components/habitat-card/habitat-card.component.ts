@@ -1,9 +1,9 @@
 import { Component, Input, signal } from '@angular/core';
-import { Habitat } from 'src/app/interfaces/Habitat';
 import { environment } from 'src/environments/environment';
 import { NgFor } from '@angular/common';
 import { AnimalCardComponent } from '../animal-card/animal-card.component';
 import { UniqReportPipe } from "../../pipes/uniq-report.pipe";
+import { IHabitat } from 'src/app/interfaces/IHabitat';
 
 @Component({
     selector: 'app-habitat-card',
@@ -16,7 +16,7 @@ export class HabitatCardComponent {
 
     useBackendImages: string = `${environment.useBackendImages}`
 
-    @Input() habitat!: Habitat
+    @Input() habitat!: IHabitat
 
     collapse: boolean = true
 
