@@ -1,0 +1,22 @@
+
+button {
+    background-color: #ffc107;
+//            background-color: #FFE9C8;
+    height: 3rem;
+}
+
+form {
+
+    margin-top: 20vh;
+    
+    > div {
+
+        width: 20%;
+        
+        input {
+            height: 3rem;
+        }
+              
+    }
+
+}

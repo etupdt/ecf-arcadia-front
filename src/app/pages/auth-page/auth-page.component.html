@@ -1,0 +1,27 @@
+<form *ngIf="authForm" class="d-flex flex-column justify-content- center align-items-center w-100" [formGroup]="authForm">
+    <div class="card-body w-50">
+        <input 
+        id="email"
+        formControlName="email"
+        type="text" 
+        class="form-control border border-black rounded-2 m-2"
+        placeholder="Email"
+        >
+        <input 
+        id="password"
+        formControlName="password"
+        type="password" 
+        class="form-control border border-black rounded-2 m-2"
+        placeholder="Password"
+        >
+        <button 
+            type="button" 
+            id="button" 
+            (click)="connexion()"
+            class="btn btn-outline-secondary m-2 mt-4 w-100" 
+            [disabled]="!isUpdated || !authForm.valid"
+            >
+            Connexion
+        </button>
+    </div>
+</form>

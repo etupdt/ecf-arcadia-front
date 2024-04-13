@@ -41,7 +41,7 @@ export class ApiService<Tdata> {
 
     postItem(type: string, item: IElement): Observable<Tdata> {
 
-        return this.http.post<Tdata>(
+        return this.http.post<any>(
             environment.useBackend + `/api/${type}`,
             item.getApiItemBody()
         )

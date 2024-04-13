@@ -30,6 +30,7 @@ import { AnimalFoodListComponent } from './app/pages/components/animal-food-list
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
 import { RaceFormComponent } from './app/pages/components/race-form/race-form.component';
 import { FoodFormComponent } from './app/pages/components/food-form/food-form.component';
+import { AuthPageComponent } from './app/pages/auth-page/auth-page.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -64,6 +65,10 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'Reports',
                 component: ReportsPageComponent,
+            },            
+            {
+                path: 'Auth',
+                component: AuthPageComponent,
             },            
             {
                 path: 'ServicesAdmin',
