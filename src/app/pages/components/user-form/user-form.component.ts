@@ -42,7 +42,7 @@ export class UserFormComponent {
     get user() { return this.itemsService.updatedItem }
     set user(user : IUser) { this.itemsService.updatedItem = user }
 
-    get username() { return this.userForm.get('username')! as FormControl }
+    get email() { return this.userForm.get('email')! as FormControl }
     get password() { return this.userForm.get('password')! as FormControl }
     get firstname() { return this.userForm.get('firstname')! as FormControl }
     get lastname() { return this.userForm.get('lastname')! as FormControl }
@@ -58,7 +58,7 @@ export class UserFormComponent {
 
     initForm = () => {
         this.userForm = new FormGroup({
-            username: new FormControl(this.user.username, Validators.required),
+            email: new FormControl(this.user.email, Validators.required),
             password: new FormControl(this.user.password, Validators.required),
             firstname: new FormControl(this.user.firstname, Validators.required),
             lastname: new FormControl(this.user.lastname, Validators.required),
@@ -66,14 +66,14 @@ export class UserFormComponent {
         });    
         this.userForm.valueChanges.subscribe(changes => { 
             this.itemsService.signalIsUpdated.set(
-                this.user.username !== this.username.value ||
+                this.user.email !== this.email.value ||
                 this.user.password !== this.password.value ||
                 this.user.firstname !== this.firstname.value ||
                 this.user.lastname !== this.lastname.value ||
                 this.user.role !== this.role.value
             )
             this.itemsService.signalIsValid.set(this.userForm.valid)
-            this.user.username = this.username.value
+            this.user.email = this.email.value
             this.user.password = this.password.value
             this.user.firstname = this.firstname.value
             this.user.lastname = this.lastname.value
@@ -86,7 +86,7 @@ export class UserFormComponent {
             this.user = new User()
         } else {
             this.user = new User(this.selectedItem.id, 
-                this.selectedItem.username, 
+                this.selectedItem.email, 
                 this.selectedItem.password, 
                 this.selectedItem.firstname, 
                 this.selectedItem.lastname,

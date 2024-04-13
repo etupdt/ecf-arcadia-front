@@ -43,14 +43,14 @@ export class AuthPageComponent {
             this.isUpdated = this.auth.email !== this.email.value  ||
             this.auth.password !== this.password.value 
             this.auth.email = this.email.value
-            this.auth.password = this.email.value
+            this.auth.password = this.password.value
         })
     }
     
     connexion() {
         this.authService.postItem('auth/authenticate', this.auth).subscribe({
             next: (res: any) => {
-                const token: IToken = res
+                localStorage.setItem('arcadia_tokens', JSON.stringify(res))
             },
             error: (error: { error: { message: any; }; }) => {
             }    

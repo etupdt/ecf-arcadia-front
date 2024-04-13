@@ -6,7 +6,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { InjectionToken, importProvidersFrom } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { HomePageComponent } from './app/pages/home-page/home-page.component';
@@ -31,6 +31,7 @@ import { ReportsPageComponent } from './app/pages/reports-page/reports-page.comp
 import { RaceFormComponent } from './app/pages/components/race-form/race-form.component';
 import { FoodFormComponent } from './app/pages/components/food-form/food-form.component';
 import { AuthPageComponent } from './app/pages/auth-page/auth-page.component';
+import { tokenInterceptor } from './app/pages/interceptors/token.interceptor';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -38,7 +39,7 @@ bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(ReactiveFormsModule, BrowserModule, FormsModule),
         provideHttpClient(withInterceptorsFromDi()),
-        // {provide: ViewService, useClass: ViewService},
+        provideHttpClient(withInterceptors([tokenInterceptor])),
         DatePipe,
         { provide: SERVICE, useClass: ItemsService },        
         provideRouter([
