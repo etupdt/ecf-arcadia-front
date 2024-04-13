@@ -5,6 +5,6 @@ export interface IUser extends IElement {
     username: string,
     firstname: string,
     lastname: string,
-    password?: string,
+    password: string,
     role: string
 }
