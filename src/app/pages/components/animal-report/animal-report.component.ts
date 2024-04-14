@@ -7,6 +7,7 @@ import { Animal } from 'src/app/models/Animal';
 import { Food } from 'src/app/models/Food';
 import { VeterinaryReport } from 'src/app/models/VeterinaryReport';
 import { ApiService } from 'src/app/services/api.service';
+import { HeaderService } from 'src/app/services/header.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -27,6 +28,7 @@ export class AnimalReportComponent {
     constructor (
         private injector: Injector,
         private route: ActivatedRoute,
+        private headerService: HeaderService,
         private foodService: ApiService<Food>,
         public datepipe: DatePipe
     ) {
@@ -37,7 +39,7 @@ export class AnimalReportComponent {
             }
         })
         effect(() => {
-            if (this.itemsService.signalSelectedIndex() !== -1) {
+            if (this.itemsService.signalSelectedIndex() !== null) {
                 this.onChangeDateFood()
             }
         })
@@ -78,6 +80,8 @@ export class AnimalReportComponent {
             this.veterinaryReport.detail = this.detail.value
             this.veterinaryReport.gramage = this.gramage.value
             this.veterinaryReport.food.id = this.food.value
+            this.veterinaryReport.animal.id = this.selectedItem.id
+            this.veterinaryReport.user = this.headerService.user
         })
     }
 
@@ -100,7 +104,7 @@ export class AnimalReportComponent {
                 veterinaryReport.detail,
                 veterinaryReport.gramage,
                 this.selectedItem,
-                veterinaryReport.user,
+                this.headerService.user,
                 veterinaryReport.food
             )
 

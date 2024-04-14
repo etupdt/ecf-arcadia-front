@@ -9,7 +9,7 @@ export class User implements IUser {
         public password: string = '',
         public firstname: string = '',
         public lastname: string = '',
-        public role: string = 'ROLE_EMPLOYE',
+        public role: string = '',
     ) {}
 
     getApiItemBody (): any {

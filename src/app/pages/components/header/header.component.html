@@ -9,41 +9,44 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {{selectedItem === 'Accueil' ? 'active' : ''}}" aria-current="page" href="Accueil">Accueil</a>
+                    <a class="nav-link {{selectedItem === 'Accueil' ? 'active' : ''}}" routerLink="Accueil">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{selectedItem === 'Services' ? 'active' : ''}}" href="Services">Services</a>
+                    <a class="nav-link {{selectedItem === 'Services' ? 'active' : ''}}" routerLink="Services">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{selectedItem === 'Habitats' ? 'active' : ''}}" href="Habitats">Habitats</a>
+                    <a class="nav-link {{selectedItem === 'Habitats' ? 'active' : ''}}" routerLink="Habitats">Habitats</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{selectedItem === 'Contact' ? 'active' : ''}}" href="#">Contact</a>
+                    <a class="nav-link {{selectedItem === 'Contact' ? 'active' : ''}}">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{selectedItem === 'Admin' ? 'active' : ''}}" 
+                    <a *ngIf="admin || employee || veterinary" class="nav-link dropdown-toggle" 
                         href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Employé
+                      {{user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()}}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="ServicesAdmin">Services</a></li>
-                        <li><a class="dropdown-item" href="RacesAdmin">Races</a></li>
-                        <li><a class="dropdown-item" href="FoodsAdmin">Nourriture</a></li>
-                        <li><a class="dropdown-item" href="UsersAdmin">Utilisateurs</a></li>
-                        <li><a class="dropdown-item" href="HabitatsAdmin">Habitats</a></li>
-                        <li><a class="dropdown-item" href="AnimalsAdmin">Animaux</a></li>
-                        <li><a class="dropdown-item" href="HoursAdmin">Horaires</a></li>
-                        <li><a class="dropdown-item" href="FoodAnimalAdmin">Alimentation</a></li>
-                        <li><a class="dropdown-item" href="ReportAnimalAdmin">Rapports</a></li>
-                        <li><a class="dropdown-item" href="Reports">Rapports Admin</a></li>
-                        <li><a class="dropdown-item" href="Avis">Avis</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a *ngIf="admin" class="dropdown-item" routerLink="AnimalsAdmin">Animaux</a></li>
+                        <li><a *ngIf="admin || veterinary" class="dropdown-item" routerLink="HabitatsAdmin">Habitats</a></li>
+                        <li><a *ngIf="admin" class="dropdown-item" routerLink="HoursAdmin">Horaires</a></li>
+                        <li><a *ngIf="admin" class="dropdown-item" routerLink="FoodsAdmin">Nourriture</a></li>
+                        <li><a *ngIf="admin" class="dropdown-item" routerLink="RacesAdmin">Races</a></li>
+                        <li><a *ngIf="admin" class="dropdown-item" routerLink="ServicesAdmin">Services</a></li>
+                        <li><a *ngIf="admin" class="dropdown-item" routerLink="UsersAdmin">Utilisateurs</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a *ngIf="veterinary" class="dropdown-item" routerLink="ReportAnimalAdmin">Rapports</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a *ngIf="employee" class="dropdown-item" routerLink="FoodAnimalAdmin">Alimentation</a></li>
+                        <li><a *ngIf="employee" class="dropdown-item" routerLink="Reports">Rapports Admin</a></li>
+                        <li><a *ngIf="employee" class="dropdown-item" routerLink="Avis">Avis</a></li>
                     </ul>
-                  </li>
-                </ul>
+                </li>
+            </ul>
             <form class="d-flex" role="search">
-            <button class="btn btn-outline-light" type="submit"><a href="Auth">Connexion</a></button>
+                <button class="btn btn-outline-light" type="submit"><a (click)="toggleConnexion()">{{ connected ? 'Déconnexion' : 'Connexion' }}</a></button>
+                <div class="navbar-nav">                    
+                    <a *ngIf="connected" class="nav-link">{{user.email}}</a>
+                </div>
             </form>
         </div>
     </div>
