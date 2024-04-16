@@ -31,7 +31,8 @@ import { ReportsPageComponent } from './app/pages/reports-page/reports-page.comp
 import { RaceFormComponent } from './app/pages/components/race-form/race-form.component';
 import { FoodFormComponent } from './app/pages/components/food-form/food-form.component';
 import { AuthPageComponent } from './app/pages/auth-page/auth-page.component';
-import { tokenInterceptor } from './app/pages/interceptors/token.interceptor';
+import { tokenInterceptor } from './app/interceptors/token.interceptor';
+import { ErrorModalComponent } from './app/modals/error-modal/error-modal.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -43,6 +44,11 @@ bootstrapApplication(AppComponent, {
         DatePipe,
         { provide: SERVICE, useClass: ItemsService },        
         provideRouter([
+            {
+                path: 'error',
+                component: ErrorModalComponent,
+                outlet: 'modal',
+            },            
             {
                 path: '',
                 component: HomePageComponent

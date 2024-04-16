@@ -21,18 +21,18 @@
                     <a class="nav-link {{selectedItem === 'Contact' ? 'active' : ''}}">Contact</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a *ngIf="admin || employee || veterinary" class="nav-link dropdown-toggle" 
+                    <a  class="nav-link dropdown-toggle" 
                         href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {{user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()}}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a *ngIf="admin" class="dropdown-item" routerLink="AnimalsAdmin">Animaux</a></li>
+                        <li><a  class="dropdown-item" routerLink="AnimalsAdmin">Animaux</a></li>
                         <li><a *ngIf="admin || veterinary" class="dropdown-item" routerLink="HabitatsAdmin">Habitats</a></li>
                         <li><a *ngIf="admin" class="dropdown-item" routerLink="HoursAdmin">Horaires</a></li>
                         <li><a *ngIf="admin" class="dropdown-item" routerLink="FoodsAdmin">Nourriture</a></li>
                         <li><a *ngIf="admin" class="dropdown-item" routerLink="RacesAdmin">Races</a></li>
                         <li><a *ngIf="admin" class="dropdown-item" routerLink="ServicesAdmin">Services</a></li>
-                        <li><a *ngIf="admin" class="dropdown-item" routerLink="UsersAdmin">Utilisateurs</a></li>
+                        <li><a  class="dropdown-item" routerLink="UsersAdmin">Utilisateurs</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a *ngIf="veterinary" class="dropdown-item" routerLink="ReportAnimalAdmin">Rapports</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -51,3 +51,5 @@
         </div>
     </div>
 </nav>
+<!-- <router-outlet name="modal"></router-outlet> -->
+<app-error-modal [message]="messageModal" [display]="displayModal"></app-error-modal>

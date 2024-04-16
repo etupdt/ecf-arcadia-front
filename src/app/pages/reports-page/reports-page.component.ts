@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
-import { ReportFilterPipe } from '../pipes/report-filter.pipe';
+import { ReportFilterPipe } from '../../pipes/report-filter.pipe';
 import { IDropdownSettings, NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { AnimalFilterPipe } from "../pipes/animal-filter.pipe";
+import { AnimalFilterPipe } from "../../pipes/animal-filter.pipe";
 import { IDropdown } from 'src/app/interfaces/IDropdown';
 import { IAnimal } from 'src/app/interfaces/IAnimal';
 

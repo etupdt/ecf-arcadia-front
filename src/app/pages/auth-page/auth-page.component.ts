@@ -68,19 +68,22 @@ export class AuthPageComponent {
                         this.router.navigate([this.return])
                     },
                     error: (error: { error: { message: any; }; }) => {
-                        console.log(error.error.message)
+                        this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                        this.headerService.signalModal.set(this.headerService.modal)
+                        this.user = new User()
                     }    
                 })
             },
             error: (error: { error: { message: any; }; }) => {
                 console.log(error.error.message)
+                this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                this.headerService.signalModal.set(this.headerService.modal)
                 this.user = new User()
             }    
         })
     }
 
     set user (user: User) {
-        console.log('set role in auth component', user)
         this.headerService.user = user
         this.headerService.signalUser.set(user)
     }
