@@ -72,6 +72,8 @@ export class CrudPageComponent<Tdata> implements OnInit {
                     this.genericService.updatedItem['id'] = this.genericService.items[this.selectedIndex]['id']
                 },    
                 error: (error: { error: { message: any; }; }) => {
+                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                    this.headerService.signalModal.set(this.headerService.modal)
                 }    
             })    
         } else {
@@ -81,6 +83,8 @@ export class CrudPageComponent<Tdata> implements OnInit {
                     this.selectedIndex = this.selectedIndex
                 },    
                 error: (error: { error: { message: any; }; }) => {
+                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                    this.headerService.signalModal.set(this.headerService.modal)
                 }    
             })    
         }    

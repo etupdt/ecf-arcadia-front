@@ -75,7 +75,6 @@ export class AuthPageComponent {
                 })
             },
             error: (error: { error: { message: any; }; }) => {
-                console.log(error.error.message)
                 this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
                 this.headerService.signalModal.set(this.headerService.modal)
                 this.user = new User()

@@ -51,7 +51,7 @@ export class ReportsPageComponent {
         let animalsSelected: IDropdown[] = []
 
         this.animalService.getItems('animals').subscribe({
-            next: ((res: IAnimal[]) => {
+            next: (res: IAnimal[]) => {
                 res.forEach(animal => {
                     animalList.push({ 
                         id: animal.id, 
@@ -60,7 +60,11 @@ export class ReportsPageComponent {
                 })
                 this.animalList = animalList
                 this.animalsSelected = animalsSelected
-            })
+            },
+            error: (error: { error: { message: any; }; }) => {
+                this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                this.headerService.signalModal.set(this.headerService.modal)
+            }
         })
     
     }

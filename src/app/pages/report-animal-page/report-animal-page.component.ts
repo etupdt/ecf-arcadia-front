@@ -35,7 +35,6 @@ export class ReportAnimalPageComponent implements OnInit {
         effect(() => {
             this.isUpdated = this.genericService.signalIsUpdated()
             this.isValid = this.genericService.signalIsValid()
-            console.log('titi', this.isUpdated)
         });
     }
 
@@ -77,6 +76,8 @@ export class ReportAnimalPageComponent implements OnInit {
                     this.items[this.selectedIndex].veterinaryReports!.push(res)
                 },
                 error: (error: { error: { message: any; }; }) => {
+                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                    this.headerService.signalModal.set(this.headerService.modal)
                 }
             })
         } else {
@@ -87,6 +88,8 @@ export class ReportAnimalPageComponent implements OnInit {
                     this.items[this.selectedIndex].veterinaryReports![this.veterinaryReportIndex] = res
                 },
                 error: (error: { error: { message: any; }; }) => {
+                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                    this.headerService.signalModal.set(this.headerService.modal)
                 }
             })
         }
