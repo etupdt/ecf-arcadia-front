@@ -12,6 +12,7 @@ import { IHabitat } from 'src/app/interfaces/IHabitat';
 import { ApiService } from 'src/app/services/api.service';
 import { View } from 'src/app/models/View';
 import { Service } from 'src/app/models/Service';
+import { ViewFilterPipe } from 'src/app/pipes/view-filter.pipe';
 
 @Component({
     selector: 'app-home-page',
@@ -19,7 +20,16 @@ import { Service } from 'src/app/models/Service';
     styleUrls: ['./home-page.component.scss'],
     standalone: true,
     providers: [],
-    imports: [NgFor, CommonModule, HabitatCardComponent, ServiceCardComponent, ViewFormComponent, ViewComponentComponent, HabitatListComponent]
+    imports: [
+        NgFor,
+        CommonModule, 
+        HabitatCardComponent, 
+        ServiceCardComponent, 
+        ViewFormComponent, 
+        ViewComponentComponent, 
+        HabitatListComponent,
+        ViewFilterPipe
+    ]
 })
 export class HomePageComponent implements OnInit {
 

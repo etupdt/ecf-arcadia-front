@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderService } from 'src/app/services/header.service';
 import { ApiService } from 'src/app/services/api.service';
 import { IView } from 'src/app/interfaces/IView';
+import { View } from 'src/app/models/View';
 
 @Component({
   selector: 'app-views-page',
@@ -18,11 +19,11 @@ import { IView } from 'src/app/interfaces/IView';
 export class ViewsPageComponent implements OnInit{
 
     constructor (
-        private viewService: ApiService<IView>,
+        private viewService: ApiService<View>,
         private headerService: HeaderService
     ) {}
 
-    views$: Observable<IView[]> = this.viewService.getItems('views')
+    views$: Observable<View[]> = this.viewService.getItems('views')
 
     fields: (keyof IView)[] = ['id', 'comment', 'isVisible']
     
@@ -33,11 +34,11 @@ export class ViewsPageComponent implements OnInit{
     
     }
 
-    update(view: IView): void {
+    update(view: View): void {
 
         view.isVisible = !view.isVisible
 
-        this.viewService.putItem('views', view.id, view).subscribe({
+        this.viewService.putItem('views', view.id, new View(view.id, view.pseudo, view.comment, view.isVisible)).subscribe({
             next: (res) => {
             },
             error: (error: { error: { message: any; }; }) => {

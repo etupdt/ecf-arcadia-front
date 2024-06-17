@@ -1,11 +1,18 @@
 
 <form *ngIf="userForm" class="card w-100" [formGroup]="userForm">
     <div class="card-body">
-        <label for="username" class="form-label">Email</label>
+        <label for="email" class="form-label">Email</label>
         <input 
-        id="username"
-        formControlName="username"
+        id="email"
+        formControlName="email"
         type="text" 
+        class="form-control m-1"
+        >
+        <label for="password" class="form-label">Mot de passe</label>
+        <input 
+        id="password"
+        formControlName="password"
+        type="password" 
         class="form-control m-1"
         >
         <label for="firstname" class="form-label">Nom</label>
@@ -30,8 +37,8 @@
                 type="text" 
                 class="form-control m-1" 
                 >
-                <option class="form-control m-1" value="ROLE_EMPLOYE">Employé</option>
-                <option class="form-control m-1" value="ROLE_VETERINAIRE">Véterinaire</option>
+                <option class="form-control m-1" value="EMPLOYEE">Employé</option>
+                <option class="form-control m-1" value="VETERINARY">Véterinaire</option>
             </select>
         </div>
     </div>

@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
-import { ReportFilterPipe } from '../pipes/report-filter.pipe';
+import { ReportFilterPipe } from '../../pipes/report-filter.pipe';
 import { IDropdownSettings, NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { AnimalFilterPipe } from "../pipes/animal-filter.pipe";
+import { AnimalFilterPipe } from "../../pipes/animal-filter.pipe";
 import { IDropdown } from 'src/app/interfaces/IDropdown';
 import { IAnimal } from 'src/app/interfaces/IAnimal';
 
@@ -51,7 +51,7 @@ export class ReportsPageComponent {
         let animalsSelected: IDropdown[] = []
 
         this.animalService.getItems('animals').subscribe({
-            next: ((res: IAnimal[]) => {
+            next: (res: IAnimal[]) => {
                 res.forEach(animal => {
                     animalList.push({ 
                         id: animal.id, 
@@ -60,7 +60,11 @@ export class ReportsPageComponent {
                 })
                 this.animalList = animalList
                 this.animalsSelected = animalsSelected
-            })
+            },
+            error: (error: { error: { message: any; }; }) => {
+                this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                this.headerService.signalModal.set(this.headerService.modal)
+            }
         })
     
     }

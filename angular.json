@@ -79,6 +79,20 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "preprod": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.preprod.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -91,6 +105,9 @@
             },
             "development": {
               "buildTarget": "ecf-arcadia-front:build:development"
+            },
+            "preprod": {
+              "buildTarget": "ecf-arcadia-front:build:preprod"
             }
           },
           "defaultConfiguration": "development"

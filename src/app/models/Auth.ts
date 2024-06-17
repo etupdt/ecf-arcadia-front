@@ -1,15 +1,13 @@
 import { HttpHeaders } from "@angular/common/http";
-import { IUser } from "../interfaces/IUser";
+import { IRace } from "../interfaces/IRace";
+import { IHours } from "../interfaces/IHours";
+import { IAuth } from "../interfaces/IAuth";
 
-export class User implements IUser {
+export class Auth implements IAuth {
 
     constructor (
-        public id: number = 0,
         public email: string = '',
         public password: string = '',
-        public firstname: string = '',
-        public lastname: string = '',
-        public role: string = '',
     ) {}
 
     getApiItemBody (): any {

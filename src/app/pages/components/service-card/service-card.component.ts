@@ -15,8 +15,6 @@ export class ServiceCardComponent {
 
     useBackendImages: string = `${environment.useBackendImages}`
     
-    serviceForm!: FormGroup
-
     @Input() service!: IService 
 
 }

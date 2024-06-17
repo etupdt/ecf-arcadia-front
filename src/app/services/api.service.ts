@@ -33,15 +33,15 @@ export class ApiService<Tdata> {
     putItem(type: string, id: number, item: IElement): Observable<Tdata> {
 
         return this.http.put<Tdata>(
-        environment.useBackend + `/api/${type}/${id}`,
-        item.getApiItemBody()
+            environment.useBackend + `/api/${type}/${id}`,
+            item.getApiItemBody()
         )
 
     }
 
     postItem(type: string, item: IElement): Observable<Tdata> {
 
-        return this.http.post<Tdata>(
+        return this.http.post<any>(
             environment.useBackend + `/api/${type}`,
             item.getApiItemBody()
         )

@@ -80,6 +80,8 @@ export class FoodAnimalPageComponent<Tdata> {
                     this.items[this.selectedIndex].foodAnimals!.push(res)
                 },
                 error: (error: { error: { message: any; }; }) => {
+                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                    this.headerService.signalModal.set(this.headerService.modal)
                 }
             })
         } else {
@@ -90,6 +92,8 @@ export class FoodAnimalPageComponent<Tdata> {
                     this.items[this.selectedIndex].foodAnimals![this.foodAnimalIndex] = res
                 },
                 error: (error: { error: { message: any; }; }) => {
+                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                    this.headerService.signalModal.set(this.headerService.modal)
                 }
             })
         }

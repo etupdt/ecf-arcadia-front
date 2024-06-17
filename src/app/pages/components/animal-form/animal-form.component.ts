@@ -45,8 +45,8 @@ export class AnimalFormComponent implements OnInit, OnChanges {
                 this.animal = new Animal (
                     this.selectedItem.id,
                     this.selectedItem.firstname,
-                    this.selectedItem.description,
                     this.selectedItem.health,
+                    this.selectedItem.description,
                     this.selectedItem.race,
                     this.selectedItem.habitat,
                     this.selectedItem.images,
@@ -76,6 +76,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
 
     get firstname() { return this.animalForm.get('firstname')! as FormControl }
     get health() { return this.animalForm.get('health')! as FormControl }
+    get description() { return this.animalForm.get('description')! as FormControl }
     get race() { return this.animalForm.get('race')! as FormControl }
     get habitat() { return this.animalForm.get('habitat')! as FormControl }
 
@@ -91,19 +92,22 @@ export class AnimalFormComponent implements OnInit, OnChanges {
         this.animalForm = new FormGroup({
             firstname: new FormControl(this.animal.firstname, Validators.required),
             health: new FormControl(this.animal.health, Validators.required),
+            description: new FormControl(this.animal.description, Validators.required),
             race: new FormControl(this.animal.race.id, Validators.required),
             habitat: new FormControl(this.animal.habitat.id, Validators.required),
         });    
         this.animalForm.valueChanges.subscribe(changes => { 
             this.itemsService.signalIsUpdated.set(
                 this.animal.firstname !== this.firstname.value ||
-                this.animal.health !== this.race.value ||
-                this.animal.race.id !== this.health.value ||
+                this.animal.health !== this.health.value ||
+                this.animal.description !== this.description.value ||
+                this.animal.race.id !== this.race.value ||
                 this.animal.habitat.id !== this.habitat.value
             )
             this.itemsService.signalIsValid.set(this.animalForm.valid)
             this.animal.firstname = this.firstname.value
             this.animal.health = this.health.value
+            this.animal.description = this.description.value
             this.animal.race.id = this.race.value
             this.animal.habitat.id = this.habitat.value
         })

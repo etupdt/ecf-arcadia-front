@@ -1,16 +1,16 @@
 
-<form *ngIf="serviceForm" class="card w-100" [formGroup]="serviceForm">
-    <div class="card-body">
-        <input 
-        formControlName="name"
-        type="text" 
-        class="form-control m-1" 
-        >
-        <textarea 
-        formControlName="description"
-        class="form-control m-1" 
-        rows="3"
-        >
-        </textarea>
-    </div>
-</form>
+<div class="card-body">
+    <input 
+    ame="name"
+    type="text" 
+    class="form-control m-1" 
+    value="{{service.name}}"
+    >
+    <textarea 
+    name="description"
+    class="form-control m-1" 
+    rows="3"
+    >
+    {{ service.description }}
+    </textarea>
+</div>
