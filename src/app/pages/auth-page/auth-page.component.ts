@@ -1,4 +1,4 @@
-import { NgFor, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { HeaderService } from 'src/app/services/header.service';
 @Component({
   selector: 'app-auth-page',
   standalone: true,
-  imports: [NgFor, CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './auth-page.component.html',
   styleUrl: './auth-page.component.scss'
 })
