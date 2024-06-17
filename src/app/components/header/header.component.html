@@ -20,30 +20,20 @@
                 <li class="nav-item">
                     <a class="nav-link {{selectedItem === 'Contact' ? 'active' : ''}}">Contact</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a  class="nav-link dropdown-toggle" 
+                <li *ngIf="admin || veterinary || employee" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" 
                         href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {{user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()}}
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a  class="dropdown-item" routerLink="AnimalsAdmin">Animaux</a></li>
-                        <li><a *ngIf="admin || veterinary" class="dropdown-item" routerLink="HabitatsAdmin">Habitats</a></li>
-                        <li><a *ngIf="admin" class="dropdown-item" routerLink="HoursAdmin">Horaires</a></li>
-                        <li><a *ngIf="admin" class="dropdown-item" routerLink="FoodsAdmin">Nourriture</a></li>
-                        <li><a *ngIf="admin" class="dropdown-item" routerLink="RacesAdmin">Races</a></li>
-                        <li><a *ngIf="admin" class="dropdown-item" routerLink="ServicesAdmin">Services</a></li>
-                        <li><a  class="dropdown-item" routerLink="UsersAdmin">Utilisateurs</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a *ngIf="veterinary" class="dropdown-item" routerLink="ReportAnimalAdmin">Rapports</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a *ngIf="employee" class="dropdown-item" routerLink="FoodAnimalAdmin">Alimentation</a></li>
-                        <li><a *ngIf="employee" class="dropdown-item" routerLink="Reports">Rapports Admin</a></li>
-                        <li><a *ngIf="employee" class="dropdown-item" routerLink="Avis">Avis</a></li>
+                        <li *ngFor="let item of dropDownItems; let index = index">
+                            <a *ngIf="user.role === item.auth" class="dropdown-item" (click)="navigateTo(index)">{{ item.label }}</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
             <form class="d-flex" role="search">
-                <button class="btn btn-outline-light" type="submit"><a (click)="toggleConnexion()">{{ connected ? 'Déconnexion' : 'Connexion' }}</a></button>
+                <button class="btn btn-outline-light" type="submit" (click)="toggleConnexion()">{{ connected ? 'Déconnexion' : 'Connexion' }}</button>
                 <div class="navbar-nav">                    
                     <a *ngIf="connected" class="nav-link">{{user.email}}</a>
                 </div>

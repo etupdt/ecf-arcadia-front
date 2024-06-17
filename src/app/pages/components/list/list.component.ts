@@ -42,6 +42,7 @@ export class ListComponent<Tlist> implements OnInit {
         this.apiService.getItems(this.uri).subscribe({
             next: (res: Tlist[]) => {
                 this.genericService.items = res
+                this.selectedIndex = -1
                 this.selectedIndex = res.length > 0 ? 0 : -1
             },
             error: (error: { error: { message: any; }; }) => {

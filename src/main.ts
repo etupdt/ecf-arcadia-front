@@ -8,7 +8,7 @@ import { AppComponent } from './app/app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withRouterConfig } from '@angular/router';
 import { HomePageComponent } from './app/pages/home-page/home-page.component';
 import { ServicesPageComponent } from './app/pages/services-page/services-page.component';
 import { HabitatsPageComponent } from './app/pages/habitats-page/habitats-page.component';
@@ -337,7 +337,9 @@ bootstrapApplication(AppComponent, {
                     },            
                 ],
             },            
-        ]),
+        ], withRouterConfig({
+            onSameUrlNavigation: 'reload'
+         })),
     ]
 })
   .catch(err => console.error(err));

@@ -46,7 +46,8 @@ export class HabitatFormComponent {
 
     get habitat() { return this.itemsService.updatedItem }
     set habitat(habitat : Habitat) { 
-        this.itemsService.updatedItem = habitat }
+        this.itemsService.updatedItem = habitat 
+    }
 
     get name() { return this.habitatForm.get('name')! as FormControl }
     get description() { return this.habitatForm.get('description')! as FormControl }

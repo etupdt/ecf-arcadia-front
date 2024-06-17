@@ -4,7 +4,6 @@ import { HabitatCardComponent } from "../components/habitat-card/habitat-card.co
 import { HeaderService } from 'src/app/services/header.service';
 import { Observable } from 'rxjs';
 import { IHabitat } from 'src/app/interfaces/IHabitat';
-import { ItemsService } from 'src/app/services/items.service';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -16,18 +15,18 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class HabitatsPageComponent {
 
-  habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
+    habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
 
-  constructor(
-    private habitatService: ApiService<IHabitat>,
-    private headerService: HeaderService,
-  ) { }  
+    constructor(
+        private habitatService: ApiService<IHabitat>,
+        private headerService: HeaderService,
+    ) { }  
 
-  ngOnInit(): void {
+    ngOnInit(): void {
 
-    this.headerService.selectedMenuItem = "Habitats"
-    this.headerService.signalItemSelected.set('Habitats')
+        this.headerService.selectedMenuItem = "Habitats"
+        this.headerService.signalItemSelected.set('Habitats')
 
-  }
+    }
 
 }

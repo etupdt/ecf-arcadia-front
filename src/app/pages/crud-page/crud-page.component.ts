@@ -50,7 +50,6 @@ export class CrudPageComponent<Tdata> implements OnInit {
     inCreation: number = -1
     
     ngOnInit(): void {
-        
         this.headerService.selectedMenuItem = "Admin"
         this.headerService.signalItemSelected.set('Admin')
     }
@@ -62,11 +61,9 @@ export class CrudPageComponent<Tdata> implements OnInit {
     }
     
     update = () => {
-        console.log(this.genericService.items, this.uri)
         if (this.genericService.updatedItem['id'] === 0) {
             this.apiService.postItem(this.uri, this.genericService.updatedItem).subscribe({
                 next: (res: Tdata) => {
-                    console.log(res)
                     this.items.push(res)
                     this.selectedIndex = this.items.length - 1
                     this.genericService.updatedItem['id'] = this.genericService.items[this.selectedIndex]['id']

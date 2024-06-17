@@ -16,6 +16,14 @@
         rows="3"
         >
         </textarea>
+        <label for="description" class="form-label">Description</label>
+        <textarea 
+        id="description"
+        formControlName="description"
+        class="form-control m-1" 
+        rows="3"
+        >
+        </textarea>
         <label for="race" class="form-label">Race</label>
         <select
             id="race" 
@@ -25,7 +33,7 @@
         >
             <option class="form-control m-1" *ngFor="let race of races$ | async" [ngValue]="race.id">{{race.label}}</option>
         </select>
-        <label for="race" class="form-label">Habitat</label>
+        <label for="habitat" class="form-label">Habitat</label>
         <select
             id="habitat" 
             formControlName="habitat"

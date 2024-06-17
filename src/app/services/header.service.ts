@@ -6,10 +6,6 @@ import { User } from '../models/User';
 })
 export class HeaderService {
 
-    constructor() {
-        console.log('construct header service : ', this)
-    }
-
     selectedMenuItem: string = 'Habitats'
     signalItemSelected = signal(this.selectedMenuItem)
 
