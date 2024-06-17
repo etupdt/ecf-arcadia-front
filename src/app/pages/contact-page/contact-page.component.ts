@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Contact } from 'src/app/models/Contact';
+import { ApiService } from 'src/app/services/api.service';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
   selector: 'app-contact-page',
@@ -14,7 +16,10 @@ export class ContactPageComponent {
 
     contactForm!: FormGroup
 
-    constructor () {
+    constructor (
+        private contactService: ApiService<Contact>,
+        private headerService: HeaderService,
+    ) {
 
     }
 
@@ -49,7 +54,16 @@ export class ContactPageComponent {
     }
 
     send() {
-
+        this.contactService.postItem('contact', this.contact).subscribe({
+            next: (res: any) => {
+                this.headerService.modal = {modal: 'info', message: res, display: "display: block;"}
+                this.headerService.signalModal.set(this.headerService.modal)
+            },
+            error: (error: { error: { message: any; }; }) => {
+                this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
+                this.headerService.signalModal.set(this.headerService.modal)
+            }    
+        })
     }
 
 }
