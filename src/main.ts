@@ -34,6 +34,7 @@ import { AuthPageComponent } from './app/pages/auth-page/auth-page.component';
 import { tokenInterceptor } from './app/interceptors/token.interceptor';
 import { ErrorModalComponent } from './app/modals/error-modal/error-modal.component';
 import { DashboardPageComponent } from './app/pages/dashboard-page/dashboard-page.component';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -43,7 +44,8 @@ bootstrapApplication(AppComponent, {
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClient(withInterceptors([tokenInterceptor])),
         DatePipe,
-        { provide: SERVICE, useClass: ItemsService },        
+        { provide: SERVICE, useClass: ItemsService },    
+        provideCharts(withDefaultRegisterables()),
         provideRouter([
             {
                 path: 'error',
@@ -344,7 +346,7 @@ bootstrapApplication(AppComponent, {
             },            
         ], withRouterConfig({
             onSameUrlNavigation: 'reload'
-         })),
+        })),
     ]
 })
   .catch(err => console.error(err));

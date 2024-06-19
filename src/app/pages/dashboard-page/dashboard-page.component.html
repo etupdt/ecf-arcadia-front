@@ -1,1 +1,26 @@
-<p>dashboard-page works!</p>
+<h1>Dashboard Admin</h1>
+<h2 class="text-center w-100">Nombre de like par animal</h2>
+<div class="d-flex justify-content-around p-3">
+    <div class="col-7 border border-black m-2 p-2">
+        <app-dashboard-chart [type]="'bar'" [labels]="animalsLabels" [datasets]="animalsDatasets" [options]="{
+            maintainAspectRatio: true,
+        }"
+        ></app-dashboard-chart>
+    </div>
+    <div class="col-4 border border-black m-2 p-2">
+        <app-dashboard-chart [type]="'doughnut'" [labels]="animalsLabels" [datasets]="animalsDatasets"[options]="{
+            maintainAspectRatio: false,
+            responsive: true,
+        }"
+        ></app-dashboard-chart>
+    </div>
+</div>
+<h2 class="text-center w-100">Nombre de like par jour</h2>
+<div class="d-flex justify-content-around p-3">
+    <div class="col-7 border border-black m-2 p-2">
+        <app-dashboard-chart [type]="'bar'" [labels]="animalsLabels" [datasets]="animalsDatasets" [options]="{
+            maintainAspectRatio: true,
+        }"
+        ></app-dashboard-chart>
+    </div>
+</div>
