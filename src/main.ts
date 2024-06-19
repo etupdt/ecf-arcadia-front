@@ -33,6 +33,7 @@ import { FoodFormComponent } from './app/pages/components/food-form/food-form.co
 import { AuthPageComponent } from './app/pages/auth-page/auth-page.component';
 import { tokenInterceptor } from './app/interceptors/token.interceptor';
 import { ErrorModalComponent } from './app/modals/error-modal/error-modal.component';
+import { DashboardPageComponent } from './app/pages/dashboard-page/dashboard-page.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -188,6 +189,10 @@ bootstrapApplication(AppComponent, {
                         }
                     },            
                 ],
+            },            
+            {
+                path: 'DashboardAdmin',
+                component: DashboardPageComponent,
             },            
             {
                 path: 'HoursAdmin',

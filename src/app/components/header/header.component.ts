@@ -36,6 +36,7 @@ export class HeaderComponent {
         {auth: 'ADMIN', label: 'Nouriture', link: 'FoodsAdmin'},
         {auth: 'ADMIN', label: 'Services', link: 'ServicesAdmin'},
         {auth: 'ADMIN', label: 'Utilisateurs', link: 'UsersAdmin'},
+        {auth: 'ADMIN', label: 'Dashboard', link: 'DashboardAdmin'},
         {auth: 'VETERINARY', label: 'Saisie rapports', link: 'ReportAnimalAdmin'},
         {auth: 'EMPLOYEE', label: 'Saisie alimentation', link: 'FoodAnimalAdmin'},
         {auth: 'EMPLOYEE', label: 'Rapports Veto', link: 'Reports'},
