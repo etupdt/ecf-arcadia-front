@@ -1,9 +1,8 @@
-import { NgFor, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { JwtHelperService  } from "@auth0/angular-jwt";
-import { IToken } from 'src/app/interfaces/IToken';
 import { Auth } from 'src/app/models/Auth';
 import { User } from 'src/app/models/User';
 import { ApiService } from 'src/app/services/api.service';
@@ -12,7 +11,7 @@ import { HeaderService } from 'src/app/services/header.service';
 @Component({
   selector: 'app-auth-page',
   standalone: true,
-  imports: [NgFor, CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './auth-page.component.html',
   styleUrl: './auth-page.component.scss'
 })

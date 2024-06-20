@@ -35,6 +35,7 @@ import { tokenInterceptor } from './app/interceptors/token.interceptor';
 import { ErrorModalComponent } from './app/modals/error-modal/error-modal.component';
 import { DashboardPageComponent } from './app/pages/dashboard-page/dashboard-page.component';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { ContactPageComponent } from './app/pages/contact-page/contact-page.component';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -71,6 +72,10 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'Avis',
                 component: ViewsPageComponent,
+            },            
+            {
+                path: 'Contact',
+                component: ContactPageComponent,
             },            
             {
                 path: 'Reports',

@@ -1,11 +1,11 @@
 import { HttpHeaders } from "@angular/common/http";
-import { IAuth } from "../interfaces/IAuth";
 
-export class Auth implements IAuth {
+export class Contact implements Contact {
 
     constructor (
+        public title: string = '',
+        public description: string = '',
         public email: string = '',
-        public password: string = '',
     ) {}
 
     getApiItemBody (): any {
