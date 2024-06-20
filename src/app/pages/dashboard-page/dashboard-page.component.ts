@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ChartConfiguration } from 'chart.js';
+import { Chart, ChartConfiguration, Colors } from 'chart.js';
 import { DashboardChartComponent } from 'src/app/components/dashboard-chart/dashboard-chart.component';
 import { DashboardMixedChartComponent } from 'src/app/components/dashboard-mixed-chart/dashboard-mixed-chart.component';
 import { AnimalStatistic } from 'src/app/models/AnimalStatistic';
@@ -31,6 +31,9 @@ export class DashboardPageComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+
+        Chart.register(Colors)
+
         this.animalStatisticService.getItems('animals/statistics').subscribe({
             next: (res: AnimalStatistic[]) => {
                 const byAnimal: Map<string, number> = new Map()
@@ -71,8 +74,9 @@ export class DashboardPageComponent implements OnInit {
                 this.animalsLabels = animalsLabels
                 this.animalsDatasets = [{
                     data: data,
-                    label: 'Like',
-                    backgroundColor: ["lightpink", "lightblue", "lightgreen", "lightblue", "lightpink", "lightgreen"] 
+                    label: 'like',
+                    borderColor: 'lightgray',
+                    backgroundColor: "lightblue"
                 }]
                 console.log(this.animalsLabels, this.animalsDatasets)
 
