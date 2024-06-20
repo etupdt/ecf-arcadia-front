@@ -40,6 +40,11 @@ export class AuthPageComponent {
     
     ngOnInit(): void {
 
+        this.headerService.selectedMenuItem = ""
+        this.headerService.signalItemSelected.set('')
+            this.headerService.selectedSubMenuItem = ''
+        this.headerService.signalSubItemSelected.set('')
+
         this.initForm()
         
     }        

@@ -21,19 +21,19 @@
                     <a class="nav-link {{selectedItem === 'Contact' ? 'active' : ''}}" routerLink="Contact">Contact</a>
                 </li>
                 <li *ngIf="admin || veterinary || employee" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" 
+                    <a class="nav-link dropdown-toggle {{selectedItem === user.role ? 'active' : ''}}" 
                         href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {{user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()}}
                     </a>
                     <ul class="dropdown-menu">
                         <li *ngFor="let item of dropDownItems; let index = index">
-                            <a *ngIf="user.role === item.auth" class="dropdown-item" (click)="navigateTo(index)">{{ item.label }}</a>
+                            <a *ngIf="user.role === item.auth" class="dropdown-item {{selectedSubItem === item.link ? 'active' : ''}}" (click)="navigateTo(index)">{{ item.label }}</a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <form class="d-flex" role="search">
-                <button class="btn btn-outline-light" type="submit" (click)="toggleConnexion()">{{ connected ? 'Déconnexion' : 'Connexion' }}</button>
+                <button class="btn btn-outline-light" type="button" (click)="toggleConnexion()">{{ connected ? 'Déconnexion' : 'Connexion' }}</button>
                 <div class="navbar-nav">                    
                     <a *ngIf="connected" class="nav-link">{{user.email}}</a>
                 </div>

@@ -9,6 +9,7 @@ import { IDropdownSettings, NgMultiSelectDropDownModule } from 'ng-multiselect-d
 import { AnimalFilterPipe } from "../../pipes/animal-filter.pipe";
 import { IDropdown } from 'src/app/interfaces/IDropdown';
 import { IAnimal } from 'src/app/interfaces/IAnimal';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-reports-page',
@@ -21,6 +22,7 @@ export class ReportsPageComponent {
 
     constructor (
         private animalService: ApiService<IAnimal>,
+        private route: ActivatedRoute,
         private headerService: HeaderService
     ) {}
 
@@ -44,8 +46,11 @@ export class ReportsPageComponent {
 
     ngOnInit(): void {
 
-        this.headerService.selectedMenuItem = "Admin"
-        this.headerService.signalItemSelected.set('Admin')
+        this.headerService.selectedMenuItem =  this.headerService.user.role
+        this.headerService.signalItemSelected.set( this.headerService.user.role)
+        const path = this.route.snapshot.routeConfig ? this.route.snapshot.routeConfig.path : ''
+        this.headerService.selectedSubMenuItem = path ? path : ''
+        this.headerService.signalSubItemSelected.set(path ? path : '')
 
         let animalList: IDropdown[] = []
         let animalsSelected: IDropdown[] = []

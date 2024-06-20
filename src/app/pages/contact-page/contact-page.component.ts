@@ -35,6 +35,8 @@ export class ContactPageComponent {
 
         this.headerService.selectedMenuItem = "Contact"
         this.headerService.signalItemSelected.set('Contact')
+        this.headerService.selectedSubMenuItem = ''
+        this.headerService.signalSubItemSelected.set('')
 
         this.initForm()
         

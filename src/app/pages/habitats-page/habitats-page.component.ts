@@ -26,6 +26,8 @@ export class HabitatsPageComponent {
 
         this.headerService.selectedMenuItem = "Habitats"
         this.headerService.signalItemSelected.set('Habitats')
+        this.headerService.selectedSubMenuItem = ''
+        this.headerService.signalSubItemSelected.set('')
 
     }
 

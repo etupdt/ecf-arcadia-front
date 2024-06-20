@@ -61,8 +61,13 @@ export class FoodAnimalPageComponent<Tdata> {
 
     ngOnInit(): void {
         this.router.navigate([{ outlets: { list: [ 'list' ] }}], {relativeTo:this.route})
-        this.headerService.selectedMenuItem = "Admin"
-        this.headerService.signalItemSelected.set('Admin')
+
+        this.headerService.selectedMenuItem =  this.headerService.user.role
+        this.headerService.signalItemSelected.set( this.headerService.user.role)
+        const path = this.route.snapshot.routeConfig ? this.route.snapshot.routeConfig.path : ''
+        this.headerService.selectedSubMenuItem = path ? path : ''
+        this.headerService.signalSubItemSelected.set(path ? path : '')
+
     }
 
     create = () => {

@@ -6,8 +6,11 @@ import { User } from '../models/User';
 })
 export class HeaderService {
 
-    selectedMenuItem: string = 'Habitats'
+    selectedMenuItem: string = ''
     signalItemSelected = signal(this.selectedMenuItem)
+
+    selectedSubMenuItem: string = ''
+    signalSubItemSelected = signal(this.selectedSubMenuItem)
 
     user: User = new User()
     signalUser = signal(this.user)

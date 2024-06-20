@@ -7,6 +7,7 @@ import { HeaderService } from 'src/app/services/header.service';
 import { ApiService } from 'src/app/services/api.service';
 import { IView } from 'src/app/interfaces/IView';
 import { View } from 'src/app/models/View';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-views-page',
@@ -20,6 +21,7 @@ export class ViewsPageComponent implements OnInit{
 
     constructor (
         private viewService: ApiService<View>,
+        private route: ActivatedRoute,
         private headerService: HeaderService
     ) {}
 
@@ -29,9 +31,12 @@ export class ViewsPageComponent implements OnInit{
     
     ngOnInit(): void {
 
-        this.headerService.selectedMenuItem = "Admin"
-        this.headerService.signalItemSelected.set('Admin')
-    
+        this.headerService.selectedMenuItem =  this.headerService.user.role
+        this.headerService.signalItemSelected.set( this.headerService.user.role)
+        const path = this.route.snapshot.routeConfig ? this.route.snapshot.routeConfig.path : ''
+        this.headerService.selectedSubMenuItem = path ? path : ''
+        this.headerService.signalSubItemSelected.set(path ? path : '')
+
     }
 
     update(view: View): void {
