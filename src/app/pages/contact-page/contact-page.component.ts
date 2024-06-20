@@ -30,8 +30,11 @@ export class ContactPageComponent {
     get email() { return this.contactForm.get('email')! as FormControl }
     
     isUpdated: boolean = false
-        
+           
     ngOnInit(): void {
+
+        this.headerService.selectedMenuItem = "Contact"
+        this.headerService.signalItemSelected.set('Contact')
 
         this.initForm()
         
