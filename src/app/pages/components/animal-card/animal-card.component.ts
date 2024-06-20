@@ -15,18 +15,20 @@ import { environment } from 'src/environments/environment';
 })
 export class AnimalCardComponent {
 
-  constructor (
-    private headerService: HeaderService,
-    private animalService: ApiService<Animal>,
-    public datepipe: DatePipe
-) {
-    effect(() => {
-        const idNotCollapse = this.headerService.signalCollapseAnimals()
-        if (this.animal && this.animal.id !== idNotCollapse) {
-            this.collapse = true
-        }
-    });
-}
+    now = this.datepipe.transform(Date.now(), 'y-MM-dd')
+
+    constructor (
+        private headerService: HeaderService,
+        private animalService: ApiService<Animal>,
+        public datepipe: DatePipe
+    ) {
+        effect(() => {
+            const idNotCollapse = this.headerService.signalCollapseAnimals()
+            if (this.animal && this.animal.id !== idNotCollapse) {
+                this.collapse = true
+            }
+        });
+    }
 
     useBackendImages: string = `${environment.useBackendImages}`
 
@@ -46,7 +48,7 @@ export class AnimalCardComponent {
     private setStatistics() {
         this.animalService.postItem('animals/statistics', new AnimalStatistic(
             this.animal.firstname, 
-            this.datepipe.transform(Date.now(), 'y-MM-dd'),
+            this.now ? this.now : '',
              1
         )).subscribe({
             next: (res: any) => {},

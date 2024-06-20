@@ -18,9 +18,9 @@
 <h2 class="text-center w-100">Nombre de like par jour</h2>
 <div class="d-flex justify-content-around p-3">
     <div class="col-7 border border-black m-2 p-2">
-        <app-dashboard-chart [type]="'bar'" [labels]="animalsLabels" [datasets]="animalsDatasets" [options]="{
+        <app-dashboard-mixed-chart [type]="'bar'" [labels]="datesLabels" [datasets]="datesDatasets" [options]="{
             maintainAspectRatio: true,
         }"
-        ></app-dashboard-chart>
+        ></app-dashboard-mixed-chart>
     </div>
 </div>

@@ -4,7 +4,7 @@ export class AnimalStatistic {
 
     constructor (
         public firstname: string = '',
-        public date: string | null = '',
+        public date: string = '',
         public qty: number = 1,
     ) {}
 
