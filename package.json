@@ -19,7 +19,7 @@
     "@angular/platform-browser-dynamic": "^17.3.3",
     "@angular/router": "^17.3.3",
     "@auth0/angular-jwt": "^5.2.0",
-    "@ng-bootstrap/ng-bootstrap": "^15.1.2",
+    "@ng-bootstrap/ng-bootstrap": "^17.0.0",
     "@popperjs/core": "^2.11.6",
     "@types/lodash": "^4.17.0",
     "bootstrap": "^5.3.3",
