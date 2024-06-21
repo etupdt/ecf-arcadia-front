@@ -18,6 +18,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class HeaderComponent {
 
     selectedItem: string = ''
+    selectedSubItem: string = ''
 
     user: User = new User()
     
@@ -56,6 +57,7 @@ export class HeaderComponent {
     ) {
         effect(() => {
             this.selectedItem = this.headerService.signalItemSelected()
+            this.selectedSubItem = this.headerService.signalSubItemSelected()
             this.user = this.headerService.signalUser()
         });
         effect(() => {
@@ -86,13 +88,16 @@ export class HeaderComponent {
             this.headerService.user = new User()
             this.headerService.signalUser.set(this.headerService.user)
             localStorage.removeItem('arcadia_tokens')
+            if (this.selectedSubItem !== '') {
+                this.router.navigate(['Accueil'])
+            }
         } else {
             this.router.navigate(['Auth', {return: this.selectedItem}])
         }
     }
 
     navigateTo(index: number) { 
-        if (this.dropDownItem !== index) {
+        if (this.selectedItem !== this.headerService.user.role || this.dropDownItem !== index) {
             this.dropDownItem = index
             this.router.navigate([this.dropDownItems[index].link])
         }

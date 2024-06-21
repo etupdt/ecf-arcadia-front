@@ -15,18 +15,20 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ServicesPageComponent {
 
-  services$: Observable<IService[]> = this.serviceService.getItems('services')
+    services$: Observable<IService[]> = this.serviceService.getItems('services')
 
-  constructor(
-    private serviceService: ApiService<IService>,
-    private headerService: HeaderService,
-  ) { }  
+    constructor(
+        private serviceService: ApiService<IService>,
+        private headerService: HeaderService,
+    ) { }  
 
-  ngOnInit(): void {
+    ngOnInit(): void {
 
-    this.headerService.selectedMenuItem = "Services"
-    this.headerService.signalItemSelected.set('Services')
+        this.headerService.selectedMenuItem = "Services"
+        this.headerService.signalItemSelected.set('Services')
+        this.headerService.selectedSubMenuItem = ''
+        this.headerService.signalSubItemSelected.set('')
 
-  }
+    }
 
 }

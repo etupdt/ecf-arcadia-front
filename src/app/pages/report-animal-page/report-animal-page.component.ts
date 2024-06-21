@@ -60,8 +60,11 @@ export class ReportAnimalPageComponent implements OnInit {
     veterinaryReportIndex: number = -1
 
     ngOnInit(): void {
-        this.headerService.selectedMenuItem = "Admin"
-        this.headerService.signalItemSelected.set('Admin')
+        this.headerService.selectedMenuItem =  this.headerService.user.role
+        this.headerService.signalItemSelected.set( this.headerService.user.role)
+        const path = this.route.snapshot.routeConfig ? this.route.snapshot.routeConfig.path : ''
+        this.headerService.selectedSubMenuItem = path ? path : ''
+        this.headerService.signalSubItemSelected.set(path ? path : '')
     }
 
     create = () => {
