@@ -3,7 +3,7 @@ name: Deploy to OVH
 on:
   push:
     branches:
-      - config/github
+      - config/actions
 
 env:
   REGISTRY: ghcr.io
