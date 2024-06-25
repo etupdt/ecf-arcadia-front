@@ -53,3 +53,4 @@ jobs:
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "echo ${{ secrets.GITHUB_TOKEN }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo docker compose -f docker-compose-front-prod.yml pull"
           sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo docker compose -f docker-compose-front-prod.yml up -d"
+ 

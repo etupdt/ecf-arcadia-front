@@ -16,3 +16,4 @@ COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist/ecf-arcadia-front /usr/share/nginx/html
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ 
