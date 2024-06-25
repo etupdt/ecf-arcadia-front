@@ -1,6 +1,6 @@
 import { IElement } from "./IElement";
 
-export interface IRace extends IElement {
+export interface IBreed extends IElement {
     id: number,
     label: string,
 }

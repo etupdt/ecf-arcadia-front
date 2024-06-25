@@ -1,7 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
-import { IRace } from "../interfaces/IRace";
+import { IBreed } from "../interfaces/IBreed";
 
-export class Race implements IRace {
+export class Breed implements IBreed {
 
     constructor (
         public id: number = 0,

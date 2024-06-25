@@ -33,7 +33,7 @@ export class HeaderComponent {
         {auth: 'ADMIN', label: 'Animaux', link: 'AnimalsAdmin'},
         {auth: 'ADMIN', label: 'Habitats', link: 'HabitatsAdmin'},
         {auth: 'ADMIN', label: 'Horaires', link: 'HoursAdmin'},
-        {auth: 'ADMIN', label: 'Races', link: 'RacesAdmin'},
+        {auth: 'ADMIN', label: 'Races', link: 'BreedsAdmin'},
         {auth: 'ADMIN', label: 'Nouriture', link: 'FoodsAdmin'},
         {auth: 'ADMIN', label: 'Services', link: 'ServicesAdmin'},
         {auth: 'ADMIN', label: 'Utilisateurs', link: 'UsersAdmin'},

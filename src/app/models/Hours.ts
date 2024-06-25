@@ -1,5 +1,4 @@
 import { HttpHeaders } from "@angular/common/http";
-import { IRace } from "../interfaces/IRace";
 import { IHours } from "../interfaces/IHours";
 
 export class Hours implements IHours {

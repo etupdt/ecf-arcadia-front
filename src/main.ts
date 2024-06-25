@@ -28,7 +28,7 @@ import { AnimalReportComponent } from './app/pages/components/animal-report/anim
 import { ReportAnimalPageComponent } from './app/pages/report-animal-page/report-animal-page.component';
 import { AnimalFoodListComponent } from './app/pages/components/animal-food-list/animal-food-list.component';
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
-import { RaceFormComponent } from './app/pages/components/race-form/race-form.component';
+import { BreedFormComponent } from './app/pages/components/breed-form/breed-form.component';
 import { FoodFormComponent } from './app/pages/components/food-form/food-form.component';
 import { AuthPageComponent } from './app/pages/auth-page/auth-page.component';
 import { tokenInterceptor } from './app/interceptors/token.interceptor';
@@ -114,16 +114,16 @@ bootstrapApplication(AppComponent, {
                 ],
             },            
             {
-                path: 'RacesAdmin',
+                path: 'BreedsAdmin',
                 component: CrudPageComponent,
                 data: {
-                    feature: 'races',
+                    feature: 'breeds',
                     requiredService: SERVICE
                 },
                 children: [
                     {
                         path: 'form',
-                        component: RaceFormComponent,
+                        component: BreedFormComponent,
                         outlet: 'form',
                         data: { 
                             requiredService: SERVICE,
@@ -135,7 +135,7 @@ bootstrapApplication(AppComponent, {
                         outlet: 'list',
                         data: { 
                             requiredService: SERVICE,
-                            feature: 'races',
+                            feature: 'breeds',
                             fields: ['id', 'label'],
                         }
                     },            

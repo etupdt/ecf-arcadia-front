@@ -4,7 +4,7 @@ import { Md5 } from 'ts-md5';
 import { IImage } from "../interfaces/IImage";
 import { Image } from "./Image";
 import { FoodAnimal } from "../models/FoodAnimal";
-import { Race } from "./Race";
+import { Breed } from "./Breed";
 import { Habitat } from "./Habitat";
 import { VeterinaryReport } from "./VeterinaryReport";
 
@@ -15,7 +15,7 @@ export class Animal implements IAnimal {
         public firstname: string = '',
         public health: string = '',
         public description: string = '',
-        public race: Race= new Race(),
+        public breed: Breed= new Breed(),
         public habitat: Habitat = new Habitat(),
         public images: Image[] = [],
         public veterinaryReports: VeterinaryReport[] = [],
@@ -51,7 +51,7 @@ export class Animal implements IAnimal {
             firstname: this.firstname,
             health: this.health,
             description: this.description,
-            race: this.race,
+            breed: this.breed,
             habitat: this.habitat,
             images: images,
             veterinaryReports: this.veterinaryReports,

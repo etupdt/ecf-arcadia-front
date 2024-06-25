@@ -24,14 +24,14 @@
         rows="3"
         >
         </textarea>
-        <label for="race" class="form-label">Race</label>
+        <label for="breed" class="form-label">Race</label>
         <select
-            id="race" 
-            formControlName="race"
+            id="breed" 
+            formControlName="breed"
             type="text" 
             class="form-control m-1" 
         >
-            <option class="form-control m-1" *ngFor="let race of races$ | async" [ngValue]="race.id">{{race.label}}</option>
+            <option class="form-control m-1" *ngFor="let breed of breeds$ | async" [ngValue]="breed.id">{{breed.label}}</option>
         </select>
         <label for="habitat" class="form-label">Habitat</label>
         <select
