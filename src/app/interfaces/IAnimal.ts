@@ -1,6 +1,6 @@
 
 import { IElement } from "./IElement";
-import { Race } from "../models/Race";
+import { Breed } from "../models/Breed";
 import { Image } from "../models/Image";
 import { Habitat } from "../models/Habitat";
 import { FoodAnimal } from "../models/FoodAnimal";
@@ -11,7 +11,7 @@ export interface IAnimal extends IElement {
     firstname: string,
     description: string,
     health: string,
-    race: Race,
+    breed: Breed,
     habitat: Habitat,
     images: Image[],
     veterinaryReports: VeterinaryReport[]
