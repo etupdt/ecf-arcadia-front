@@ -10,6 +10,7 @@ import { IElement } from '../interfaces/IElement';
 })
 export class ApiService<Tdata> {
 
+    
     constructor(
         private http: HttpClient
     ) {}

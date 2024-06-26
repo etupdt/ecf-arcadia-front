@@ -6,9 +6,12 @@ WORKDIR /app
 COPY . .
 
 RUN npm install -g npm@10.8.1
+RUN npm cache clean --force
+RUN npm install --legacy-peer-deps
+
 RUN npm install -g @angular/cli
 
-RUN ng build --configuration=preprod
+RUN ng build --configuration=production
 
 FROM nginx:alpine3.19
 
