@@ -11,7 +11,7 @@ RUN npm install --legacy-peer-deps
 
 RUN npm install -g @angular/cli
 
-RUN ng build --configuration=production
+RUN ng build --configuration=demo
 
 FROM nginx:alpine3.19
 
