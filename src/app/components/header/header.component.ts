@@ -1,6 +1,6 @@
 import { Component, effect } from '@angular/core';
 import { HeaderService } from 'src/app/services/header.service';
-import { LinksComponent } from '../../pages/components/links/links.component';
+import { LinksComponent } from '../links/links.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { User } from 'src/app/models/User';

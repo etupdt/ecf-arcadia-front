@@ -1,6 +1,6 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component } from '@angular/core';
-import { HabitatCardComponent } from "../components/habitat-card/habitat-card.component";
+import { HabitatCardComponent } from "../../components/habitat-card/habitat-card.component";
 import { HeaderService } from 'src/app/services/header.service';
 import { Observable } from 'rxjs';
 import { IHabitat } from 'src/app/interfaces/IHabitat';

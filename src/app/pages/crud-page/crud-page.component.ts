@@ -3,7 +3,7 @@ import { Component, Injector, OnInit, effect } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
-import { ListComponent } from "../components/list/list.component";
+import { ListComponent } from "../../components/list/list.component";
 
 @Component({
     selector: 'app-crud-page',

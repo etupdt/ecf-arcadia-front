@@ -12,7 +12,7 @@
     </div>
 </div>
 <ul class="{{ collapse ? 'hidden' : '' }}">
-    <li *ngFor="let animal of habitat.animals">
+    <li class="w-100" *ngFor="let animal of habitat.animals">
         <app-animal-card [animal]="animal | uniqReport"></app-animal-card>
     </li>
 </ul>

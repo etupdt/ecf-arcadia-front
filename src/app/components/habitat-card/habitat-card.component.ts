@@ -2,7 +2,7 @@ import { Component, Input, signal } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { NgFor } from '@angular/common';
 import { AnimalCardComponent } from '../animal-card/animal-card.component';
-import { UniqReportPipe } from "../../../pipes/uniq-report.pipe";
+import { UniqReportPipe } from "../../pipes/uniq-report.pipe";
 import { IHabitat } from 'src/app/interfaces/IHabitat';
 
 @Component({

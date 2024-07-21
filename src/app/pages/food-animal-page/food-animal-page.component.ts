@@ -1,6 +1,6 @@
 import { Component, Injector, effect } from '@angular/core';
 import { HeaderService } from 'src/app/services/header.service';
-import { AnimalFoodComponent } from "../components/animal-food/animal-food.component";
+import { AnimalFoodComponent } from "../../components/animal-food/animal-food.component";
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { DatePipe } from '@angular/common';

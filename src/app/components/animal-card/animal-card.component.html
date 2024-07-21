@@ -8,12 +8,12 @@
         </div>
     </div>
     <div class="animal-detail {{ collapse ? 'hidden' : '' }} p-2">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p>
         <ul>
             <li><span>Race :</span><span> {{animal.breed!.label}}</span></li>
             <li><span>Etat de l'animal :</span><span> {{animal.health}}</span></li>
             <li><span>Nouriture proposée :</span><span> {{animal.veterinaryReports![0].food.name}}</span></li>
             <li><span>Grammage de la nouriture :</span><span> {{animal.veterinaryReports![0].gramage}}</span></li>
+            <li><span>Date de passage :</span><span> {{animal.veterinaryReports![0].date}}</span></li>
             <li><span>Détail de l'état :</span><span> {{animal.veterinaryReports![0].detail}}</span></li>
         </ul>
     </div>

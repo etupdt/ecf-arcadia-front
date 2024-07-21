@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CommonModule, NgFor } from '@angular/common';
 import { ServiceCardComponent } from "../../components/service-card/service-card.component";
 import { ViewFormComponent } from "../../components/view-form/view-form.component";
-import { AnimalFormComponent } from "../components/animal-form/animal-form.component";
+import { AnimalFormComponent } from "../../components/animal-form/animal-form.component";
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { CrudPageComponent } from "../crud-page/crud-page.component";
 import { ApiService } from 'src/app/services/api.service';
