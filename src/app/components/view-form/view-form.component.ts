@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ItemsService } from 'src/app/services/items.service';
 import { ApiService } from 'src/app/services/api.service';
 import { IView } from 'src/app/interfaces/IView';
+import { View } from 'src/app/models/View';
 
 @Component({
     selector: 'app-view-form',
@@ -27,6 +27,10 @@ export class ViewFormComponent implements OnInit {
     updated: boolean = false
 
     ngOnInit(): void {
+        this.initForm()
+    }        
+
+    initForm(): void {
         this.viewForm = new FormGroup({
             pseudo: new FormControl(this.view.pseudo, Validators.required),
             comment: new FormControl(this.view.comment, Validators.required),
@@ -39,7 +43,6 @@ export class ViewFormComponent implements OnInit {
         this.viewForm.valueChanges.subscribe(change => {
             this.updated = this.isUpdated()
         })        
-
     }        
 
     update(): void {
@@ -50,6 +53,8 @@ export class ViewFormComponent implements OnInit {
 
         this.viewService.postItem('views', this.view).subscribe({
             next: (res) => {
+                this.view = new View(0, "", "", false)
+                this.initForm()
             },
             error: (error: { error: { message: any; }; }) => {
             }

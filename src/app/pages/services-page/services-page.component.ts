@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HeaderService } from 'src/app/services/header.service';
-import { ServiceCardComponent } from "../components/service-card/service-card.component";
+import { ServiceCardComponent } from "../../components/service-card/service-card.component";
 import { IService } from 'src/app/interfaces/IService';
 import { ApiService } from 'src/app/services/api.service';
 

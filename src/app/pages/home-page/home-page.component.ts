@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IView } from 'src/app/interfaces/IView';
-import { ViewComponentComponent } from '../components/view-component/view-component.component';
-import { ViewFormComponent } from '../components/view-form/view-form.component';
-import { ServiceCardComponent } from '../components/service-card/service-card.component';
+import { ViewFormComponent } from '../../components/view-form/view-form.component';
+import { ServiceCardComponent } from '../../components/service-card/service-card.component';
 import { HabitatCardComponent } from '../components/habitat-card/habitat-card.component';
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderService } from 'src/app/services/header.service';
@@ -26,7 +25,6 @@ import { ViewFilterPipe } from 'src/app/pipes/view-filter.pipe';
         HabitatCardComponent, 
         ServiceCardComponent, 
         ViewFormComponent, 
-        ViewComponentComponent, 
         HabitatListComponent,
         ViewFilterPipe
     ]
@@ -44,31 +42,13 @@ export class HomePageComponent implements OnInit {
     services$: Observable<Service[]> = this.serviceService.getItems('services')
     views$: Observable<IView[]> = this.viewService.getItems('views')
 
-    view!: IView
+    view: IView = new View(0, "", "", false)
 
     ngOnInit(): void {
 
         this.headerService.selectedMenuItem = "Accueil"
         this.headerService.signalItemSelected.set('Accueil')
 
-        this.view = this.initForm()
-
-    }
-
-    onFormSubmit = (view: IView) => {
-
-        this.viewService.postItem('views', view).subscribe({
-        next: (res: IView) => {
-            this.view = this.initForm()
-        },
-        error: (error: { error: { message: any; }; }) => {
-        }
-        })
-
-    }
-
-    initForm = (): View => {
-        return new View(0, "", "", false)
     }
 
 }

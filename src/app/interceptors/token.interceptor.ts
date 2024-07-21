@@ -20,10 +20,12 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
             headerService.user = new User()
             headerService.signalUser.set(headerService.user)
             localStorage.removeItem('arcadia_tokens')
+            modifiedReq = req
+        } else {
+            modifiedReq = req.clone({
+                headers: req.headers.set('Authorization', `Bearer ${userTokens.access_token}`),
+            })
         }
-        modifiedReq = req.clone({
-            headers: req.headers.set('Authorization', `Bearer ${userTokens.access_token}`),
-        })
     } else {
         modifiedReq = req
     }

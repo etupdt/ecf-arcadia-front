@@ -15,7 +15,7 @@ import { HabitatsPageComponent } from './app/pages/habitats-page/habitats-page.c
 import { DatePipe } from '@angular/common';
 import { CrudPageComponent } from './app/pages/crud-page/crud-page.component';
 import { ItemsService } from './app/services/items.service';
-import { ServiceFormComponent } from './app/pages/components/service-form/service-form.component';
+import { ServiceFormComponent } from './app/components/service-form/service-form.component';
 import { ViewsPageComponent } from './app/pages/views-page/views-page.component';
 import { AnimalFormComponent } from './app/pages/components/animal-form/animal-form.component';
 import { FoodAnimalPageComponent } from './app/pages/food-animal-page/food-animal-page.component';

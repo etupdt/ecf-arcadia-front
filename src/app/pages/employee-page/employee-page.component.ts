@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { HeaderService } from 'src/app/services/header.service';
-import { ViewComponentComponent } from "../components/view-component/view-component.component";
 import { Observable } from 'rxjs';
 import { CommonModule, NgFor } from '@angular/common';
-import { ServiceCardComponent } from "../components/service-card/service-card.component";
-import { ViewFormComponent } from "../components/view-form/view-form.component";
+import { ServiceCardComponent } from "../../components/service-card/service-card.component";
+import { ViewFormComponent } from "../../components/view-form/view-form.component";
 import { AnimalFormComponent } from "../components/animal-form/animal-form.component";
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { CrudPageComponent } from "../crud-page/crud-page.component";
@@ -18,7 +17,7 @@ import { Service } from 'src/app/models/Service';
     templateUrl: './employee-page.component.html',
     styleUrls: ['./employee-page.component.scss'],
     standalone: true,
-    imports: [NgFor, RouterOutlet, CommonModule, ViewComponentComponent, ServiceCardComponent, ViewFormComponent, AnimalFormComponent, CrudPageComponent]
+    imports: [NgFor, RouterOutlet, CommonModule, ServiceCardComponent, ViewFormComponent, AnimalFormComponent, CrudPageComponent]
 })
 export class EmployeePageComponent {
 

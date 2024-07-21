@@ -1,6 +1,6 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ViewFormComponent } from '../components/view-form/view-form.component';
+import { ViewFormComponent } from '../../components/view-form/view-form.component';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { HeaderService } from 'src/app/services/header.service';
