@@ -19,7 +19,7 @@ ARG ENV=prod
 ARG SECRET_KEY
 ARG SECRET_CRT
 
-RUN if [ "${ENV}" == "prod" ] ; then RUN mkdir -p /etc/ssl/arcadia/ ; fi
+RUN if [ "${ENV}" == "prod" ] ; then mkdir -p /etc/ssl/arcadia/ ; fi
 RUN if [ "${ENV}" == "prod" ] ; then echo -e "${SECRET_KEY}" > /etc/ssl/arcadia/server.key ; fi
 RUN if [ "${ENV}" == "prod" ] ; then echo -e "${SECRET_CRT}" > /etc/ssl/arcadia/server.crt ; fi
 
