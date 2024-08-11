@@ -3,7 +3,7 @@ name: Deploy to OVH
 on:
   push:
     branches:
-      - preprod
+      - config/tls
 
 env:
   REGISTRY: ghcr.io
@@ -38,11 +38,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          build-args: |
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            SECRET_CRT=${{ secrets.SECRET_CRT }}
 
       - name: copy docker compose file to target server
         run: |

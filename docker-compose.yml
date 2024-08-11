@@ -1,8 +1,10 @@
-version: "3.1"
+version: "3.7"
 services:
   front:
     build: 
       context: .
+      args:
+        - ENV=demo
     restart: always
     ports:
       - 4200:80

@@ -15,7 +15,14 @@ RUN ng build --configuration=demo
 
 FROM nginx:alpine3.19
 
-COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+ARG ENV=prod
+ARG SECRET_KEY
+ARG SECRET_CRT
+
+RUN if [ "${ENV}" == "prod" ] ; then echo -e "${SECRET_KEY}" > /etc/ssl/arcadia/server.key ; fi
+RUN if [ "${ENV}" == "prod" ] ; then echo -e "${SECRET_CRT}" > /etc/ssl/arcadia/server.crt ; fi
+
+COPY nginx/nginx.${ENV}.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist/ecf-arcadia-front /usr/share/nginx/html
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
