@@ -1,6 +1,8 @@
 
 FROM node:20-alpine3.20 AS build
 
+ARG ENV=production
+
 WORKDIR /app
 
 COPY . .
@@ -11,7 +13,7 @@ RUN npm install --legacy-peer-deps
 
 RUN npm install -g @angular/cli
 
-RUN ng build --configuration=demo
+RUN ng build --configuration=${ENV}
 
 FROM nginx:alpine3.19
 
