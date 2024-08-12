@@ -3,7 +3,7 @@ name: Deploy to OVH
 on:
   push:
     branches:
-      - config/tls
+      - preprod
 
 env:
   REGISTRY: ghcr.io
