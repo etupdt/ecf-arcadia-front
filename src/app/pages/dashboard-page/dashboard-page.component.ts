@@ -52,7 +52,6 @@ export class DashboardPageComponent implements OnInit {
                 
                 for (let i = -depth; i < 0; i++) {
                     dat.setDate(dat.getDate() + 1)
-                    console.log(this.datepipe.transform(dat, 'y-MM-dd'))
                     const datLib = this.datepipe.transform(dat, 'y-MM-dd')
                     byDate.set(datLib ? datLib : '', new Map())
                 }    
@@ -78,13 +77,11 @@ export class DashboardPageComponent implements OnInit {
                     borderColor: 'lightgray',
                     backgroundColor: "lightblue"
                 }]
-                console.log(this.animalsLabels, this.animalsDatasets)
 
                 for (let [k, val] of byDate.entries()) {
                     this.datesLabels.push(k)
                 }
                 for (let [key, value] of byAnimal.entries()) {
-                    console.log(key)
                     dataDate = []
                     for (let [k, val] of byDate.entries()) {
                         const v = val.get(key)
@@ -97,7 +94,6 @@ export class DashboardPageComponent implements OnInit {
                     })
                 }
                 this.datesDatasets = datesDatasets
-                console.log(this.datesLabels, this.datesDatasets)
             },
             error: (error: { error: { message: any; }; }) => {
                 this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}

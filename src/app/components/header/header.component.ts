@@ -7,6 +7,7 @@ import { User } from 'src/app/models/User';
 import { ErrorModalComponent } from "../../modals/error-modal/error-modal.component";
 import { ApiService } from 'src/app/services/api.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { IToken } from 'src/app/interfaces/IToken';
 
 @Component({
     selector: 'app-header',
@@ -66,20 +67,28 @@ export class HeaderComponent {
             this.displayModal = this.headerService.signalModal().display
         });
         
-        const userTokens = localStorage.getItem('arcadia_tokens'); 
+        const localUserTokens = localStorage.getItem('arcadia_tokens'); 
 
-        if (userTokens) {
-            this.userService.getItem('users', this.helper.decodeToken(JSON.parse(userTokens).access_token).id).subscribe({
-                next: (res: User) => {
-                    this.headerService.user = res
-                    this.headerService.signalUser.set(res)
-                },
-                error: (error: { error: { message: any; }; }) => {
-                    this.headerService.modal = {modal: 'error', message:  error.error ? error.error.message : 'erruer non définie', display: "display: block;"}
-                    this.headerService.signalModal.set(this.headerService.modal)
-                    this.user = new User()
-                }    
-            })
+        if (localUserTokens) {
+            const userTokens: any = this.helper.decodeToken(JSON.parse(localUserTokens).access_token)
+            if (Date.now() > userTokens.exp * 1000) {
+                headerService.user = new User()
+                headerService.signalUser.set(headerService.user)
+                localStorage.removeItem('arcadia_tokens')
+                this.router.navigate(['Accueil'])
+            } else {
+                this.userService.getItem('users', userTokens.id).subscribe({
+                    next: (res: User) => {
+                        this.headerService.user = res
+                        this.headerService.signalUser.set(res)
+                    },
+                    error: (error: { error: { message: any; }; }) => {
+                        this.headerService.modal = {modal: 'error', message:  error.error ? error.error.message : 'erruer non définie', display: "display: block;"}
+                        this.headerService.signalModal.set(this.headerService.modal)
+                        this.user = new User()
+                    }    
+                })
+            }       
         }
         
     }

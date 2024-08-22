@@ -58,7 +58,7 @@ export class UserFormComponent {
 
     initForm = () => {
         this.userForm = new FormGroup({
-            email: new FormControl(this.user.email, Validators.required),
+            email: new FormControl(this.user.email, [Validators.required, Validators.email]),
             password: new FormControl(this.user.password, Validators.required),
             firstname: new FormControl(this.user.firstname, Validators.required),
             lastname: new FormControl(this.user.lastname, Validators.required),
