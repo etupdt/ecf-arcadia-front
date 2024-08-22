@@ -70,19 +70,9 @@ export class AuthPageComponent {
                     next: (res: User) => {
                         this.user = res
                         this.router.navigate([this.return])
-                    },
-                    error: (error: { error: { message: any; }; }) => {
-                        this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                        this.headerService.signalModal.set(this.headerService.modal)
-                        this.user = new User()
                     }    
                 })
-            },
-            error: (error: { error: { message: any; }; }) => {
-                this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                this.headerService.signalModal.set(this.headerService.modal)
-                this.user = new User()
-            }    
+            }
         })
     }
 

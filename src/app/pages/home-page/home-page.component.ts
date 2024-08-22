@@ -5,13 +5,14 @@ import { ServiceCardComponent } from '../../components/service-card/service-card
 import { HabitatCardComponent } from '../../components/habitat-card/habitat-card.component';
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderService } from 'src/app/services/header.service';
-import { Observable } from 'rxjs';
+import { catchError, ignoreElements, Observable, of, tap, throwError } from 'rxjs';
 import { HabitatListComponent } from "../../components/habitat-list/habitat-list.component";
 import { IHabitat } from 'src/app/interfaces/IHabitat';
 import { ApiService } from 'src/app/services/api.service';
 import { View } from 'src/app/models/View';
 import { Service } from 'src/app/models/Service';
 import { ViewFilterPipe } from 'src/app/pipes/view-filter.pipe';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-home-page',
@@ -38,7 +39,21 @@ export class HomePageComponent implements OnInit {
         private headerService: HeaderService
     ) { }
 
+    // habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
+    // errorsHabitats$ = this.habitats$.pipe(
+    //     ignoreElements(),
+    //     catchError((err: Error) => of(err))
+    // )
+
     habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
+    // .pipe(
+    //     catchError((e: HttpErrorResponse) => {
+    //         console.log('toto', e)
+    //         this.displayError('Application indisponible !')
+    //         return throwError(() => e.message)
+    //     })
+    // )
+
     services$: Observable<Service[]> = this.serviceService.getItems('services')
     views$: Observable<IView[]> = this.viewService.getItems('views')
 
