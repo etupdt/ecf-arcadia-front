@@ -4,7 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { HeaderService } from '../services/header.service';
 import { inject } from '@angular/core';
 import { User } from '../models/User';
-import { catchError } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     
@@ -32,6 +32,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     }
    
     return next(modifiedReq).pipe(
+        // tap(event=> console.log('event', event)),
         catchError((error: HttpErrorResponse) => {
             let message: string = ''
             if (error) {
@@ -41,11 +42,11 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                         break;
                     }
                     case 401: {
-                        message = 'Erreur 401'
+                        message = 'Email ou password incorrect !'
                         break;
                     }
                     case 403: {
-                        message = 'Erreur 403'
+                        message = 'Habilitations insuffisantes pour effectuer cette opération !'
                         break;
                     }
                     case 500: {
