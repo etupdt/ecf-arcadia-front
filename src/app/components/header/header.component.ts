@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, effect, ElementRef, ViewChild } from '@angular/core';
 import { HeaderService } from 'src/app/services/header.service';
 import { LinksComponent } from '../links/links.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -7,7 +7,7 @@ import { User } from 'src/app/models/User';
 import { ErrorModalComponent } from "../../modals/error-modal/error-modal.component";
 import { ApiService } from 'src/app/services/api.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { IToken } from 'src/app/interfaces/IToken';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-header',
@@ -17,14 +17,14 @@ import { IToken } from 'src/app/interfaces/IToken';
     imports: [NgFor, NgIf, LinksComponent, RouterModule, ErrorModalComponent]
 })
 export class HeaderComponent {
-
+	
     selectedItem: string = ''
     selectedSubItem: string = ''
 
     user: User = new User()
     
     messageModal: string = ''
-    displayModal: string = 'hidden'
+    displayErrorModal: string = 'hidden'
     
     get admin() {return this.user.role === 'ADMIN'}
     get employee() {return this.user.role === 'EMPLOYEE'}
@@ -64,7 +64,7 @@ export class HeaderComponent {
         });
         effect(() => {
             this.messageModal = this.headerService.signalModal().message
-            this.displayModal = this.headerService.signalModal().display
+            this.displayErrorModal = this.headerService.signalModal().display
         });
         
         const localUserTokens = localStorage.getItem('arcadia_tokens'); 
@@ -93,16 +93,12 @@ export class HeaderComponent {
         
     }
 
-    toggleConnexion = () => {
-        if (this.connected) {
-            this.headerService.user = new User()
-            this.headerService.signalUser.set(this.headerService.user)
-            localStorage.removeItem('arcadia_tokens')
-            if (this.selectedSubItem !== '') {
-                this.router.navigate(['Accueil'])
-            }
-        } else {
-            this.router.navigate(['Auth', {return: this.selectedItem}])
+    logout = () => {
+        this.headerService.user = new User()
+        this.headerService.signalUser.set(this.headerService.user)
+        localStorage.removeItem('arcadia_tokens')
+        if (this.selectedSubItem !== '') {
+            this.router.navigate(['Accueil'])
         }
     }
 
@@ -111,6 +107,10 @@ export class HeaderComponent {
             this.dropDownItem = index
             this.router.navigate([this.dropDownItems[index].link])
         }
+    }
+
+    onCloseErrorModal() {
+        this.displayErrorModal = ''
     }
 
 }

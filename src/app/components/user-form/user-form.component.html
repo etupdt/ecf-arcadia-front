@@ -37,6 +37,7 @@
                 type="text" 
                 class="form-control m-1" 
                 >
+                <option *ngIf="role.value !== 'ADMIN'" class="form-control m-1" value=""></option>
                 <option *ngIf="role.value !== 'ADMIN'" class="form-control m-1" value="EMPLOYEE">Employé</option>
                 <option *ngIf="role.value !== 'ADMIN'" class="form-control m-1" value="VETERINARY">Véterinaire</option>
                 <option class="form-control m-1" disabled value="ADMIN">Administrateur</option>

@@ -2,9 +2,10 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { IToken } from '../interfaces/IToken';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HeaderService } from '../services/header.service';
-import { inject } from '@angular/core';
+import { ElementRef, inject } from '@angular/core';
 import { User } from '../models/User';
 import { catchError, tap } from 'rxjs';
+import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     
@@ -38,7 +39,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
             if (error) {
                 switch (error.status) {
                     case 400: {
-                        message = 'Erreur 400'
+                        message = 'Erreur 400 !'
                         break;
                     }
                     case 401: {
@@ -60,8 +61,10 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                 }
             }
 
-            headerService.modal = {modal: 'error', message: message, display: "display: block;"}
-            headerService.signalModal.set(headerService.modal)
+            document.getElementById('errorModal')!.style.display = 'block'
+            document.getElementById('errorMessage')!.innerText = message
+            // headerService.modal = {modal: 'error', message: message, display: "display: block;"}
+            // headerService.signalModal.set(headerService.modal)
     
             throw error
 

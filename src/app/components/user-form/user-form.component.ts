@@ -62,7 +62,7 @@ export class UserFormComponent {
             password: new FormControl(this.user.password, Validators.required),
             firstname: new FormControl(this.user.firstname, Validators.required),
             lastname: new FormControl(this.user.lastname, Validators.required),
-            role: new FormControl(this.user.role),
+            role: new FormControl(this.user.role, Validators.required),
         });    
         this.userForm.valueChanges.subscribe(changes => { 
             this.itemsService.signalIsUpdated.set(

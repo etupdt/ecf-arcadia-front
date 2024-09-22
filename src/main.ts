@@ -36,6 +36,7 @@ import { ErrorModalComponent } from './app/modals/error-modal/error-modal.compon
 import { DashboardPageComponent } from './app/pages/dashboard-page/dashboard-page.component';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { ContactPageComponent } from './app/pages/contact-page/contact-page.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -47,6 +48,7 @@ bootstrapApplication(AppComponent, {
         DatePipe,
         { provide: SERVICE, useClass: ItemsService },    
         provideCharts(withDefaultRegisterables()),
+        NgbActiveModal,
         provideRouter([
             {
                 path: 'error',
@@ -192,7 +194,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'users',
-                            fields: ['id', 'username', 'firstname', 'lastname'],
+                            fields: ['id', 'firstname', 'lastname', 'email'],
                         }
                     },            
                 ],
