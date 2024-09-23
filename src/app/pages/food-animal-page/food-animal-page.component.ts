@@ -9,6 +9,8 @@ import { IFoodAnimal } from 'src/app/interfaces/IFoodAnimal';
 import { FoodAnimal } from 'src/app/models/FoodAnimal';
 import { IAnimal } from 'src/app/interfaces/IAnimal';
 import { Animal } from 'src/app/models/Animal';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
 
 @Component({
     selector: 'app-food-animal-page',
@@ -23,12 +25,12 @@ export class FoodAnimalPageComponent<Tdata> {
 
     constructor (
         private headerService: HeaderService,
-        private animalService: ApiService<Animal>,
         private injector: Injector,
         private foodAnimalService: ApiService<FoodAnimal>,
         private router: Router,
         private route: ActivatedRoute,
-        public datepipe: DatePipe
+        public datepipe: DatePipe,
+        private modalService: NgbModal
     ) {
         this.genericService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         this.router.navigate([{ outlets: { form: [ 'form' ] }}], {relativeTo:this.route})
@@ -85,8 +87,8 @@ export class FoodAnimalPageComponent<Tdata> {
                     this.items[this.selectedIndex].foodAnimals!.push(res)
                 },
                 error: (error: { error: { message: any; }; }) => {
-                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                    this.headerService.signalModal.set(this.headerService.modal)
+                    const modal = this.modalService.open(ErrorModalComponent)
+                    modal.componentInstance.message = error.error.message;
                 }
             })
         } else {
@@ -97,8 +99,8 @@ export class FoodAnimalPageComponent<Tdata> {
                     this.items[this.selectedIndex].foodAnimals![this.foodAnimalIndex] = res
                 },
                 error: (error: { error: { message: any; }; }) => {
-                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                    this.headerService.signalModal.set(this.headerService.modal)
+                    const modal = this.modalService.open(ErrorModalComponent)
+                    modal.componentInstance.message = error.error.message;
                 }
             })
         }

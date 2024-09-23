@@ -43,6 +43,6 @@
             <option class="form-control m-1" *ngFor="let habitat of habitat$ | async" [ngValue]="habitat.id">{{habitat.name}}</option>
         </select>
         <app-carousel [carousel]="animal.images"  (deleteCarouselImage)="onDeleteImage($event)"></app-carousel>
-        <app-image-crop [carousel]="animal.images!" (addCarouselImage)="onAddImage($event)"></app-image-crop>
+        <app-image-crop [carousel]="animal.images" (addCarouselImage)="onAddImage($event)"></app-image-crop>
     </div>
 </form>

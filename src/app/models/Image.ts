@@ -9,4 +9,13 @@ export class Image implements IImage {
         public imageBlob : Blob
     ) {}
 
+    clone (level: number): Image {
+        return new Image(
+            this.id,
+            this.imageName,
+            this.hash,
+            this.imageBlob
+        )
+    }
+
 }

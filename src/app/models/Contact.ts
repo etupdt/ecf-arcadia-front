@@ -8,6 +8,10 @@ export class Contact implements Contact {
         public email: string = '',
     ) {}
 
+    clone (level: number ) {
+        return null    
+    }
+
     getApiItemBody (): any {
 
         return this

@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
 import { Contact } from 'src/app/models/Contact';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
+import { ToastsService } from 'src/app/services/toasts.service';
 
 @Component({
   selector: 'app-contact-page',
@@ -19,6 +22,8 @@ export class ContactPageComponent {
     constructor (
         private contactService: ApiService<Contact>,
         private headerService: HeaderService,
+        private toastsService: ToastsService,
+        private modalService: NgbModal
     ) {
 
     }
@@ -61,12 +66,10 @@ export class ContactPageComponent {
     send() {
         this.contactService.postItem('contact', this.contact).subscribe({
             next: (res: any) => {
-                this.headerService.modal = {modal: 'info', message: res, display: "display: block;"}
-                this.headerService.signalModal.set(this.headerService.modal)
+                this.toastsService.show(res, 2000)
             },
-            error: (error: { error: { message: any; }; }) => {
-                this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                this.headerService.signalModal.set(this.headerService.modal)
+            error: (error: any) => {
+                console.log(error.status, error.message)
             }    
         })
     }

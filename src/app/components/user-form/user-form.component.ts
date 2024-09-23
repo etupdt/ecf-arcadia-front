@@ -27,11 +27,8 @@ export class UserFormComponent {
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
-            const selectedIndex = this.itemsService.signalSelectedIndex()
-            this.initItem(this.itemsService.selectedIndex)
-        })
-        effect(() => {
             const nonValue = this.itemsService.signalIsUpdatedItem()
+            const selectedIndex = this.itemsService.signalSelectedIndex()
             this.initItem(this.itemsService.selectedIndex)
         })
     }    

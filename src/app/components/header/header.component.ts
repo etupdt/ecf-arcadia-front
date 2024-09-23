@@ -1,20 +1,22 @@
-import { Component, effect, ElementRef, ViewChild } from '@angular/core';
+import { Component, effect} from '@angular/core';
 import { HeaderService } from 'src/app/services/header.service';
 import { LinksComponent } from '../links/links.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { User } from 'src/app/models/User';
-import { ErrorModalComponent } from "../../modals/error-modal/error-modal.component";
 import { ApiService } from 'src/app/services/api.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginModalComponent } from 'src/app/modals/login-modal/login-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
+import { ToastsService } from 'src/app/services/toasts.service';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     standalone: true,
-    imports: [NgFor, NgIf, LinksComponent, RouterModule, ErrorModalComponent]
+    imports: [NgFor, NgIf, LinksComponent, RouterModule, LoginModalComponent]
 })
 export class HeaderComponent {
 	
@@ -22,10 +24,7 @@ export class HeaderComponent {
     selectedSubItem: string = ''
 
     user: User = new User()
-    
-    messageModal: string = ''
-    displayErrorModal: string = 'hidden'
-    
+      
     get admin() {return this.user.role === 'ADMIN'}
     get employee() {return this.user.role === 'EMPLOYEE'}
     get veterinary() {return this.user.role === 'VETERINARY'}
@@ -56,17 +55,15 @@ export class HeaderComponent {
         private headerService: HeaderService,
         private userService: ApiService<User>,
         private router: Router,
+        private modalService: NgbModal,
+        private toastsService: ToastsService
     ) {
         effect(() => {
             this.selectedItem = this.headerService.signalItemSelected()
             this.selectedSubItem = this.headerService.signalSubItemSelected()
             this.user = this.headerService.signalUser()
-        });
-        effect(() => {
-            this.messageModal = this.headerService.signalModal().message
-            this.displayErrorModal = this.headerService.signalModal().display
-        });
-        
+        })
+
         const localUserTokens = localStorage.getItem('arcadia_tokens'); 
 
         if (localUserTokens) {
@@ -82,15 +79,18 @@ export class HeaderComponent {
                         this.headerService.user = res
                         this.headerService.signalUser.set(res)
                     },
-                    error: (error: { error: { message: any; }; }) => {
-                        this.headerService.modal = {modal: 'error', message:  error.error ? error.error.message : 'erruer non définie', display: "display: block;"}
-                        this.headerService.signalModal.set(this.headerService.modal)
+                    error: (error: any) => {
+                        console.log(error.status, error.message)
                         this.user = new User()
                     }    
                 })
             }       
         }
         
+    }
+
+    login = () => {
+        this.modalService.open(LoginModalComponent)!
     }
 
     logout = () => {
@@ -107,10 +107,6 @@ export class HeaderComponent {
             this.dropDownItem = index
             this.router.navigate([this.dropDownItems[index].link])
         }
-    }
-
-    onCloseErrorModal() {
-        this.displayErrorModal = ''
     }
 
 }

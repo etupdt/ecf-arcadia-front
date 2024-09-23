@@ -14,6 +14,19 @@ export class Hours implements IHours {
         public sunday: string = '',
     ) {}
 
+    clone (level: number): Hours {
+        return new Hours(
+            this.id, 
+            this.monday,
+            this.tuesday,
+            this.wednesday,
+            this.thursday,
+            this.friday,
+            this.saturday,
+            this.sunday
+        )
+    }
+   
     getApiItemBody (): any {
 
         return this

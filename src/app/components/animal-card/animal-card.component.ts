@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output, effect } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IAnimal } from 'src/app/interfaces/IAnimal';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
 import { Animal } from 'src/app/models/Animal';
 import { AnimalStatistic } from 'src/app/models/AnimalStatistic';
 import { ApiService } from 'src/app/services/api.service';
@@ -20,7 +22,8 @@ export class AnimalCardComponent {
     constructor (
         private headerService: HeaderService,
         private animalService: ApiService<Animal>,
-        public datepipe: DatePipe
+        public datepipe: DatePipe,
+        private modalService: NgbModal
     ) {
         effect(() => {
             const idNotCollapse = this.headerService.signalCollapseAnimals()
@@ -53,9 +56,9 @@ export class AnimalCardComponent {
         )).subscribe({
             next: (res: any) => {},
             error: (error: { error: { message: any; }; }) => {
-                this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                this.headerService.signalModal.set(this.headerService.modal)
-            }    
+                const modal = this.modalService.open(ErrorModalComponent)
+                modal.componentInstance.message = error.error.message;
+        }    
         })
     }
     

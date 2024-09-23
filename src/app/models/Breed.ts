@@ -8,6 +8,10 @@ export class Breed implements IBreed {
         public label: string = '',
     ) {}
 
+    clone (level: number): any {
+        return new Breed(this.id, this.label)
+    }
+
     getApiItemBody (): any {
 
         return this

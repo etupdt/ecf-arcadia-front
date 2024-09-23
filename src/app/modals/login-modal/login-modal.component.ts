@@ -8,6 +8,7 @@ import { Auth } from 'src/app/models/Auth';
 import { User } from 'src/app/models/User';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
+import { ToastsService } from 'src/app/services/toasts.service';
 
 @Component({
 	selector: 'app-login-modal',
@@ -18,10 +19,6 @@ import { HeaderService } from 'src/app/services/header.service';
 })
 export class LoginModalComponent {
   
-	@ViewChild('closeLoginModal') closeLoginModal!: ElementRef
-	
-	@Input() display: string = ''
-
 	email: string = ''
 	password: string = ''
 
@@ -34,6 +31,8 @@ export class LoginModalComponent {
 		private userService: ApiService<User>,
 		private headerService: HeaderService,
 		private route: ActivatedRoute,
+		public activeModal: NgbActiveModal,
+		private toastsService: ToastsService
 	) {
 		this.route.params.subscribe((params: Params) => this.return = params['return']);
 	}
@@ -74,7 +73,8 @@ export class LoginModalComponent {
 					next: (res: User) => {
 						this.user = res
 						this.initForm()
-						this.closeLoginModal.nativeElement.click()
+						this.activeModal.close('Close click')
+                        this.toastsService.show('Vous êtes maintenant connecté !', 2000)
 					}    
 				})
 			}

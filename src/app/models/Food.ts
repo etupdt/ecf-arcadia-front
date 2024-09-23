@@ -8,6 +8,10 @@ export class Food implements IFood {
         public name: string = '',
     ) {}
 
+    clone (level: number): Food {
+        return new Food(this.id, this.name)
+    }
+
     getApiItemBody (): any {
 
         return this

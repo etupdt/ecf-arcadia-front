@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Chart, ChartConfiguration, Colors } from 'chart.js';
 import { DashboardChartComponent } from 'src/app/components/dashboard-chart/dashboard-chart.component';
 import { DashboardMixedChartComponent } from 'src/app/components/dashboard-mixed-chart/dashboard-mixed-chart.component';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
 import { AnimalStatistic } from 'src/app/models/AnimalStatistic';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
@@ -27,7 +29,8 @@ export class DashboardPageComponent implements OnInit {
     constructor (
         private animalStatisticService: ApiService<AnimalStatistic>,
         private headerService: HeaderService,
-        public datepipe: DatePipe
+        public datepipe: DatePipe,
+        private modalService: NgbModal
     ) {}
 
     ngOnInit() {
@@ -96,8 +99,8 @@ export class DashboardPageComponent implements OnInit {
                 this.datesDatasets = datesDatasets
             },
             error: (error: { error: { message: any; }; }) => {
-                this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                this.headerService.signalModal.set(this.headerService.modal)
+                const modal = this.modalService.open(ErrorModalComponent)
+                modal.componentInstance.message = error.error.message;
             }
         })
     }

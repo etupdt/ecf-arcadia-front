@@ -15,12 +15,27 @@ export class Animal implements IAnimal {
         public firstname: string = '',
         public health: string = '',
         public description: string = '',
-        public breed: Breed= new Breed(),
+        public breed: Breed = new Breed(),
         public habitat: Habitat = new Habitat(),
         public images: Image[] = [],
         public veterinaryReports: VeterinaryReport[] = [],
         public foodAnimals: FoodAnimal[] = [],
     ) {}
+
+    public clone (level: number): Animal {
+
+        return new Animal(
+            this.id,
+            this.firstname,
+            this.health,
+            this.description,
+            level > 0 ? this.breed.clone(level * 1) : new Breed(),
+            level > 0 ? this.habitat.clone(level - 1) : new Habitat(),
+            level > 0 ? Object.assign([], this.images.map((image: Image) => image.clone(level - 1))): [],
+            level > 0 ? Object.assign([], this.veterinaryReports.map((veterinaryReport: VeterinaryReport) => veterinaryReport.clone(level - 1))) : [],
+            level > 0 ? Object.assign([], this.foodAnimals.map((foodAnimal: FoodAnimal) => foodAnimal.clone(level - 1))) : []
+        )
+    }
 
     getApiItemBody (): any {
 

@@ -16,6 +16,17 @@ export class Habitat implements IHabitat {
         public images: Image[] = []
     ) {}
 
+    clone (level: number) {
+        return new Habitat(
+            this.id,
+            this.name,
+            this.description,
+            this.comment,
+            level > 0 ? Object.assign([], this.animals.map((animal: Animal) => animal.clone(level - 1))) : [],
+            level > 0 ? Object.assign([], this.images.map((image: Image) => image.clone(level - 1))): [],
+        )
+    }
+
     getApiItemBody (): any {
 
         const formData: FormData = new FormData();

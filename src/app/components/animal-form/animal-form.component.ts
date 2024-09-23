@@ -28,6 +28,8 @@ export class AnimalFormComponent implements OnInit, OnChanges {
         
     animalForm!: FormGroup
 
+    imagesUpdated: boolean = false
+
     private itemsService: any
 
     constructor (
@@ -38,6 +40,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
+            const IsUpdatedItem = this.itemsService.signalIsUpdatedItem()
             const selectedIndex = this.itemsService.signalSelectedIndex()
             if (selectedIndex === -1) {
                 this.animal = new Animal(0, '', '', '', new Breed(0, ''), new Habitat (0, '', '', '', [], []), [], [], [])
@@ -102,9 +105,10 @@ export class AnimalFormComponent implements OnInit, OnChanges {
                 this.animal.health !== this.health.value ||
                 this.animal.description !== this.description.value ||
                 this.animal.breed.id !== this.breed.value ||
-                this.animal.habitat.id !== this.habitat.value
+                this.animal.habitat.id !== this.habitat.value ||
+                this.imagesUpdated
             )
-            this.itemsService.signalIsValid.set(this.animalForm.valid)
+            this.itemsService.signalIsValid.set(this.animalForm.valid && this.animal.images.length > 0)
             this.animal.firstname = this.firstname.value
             this.animal.health = this.health.value
             this.animal.description = this.description.value
@@ -114,10 +118,16 @@ export class AnimalFormComponent implements OnInit, OnChanges {
     }
 
     onDeleteImage = (index: number) => {
+        this.imagesUpdated = true
+        this.itemsService.signalIsUpdated.set(this.imagesUpdated)
+        this.itemsService.signalIsValid.set(this.animalForm.valid && this.animal.images.length > 0)
         this.animal.images.splice(index,1)
     }
 
     onAddImage = (image: Image) => {
+        this.imagesUpdated = true
+        this.itemsService.signalIsUpdated.set(this.imagesUpdated)
+        this.itemsService.signalIsValid.set(this.animalForm.valid && this.animal.images.length > 0)
         this.animal.images.push(image)
     }    
 

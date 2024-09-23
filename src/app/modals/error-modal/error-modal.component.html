@@ -1,17 +1,11 @@
 
-<div class="modal" id="errorModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="errorModalLabel" aria-hidden="true" #errorModal>
-    <div class="modal-dialog">
-      <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="errorModalLabel">Erreur</h1>
-          <button type="button" class="btn-close" (click)="close()"></button>
+          <button type="button" class="btn-close" (click)="activeModal.close('Close click')"></button>
         </div>
         <div class="modal-body">
-            <p id="errorMessage"></p>
+            <p id="errorMessage">{{ message }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+          <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close</button>
         </div>
-      </div>
-    </div>
-  </div>

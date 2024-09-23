@@ -9,6 +9,14 @@ export class Service implements IService {
         public description: string = '',
     ) {}
 
+    clone (level: number): Service {
+        return new Service(
+            this.id, 
+            this.name,
+            this.description
+        )
+    }
+
     getApiItemBody (): any {
 
         return this

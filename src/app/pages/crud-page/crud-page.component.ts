@@ -4,6 +4,11 @@ import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/rou
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { ListComponent } from "../../components/list/list.component";
+import { ToastsService } from 'src/app/services/toasts.service';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ItemsService } from 'src/app/services/items.service';
+import { Breed } from 'src/app/models/Breed';
 
 @Component({
     selector: 'app-crud-page',
@@ -21,7 +26,9 @@ export class CrudPageComponent<Tdata> implements OnInit {
         private route: ActivatedRoute,
         private injector: Injector,
         private headerService: HeaderService,
-        private apiService: ApiService<Tdata>
+        private apiService: ApiService<Tdata>,
+        private toastsService: ToastsService,
+        private modalService: NgbModal,
     ) {
         this.genericService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         this.router.navigate([{ outlets: { list: [ 'list' ] }}], {relativeTo:this.route})
@@ -70,10 +77,11 @@ export class CrudPageComponent<Tdata> implements OnInit {
                     this.items.push(res)
                     this.selectedIndex = this.items.length - 1
                     this.genericService.updatedItem['id'] = this.genericService.items[this.selectedIndex]['id']
+                    this.toastsService.show('l\'element a bien été créé !', 2000)
                 },    
                 error: (error: { error: { message: any; }; }) => {
-                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                    this.headerService.signalModal.set(this.headerService.modal)
+                    const modal = this.modalService.open(ErrorModalComponent)
+                    modal.componentInstance.message = error.error.message;
                 }    
             })    
         } else {
@@ -81,10 +89,11 @@ export class CrudPageComponent<Tdata> implements OnInit {
                 next: (res: Tdata) => {
                     this.items[this.selectedIndex] = res
                     this.selectedIndex = this.selectedIndex
+                    this.toastsService.show('l\'element a bien été mis à jour !', 2000)
                 },    
                 error: (error: { error: { message: any; }; }) => {
-                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                    this.headerService.signalModal.set(this.headerService.modal)
+                    const modal = this.modalService.open(ErrorModalComponent)
+                    modal.componentInstance.message = error.error.message;
                 }    
             })    
         }    

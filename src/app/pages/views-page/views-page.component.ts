@@ -8,6 +8,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { IView } from 'src/app/interfaces/IView';
 import { View } from 'src/app/models/View';
 import { ActivatedRoute } from '@angular/router';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-views-page',
@@ -22,7 +24,8 @@ export class ViewsPageComponent implements OnInit{
     constructor (
         private viewService: ApiService<View>,
         private route: ActivatedRoute,
-        private headerService: HeaderService
+        private headerService: HeaderService,
+        private modalService: NgbModal
     ) {}
 
     views$: Observable<View[]> = this.viewService.getItems('views')
@@ -47,7 +50,9 @@ export class ViewsPageComponent implements OnInit{
             next: (res) => {
             },
             error: (error: { error: { message: any; }; }) => {
-            }
+                const modal = this.modalService.open(ErrorModalComponent)
+                modal.componentInstance.message = error.error.message;
+        }
         })
 
     }

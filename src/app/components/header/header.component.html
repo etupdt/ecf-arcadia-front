@@ -33,7 +33,7 @@
                 </li>
             </ul>
             <form class="d-flex" role="search">
-                <button *ngIf="!connected" class="btn btn-outline-light" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Connexion</button>
+                <button *ngIf="!connected" class="btn btn-outline-light" type="button" (click)="login()">Connexion</button>
                 <button *ngIf="connected" type="button" class="btn btn-outline-light" (click)="logout()">Déconnexion</button>
                 <div class="navbar-nav">                    
                     <a *ngIf="connected" class="nav-link">{{user.email}}</a>

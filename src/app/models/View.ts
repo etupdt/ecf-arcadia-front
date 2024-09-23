@@ -10,6 +10,10 @@ export class View implements IView {
         public isVisible: boolean = false
     ) {}
 
+    clone (level: number ) {
+        return null    
+    }
+
     getApiItemBody (): any {
 
         return this

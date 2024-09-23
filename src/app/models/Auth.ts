@@ -8,6 +8,9 @@ export class Auth implements IAuth {
         public password: string = '',
     ) {}
 
+    clone (level: number ) {
+        return null    
+    }
     getApiItemBody (): any {
 
         return this

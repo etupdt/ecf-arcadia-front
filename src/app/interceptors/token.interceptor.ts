@@ -6,11 +6,13 @@ import { ElementRef, inject } from '@angular/core';
 import { User } from '../models/User';
 import { catchError, tap } from 'rxjs';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     
     const helper = new JwtHelperService();
     const headerService: HeaderService = inject(HeaderService);
+    const modalService: NgbModal = inject(NgbModal)
 
     const localUserTokens: string = localStorage.getItem('arcadia_tokens')!
 
@@ -61,11 +63,9 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                 }
             }
 
-            document.getElementById('errorModal')!.style.display = 'block'
-            document.getElementById('errorMessage')!.innerText = message
-            // headerService.modal = {modal: 'error', message: message, display: "display: block;"}
-            // headerService.signalModal.set(headerService.modal)
-    
+            const modal = modalService.open(ErrorModalComponent)
+            modal.componentInstance.message = message;
+
             throw error
 
         })

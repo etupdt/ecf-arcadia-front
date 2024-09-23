@@ -18,15 +18,4 @@ export class HeaderService {
     collapseAnimals: number =  0
     signalCollapseAnimals = signal(this.collapseAnimals)
 
-    modal: {
-        modal: string,
-        message: string,
-        display: string
-    } = {
-        modal: 'error',
-        message: '',
-        display: ''
-    }
-    signalModal = signal(this.modal)
-
 }

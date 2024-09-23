@@ -12,6 +12,17 @@ export class User implements IUser {
         public role: string = '',
     ) {}
 
+    clone (level: number): User {
+        return new User(
+            this.id, 
+            this.email,
+            this.password,
+            this.firstname,
+            this.lastname,
+            this.role
+        )
+    }
+
     getApiItemBody (): any {
 
         return this

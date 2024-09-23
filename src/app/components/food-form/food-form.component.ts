@@ -26,6 +26,7 @@ export class FoodFormComponent {
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
+            const IsUpdatedItem = this.itemsService.signalIsUpdatedItem()
             const selectedIndex = this.itemsService.signalSelectedIndex()
             if (selectedIndex === -1) {
                 this.Food = new Food(0, '')

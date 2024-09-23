@@ -103,6 +103,8 @@ export class ImageCropComponent {
     
     addImage = () => {
         this.addCarouselImage.emit(new Image(0, this.targetImageBase64, '', this.targetImageBlob))
+        this.activeImage = ''
+        this.targetImage = ''
     }
 
     replaceImage = () => {
