@@ -30,17 +30,16 @@ export class ServiceFormComponent implements OnInit {
         effect(() => {
             const IsUpdatedItem = this.itemsService.signalIsUpdatedItem()
             const selectedIndex = this.itemsService.signalSelectedIndex()
-            if (selectedIndex === -1) {
+            if (this.itemsService.selectedIndex === -1) {
                 this.service = new Service()
             } else {
-                this.service = new Service(this.selectedItem.id, this.selectedItem.name, this.selectedItem.description)    
+                this.service = Service.deserialize(this.items[this.itemsService.selectedIndex], 1)
             }
             this.initForm()
         })
     }    
 
-    get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
-    set selectedItem(item: IService) {this.itemsService.items[this.itemsService.selectedIndex]}
+    get items() {return this.itemsService.items}
 
     get service() { return this.itemsService.updatedItem }
     set service(service : IService) { this.itemsService.updatedItem = service }

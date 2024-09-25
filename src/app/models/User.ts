@@ -12,14 +12,14 @@ export class User implements IUser {
         public role: string = '',
     ) {}
 
-    clone (level: number): User {
+    static deserialize (data: any, level: number): User {
         return new User(
-            this.id, 
-            this.email,
-            this.password,
-            this.firstname,
-            this.lastname,
-            this.role
+            data.id, 
+            data.email,
+            data.password,
+            data.firstname,
+            data.lastname,
+            data.role
         )
     }
 

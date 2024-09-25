@@ -27,17 +27,18 @@ export class HoursFormComponent {
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
+            const IsUpdatedItem = this.itemsService.signalIsUpdatedItem()
             const selectedIndex = this.itemsService.signalSelectedIndex()
-            this.initItem(this.itemsService.selectedIndex)
-        })
-        effect(() => {
-            const nonValue = this.itemsService.signalIsUpdatedItem()
-            this.initItem(this.itemsService.selectedIndex)
+            if (this.itemsService.selectedIndex === -1) {
+                this.hours = new Hours()
+            } else {
+                this.hours = Hours.deserialize(this.items[this.itemsService.selectedIndex], 1)
+            }
+            this.initForm()
         })
     }    
 
-    get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
-    set selectedItem(item: IHours) {this.itemsService.items[this.itemsService.selectedIndex]}
+    get items() {return this.itemsService.items}
 
     get hours() { return this.itemsService.updatedItem }
     set hours(hours : IHours) { this.itemsService.updatedItem = hours }
@@ -87,22 +88,6 @@ export class HoursFormComponent {
             this.hours.saturday = this.saturday.value
             this.hours.sunday = this.sunday.value
         })
-    }
-
-    initItem = (selectedIndex: number) => {
-        if (selectedIndex === -1) {
-            this.hours = new Hours
-        } else {
-            this.hours = new Hours(this.selectedItem.id, 
-                this.selectedItem.monday, 
-                this.selectedItem.tuesday,
-                this.selectedItem.wednesday,
-                this.selectedItem.thursday,
-                this.selectedItem.friday,
-                this.selectedItem.saturday,
-                this.selectedItem.sunday)
-        }
-        this.initForm()
     }
 
 }

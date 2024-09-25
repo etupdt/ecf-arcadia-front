@@ -1,16 +1,19 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IElementCrud } from 'src/app/interfaces/IElementCrud';
 import { ApiService } from 'src/app/services/api.service';
+import { HeaderService } from 'src/app/services/header.service';
+import { ItemsService } from 'src/app/services/items.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   standalone: true,
-  imports: [NgFor]
+  imports: [NgFor, NgIf]
 })
-export class ListComponent<Tlist> implements OnInit {
+export class ListComponent<Tdata> implements OnInit {
 
     private genericService: any
     uri: string = this.route.snapshot.data['feature']
@@ -18,12 +21,13 @@ export class ListComponent<Tlist> implements OnInit {
     constructor (
         private route: ActivatedRoute,
         private injector: Injector,
-        private apiService: ApiService<Tlist>
+        private apiService: ApiService<Tdata>,
+        private headerService: HeaderService,
     ) {
         this.genericService = injector.get<string>(<any>route.snapshot.data['requiredService']);
     }
 
-    get items() {return this.genericService.items}
+    get items(): Tdata[] {return this.genericService.items}
 
     get selectedIndex(): number {return this.genericService.selectedIndex}
     set selectedIndex(index: number) {
@@ -31,7 +35,7 @@ export class ListComponent<Tlist> implements OnInit {
         this.genericService.signalSelectedIndex.set(index)
     }    
 
-    fields!: (keyof Tlist)[]
+    fields!: (keyof Tdata)[]
     
     ngOnInit(): void {
         this.fields = this.route.snapshot.data['fields']
@@ -40,7 +44,7 @@ export class ListComponent<Tlist> implements OnInit {
 
     readAll = () => {
         this.apiService.getItems(this.uri).subscribe({
-            next: (res: Tlist[]) => {
+            next: (res: any[]) => {
                 this.genericService.items = res
                 this.selectedIndex = -1
                 this.selectedIndex = res.length > 0 ? 0 : -1
@@ -51,8 +55,8 @@ export class ListComponent<Tlist> implements OnInit {
     }
 
     delete = (index: number) => {
-        this.apiService.deleteItem(this.uri, this.items[index]['id']).subscribe({
-            next: (res: Tlist) => {
+        this.apiService.deleteItem(this.uri, this.items[index]['id' as keyof Tdata] as number).subscribe({
+            next: (res: Tdata) => {
                 this.items.splice(index, 1)
                 if (this.items.length > 0) {
                     this.selectedIndex = this.selectedIndex < this.items.length ? this.selectedIndex : this.items.length - 1
@@ -64,5 +68,7 @@ export class ListComponent<Tlist> implements OnInit {
             }        
         })        
     }        
+
+    get user() {return this.headerService.user}
 
 }

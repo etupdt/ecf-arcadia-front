@@ -8,6 +8,7 @@ import { ImageCropComponent } from "../image-crop/image-crop.component";
 import { Image } from 'src/app/models/Image';
 import { Habitat } from 'src/app/models/Habitat';
 import { CarouselComponent } from '../carousel/carousel.component';
+import { IHabitat } from 'src/app/interfaces/IHabitat';
 
 @Component({
     selector: 'app-habitat-form',
@@ -22,6 +23,8 @@ export class HabitatFormComponent {
                 
     habitatForm!: FormGroup
 
+    imagesUpdated: boolean = false
+
     private itemsService: any
 
     constructor (
@@ -30,24 +33,24 @@ export class HabitatFormComponent {
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
+            const IsUpdatedItem = this.itemsService.signalIsUpdatedItem()
             const selectedIndex = this.itemsService.signalSelectedIndex()
-            this.initItem(this.itemsService.selectedIndex)
-        })
-        effect(() => {
-            const nonValue = this.itemsService.signalIsUpdatedItem()
-            this.initItem(this.itemsService.selectedIndex)
+            if (this.itemsService.selectedIndex === -1) {
+                this.habitat = new Habitat()
+            } else {
+                this.habitat = Habitat.deserialize(this.items[this.itemsService.selectedIndex], 2)
+            }
+            this.initForm()
         })
     }    
 
-    @ViewChild(ImageCropperComponent) imageCropper: ImageCropperComponent | undefined;
+    get items() {return this.itemsService.items}
 
     get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
     set selectedItem(item: Habitat) {this.itemsService.items[this.itemsService.selectedIndex]}
 
     get habitat() { return this.itemsService.updatedItem }
-    set habitat(habitat : Habitat) { 
-        this.itemsService.updatedItem = habitat 
-    }
+    set habitat(habitat : IHabitat) { this.itemsService.updatedItem = habitat }
 
     get name() { return this.habitatForm.get('name')! as FormControl }
     get description() { return this.habitatForm.get('description')! as FormControl }
@@ -55,7 +58,7 @@ export class HabitatFormComponent {
 
     ngOnInit(): void {
 
-        this.habitat = new Habitat (0, '', '', '', [], [])
+        this.habitat = new Habitat ()
         
         this.initForm()
     
@@ -71,7 +74,8 @@ export class HabitatFormComponent {
             this.itemsService.signalIsUpdated.set(
                 this.habitat.name !== this.name.value ||
                 this.habitat.description !== this.description.value ||
-                this.habitat.comment !== this.comment.value
+                this.habitat.comment !== this.comment.value ||
+                this.imagesUpdated
             )
             this.itemsService.signalIsValid.set(this.habitatForm.valid)
             this.habitat.name = this.name.value
@@ -80,28 +84,18 @@ export class HabitatFormComponent {
         })
     }
 
-    initItem = (selectedIndex: number) => {
-        if (selectedIndex === -1) {
-            this.habitat = new Habitat (0, '', '', '', [], [])
-        } else {
-            this.habitat = new Habitat (
-                this.selectedItem.id,
-                this.selectedItem.name,
-                this.selectedItem.description,
-                this.selectedItem.comment,
-                [],
-                this.selectedItem.images
-            )
-        }
-        this.initForm()
-    }
-
     onDeleteImage = (index: number) => {
         this.habitat.images.splice(index,1)
+        this.imagesUpdated = true
+        this.itemsService.signalIsUpdated.set(true)
+        this.itemsService.signalIsValid.set(this.habitatForm.valid && this.habitat.images.length > 0)
     }
 
     onAddImage = (image: Image) => {
         this.habitat.images.push(image)
+        this.imagesUpdated = true
+        this.itemsService.signalIsUpdated.set(true)
+        this.itemsService.signalIsValid.set(this.habitatForm.valid && this.habitat.images.length > 0)
     }    
 
 }

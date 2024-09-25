@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { IElementCrud } from '../interfaces/IElementCrud';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,11 @@ export class ItemsService<Tdata> {
 
     items!: Tdata[]
 
-    updatedItem!: any
+    updatedItem!: Tdata
+    savedItem!: Tdata
+
+    // subUpdatedItem!: TsubData
+    // signalSubUpdatedItem!: TsubData
 
     isUpdatedItem: number = 0
     signalIsUpdatedItem = signal(this.isUpdatedItem)

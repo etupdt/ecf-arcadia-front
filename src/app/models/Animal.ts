@@ -22,18 +22,17 @@ export class Animal implements IAnimal {
         public foodAnimals: FoodAnimal[] = [],
     ) {}
 
-    public clone (level: number): Animal {
-
+    static deserialize (data: any, level: number, origin?: string): Animal {
         return new Animal(
-            this.id,
-            this.firstname,
-            this.health,
-            this.description,
-            level > 0 ? this.breed.clone(level * 1) : new Breed(),
-            level > 0 ? this.habitat.clone(level - 1) : new Habitat(),
-            level > 0 ? Object.assign([], this.images.map((image: Image) => image.clone(level - 1))): [],
-            level > 0 ? Object.assign([], this.veterinaryReports.map((veterinaryReport: VeterinaryReport) => veterinaryReport.clone(level - 1))) : [],
-            level > 0 ? Object.assign([], this.foodAnimals.map((foodAnimal: FoodAnimal) => foodAnimal.clone(level - 1))) : []
+            data.id,
+            data.firstname,
+            data.health,
+            data.description,
+            level > 0 ? Breed.deserialize(data.breed, level - 1) : new Breed(),
+            level > 0 && origin !== 'Habitat' ? Habitat.deserialize(data.habitat, level - 1) : new Habitat(),
+            level > 0 ? Object.assign([], data.images.map((image: Image) => Image.deserialize(image, level - 1))) : [],
+            level > 0 ? Object.assign([], data.veterinaryReports.map((veterinaryReport: VeterinaryReport) => VeterinaryReport.deserialize(veterinaryReport, level - 1))) : [],
+            level > 0 ? Object.assign([], data.foodAnimals.map((foodAnimal: FoodAnimal) => FoodAnimal.deserialize(foodAnimal, level - 1))) : []
         )
     }
 

@@ -3,7 +3,6 @@ import { IVeterinaryReport } from "../interfaces/IVeterinaryReport";
 import { Animal } from "./Animal";
 import { Food } from "./Food";
 import { User } from "./User";
-import { IAnimal } from "../interfaces/IAnimal";
 
 export class VeterinaryReport implements IVeterinaryReport {
 
@@ -12,20 +11,20 @@ export class VeterinaryReport implements IVeterinaryReport {
         public date: string = '',
         public detail: string = '',
         public gramage: number = 0,
-        public animal: IAnimal = new Animal(),
+        public animal: Animal = new Animal(),
         public user: User = new User(),
         public food: Food = new Food(),
     ) {}
 
-    clone (level: number): VeterinaryReport {
+    static deserialize (data: any, level: number): VeterinaryReport {
         return new VeterinaryReport(
-            this.id,
-            this.date,
-            this.detail,
-            this.gramage,
-            level > 0 ? this.animal.clone(level - 1) : new Animal(this.animal.id),
-            level > 0 ? this.user.clone(level - 1) : new User(this.user.id),
-            level > 0 ? this.food.clone(level - 1) : new Food(this.user.id)
+            data.id,
+            data.date,
+            data.detail,
+            data.grammage,
+            level > 0 ? Animal.deserialize(data.animal, level - 1) : new Animal(),
+            level > 0 ? User.deserialize(data.user, level - 1) : new User(),
+            level > 0 ? Food.deserialize(data.food, level - 1) : new Food()
         )
     }
 

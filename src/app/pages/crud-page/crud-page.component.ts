@@ -7,8 +7,6 @@ import { ListComponent } from "../../components/list/list.component";
 import { ToastsService } from 'src/app/services/toasts.service';
 import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ItemsService } from 'src/app/services/items.service';
-import { Breed } from 'src/app/models/Breed';
 
 @Component({
     selector: 'app-crud-page',
@@ -71,12 +69,12 @@ export class CrudPageComponent<Tdata> implements OnInit {
     }
     
     update = () => {
-        if (this.genericService.updatedItem['id'] === 0) {
+        if (this.genericService.updatedItem.id === 0) {
             this.apiService.postItem(this.uri, this.genericService.updatedItem).subscribe({
-                next: (res: Tdata) => {
+                next: (res: any) => {
                     this.items.push(res)
                     this.selectedIndex = this.items.length - 1
-                    this.genericService.updatedItem['id'] = this.genericService.items[this.selectedIndex]['id']
+                    this.genericService.updatedItem['id'] = this.genericService.items[this.selectedIndex].id
                     this.toastsService.show('l\'element a bien été créé !', 2000)
                 },    
                 error: (error: { error: { message: any; }; }) => {
@@ -86,7 +84,7 @@ export class CrudPageComponent<Tdata> implements OnInit {
             })    
         } else {
             this.apiService.putItem(this.uri, this.genericService.updatedItem['id'], this.genericService.updatedItem).subscribe({
-                next: (res: Tdata) => {
+                next: (res: any) => {
                     this.items[this.selectedIndex] = res
                     this.selectedIndex = this.selectedIndex
                     this.toastsService.show('l\'element a bien été mis à jour !', 2000)

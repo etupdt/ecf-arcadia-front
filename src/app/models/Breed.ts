@@ -8,8 +8,8 @@ export class Breed implements IBreed {
         public label: string = '',
     ) {}
 
-    clone (level: number): any {
-        return new Breed(this.id, this.label)
+    static deserialize (data: any, level: number): Breed {
+        return new Breed(data.id, data.label)
     }
 
     getApiItemBody (): any {

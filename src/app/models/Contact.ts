@@ -1,16 +1,13 @@
 import { HttpHeaders } from "@angular/common/http";
+import { IContact } from "../interfaces/IContact";
 
-export class Contact implements Contact {
+export class Contact implements IContact{
 
     constructor (
         public title: string = '',
         public description: string = '',
         public email: string = '',
     ) {}
-
-    clone (level: number ) {
-        return null    
-    }
 
     getApiItemBody (): any {
 

@@ -9,11 +9,11 @@ export class Service implements IService {
         public description: string = '',
     ) {}
 
-    clone (level: number): Service {
+    static deserialize (data: any, level: number): Service {
         return new Service(
-            this.id, 
-            this.name,
-            this.description
+            data.id, 
+            data.name,
+            data.description
         )
     }
 

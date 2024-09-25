@@ -9,7 +9,7 @@ export interface IVeterinaryReport extends IElement {
     date: string,
     detail: string,
     gramage: number,
-    animal: IAnimal,
+    animal: Animal,
     user: User,
     food: Food
 }

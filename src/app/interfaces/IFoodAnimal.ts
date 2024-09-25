@@ -7,6 +7,6 @@ export interface IFoodAnimal extends IElement {
     id: number,
     dateFood: string,
     gramage: number,
-    animal: IAnimal,
+    animal: Animal,
     food: Food
 }

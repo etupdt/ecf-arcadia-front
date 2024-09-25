@@ -19,6 +19,4 @@ export interface IAnimal extends IElement {
     veterinaryReports: VeterinaryReport[]
     foodAnimals: FoodAnimal[]
 
-    clone(level: number): Animal;
-
 }

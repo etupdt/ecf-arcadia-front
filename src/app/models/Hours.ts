@@ -14,16 +14,16 @@ export class Hours implements IHours {
         public sunday: string = '',
     ) {}
 
-    clone (level: number): Hours {
+    static deserialize (data: any, level: number): Hours {
         return new Hours(
-            this.id, 
-            this.monday,
-            this.tuesday,
-            this.wednesday,
-            this.thursday,
-            this.friday,
-            this.saturday,
-            this.sunday
+            data.id, 
+            data.monday,
+            data.tuesday,
+            data.wednesday,
+            data.thursday,
+            data.friday,
+            data.saturday,
+            data.sunday
         )
     }
    

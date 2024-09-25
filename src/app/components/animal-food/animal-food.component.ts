@@ -43,6 +43,11 @@ export class AnimalFoodComponent {
                 this.onChangeDateFood()
             }
         })
+        effect(() => {
+            if (this.itemsService.signalSubSelectedIndex()) {
+                this.onChangeDateFood()
+            }
+        })
     }
 
     dateFood: string | null = this.datepipe.transform(Date.now(), 'y-MM-dd')
@@ -78,10 +83,11 @@ export class AnimalFoodComponent {
 
     getFoodAnimal(dateFood: string): IFoodAnimal | undefined {
 
-        return this.selectedItem.foodAnimals!.find((f: IFoodAnimal) => {
+        this.itemsService.subSelectedIndex = this.selectedItem.foodAnimals!.findIndex((f: IFoodAnimal) => {
             return f.dateFood === dateFood
         })
-        
+        this.itemsService.signalSubSelectedIndex(this.itemsService.subSelectedIndex)
+        return this.selectedItem.foodAnimals![this.itemsService.subSelectedIndex]
     }
 
     onChangeDateFood = () => {
@@ -104,6 +110,8 @@ export class AnimalFoodComponent {
                     name: ''
                 } as Food
             )
+            this.itemsService.subSelectedIndex = -1
+            this.itemsService.signalSubSelectedIndex(this.itemsService.subSelectedIndex)
 
         }
 

@@ -9,12 +9,12 @@ export class Image implements IImage {
         public imageBlob : Blob
     ) {}
 
-    clone (level: number): Image {
+    static deserialize  (data: any, level: number): Image {
         return new Image(
-            this.id,
-            this.imageName,
-            this.hash,
-            this.imageBlob
+            data.id,
+            data.imageName,
+            data.hash,
+            data.imageBlob
         )
     }
 

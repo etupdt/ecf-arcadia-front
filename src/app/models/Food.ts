@@ -8,8 +8,8 @@ export class Food implements IFood {
         public name: string = '',
     ) {}
 
-    clone (level: number): Food {
-        return new Food(this.id, this.name)
+    static deserialize (data: any, level: number): Food {
+        return new Food(data.id, data.name)
     }
 
     getApiItemBody (): any {

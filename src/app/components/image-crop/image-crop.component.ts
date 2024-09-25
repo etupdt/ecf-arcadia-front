@@ -70,10 +70,11 @@ export class ImageCropComponent {
     }
     
     fileChangeEvent(event: any): void {
-        if (!event || event.target.files[0]) {
+        if (event.target.files[0]) {
             this.savedImage = event.target.files[0]
             this.activeImage = event.target.files[0]
             this.targetImage = event.target.files[0]
+            event.target.value = ""
         }
     }
     
