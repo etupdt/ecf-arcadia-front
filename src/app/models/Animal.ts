@@ -22,14 +22,14 @@ export class Animal implements IAnimal {
         public foodAnimals: FoodAnimal[] = [],
     ) {}
 
-    static deserialize (data: any, level: number, origin?: string): Animal {
+    static deserialize (data: any, level: number): Animal {
         return new Animal(
             data.id,
             data.firstname,
             data.health,
             data.description,
             level > 0 ? Breed.deserialize(data.breed, level - 1) : new Breed(),
-            level > 0 && origin !== 'Habitat' ? Habitat.deserialize(data.habitat, level - 1) : new Habitat(),
+            level > 0 ? Habitat.deserialize(data.habitat, level - 1) : new Habitat(),
             level > 0 ? Object.assign([], data.images.map((image: Image) => Image.deserialize(image, level - 1))) : [],
             level > 0 ? Object.assign([], data.veterinaryReports.map((veterinaryReport: VeterinaryReport) => VeterinaryReport.deserialize(veterinaryReport, level - 1))) : [],
             level > 0 ? Object.assign([], data.foodAnimals.map((foodAnimal: FoodAnimal) => FoodAnimal.deserialize(foodAnimal, level - 1))) : []

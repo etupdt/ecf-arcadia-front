@@ -23,4 +23,6 @@ export class ItemsService<Tdata> {
     signalIsUpdated = signal(false)
     signalIsValid = signal(false)
 
+    // get typeItems() {return }
+
 }

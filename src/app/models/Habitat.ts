@@ -16,13 +16,13 @@ export class Habitat implements IHabitat {
         public images: Image[] = []
     ) {}
 
-    static deserialize (data: any, level: number, origin?: string): Habitat {
+    static deserialize (data: any, level: number): Habitat {
         return new Habitat(
             data.id,
             data.name,
             data.description,
             data.comment,
-            level > 0 && origin !== 'Animal' ? Object.assign([], data.animals.map((animal: Animal) => Animal.deserialize(animal, level - 1, 'Habitat'))) : [],
+            level > 0 ? Object.assign([], data.animals.map((animal: Animal) => Animal.deserialize(animal, level - 1))) : [],
             level > 0 ? Object.assign([], data.images.map((image: Image) => Image.deserialize(image, level - 1))) : [],
         )
     }

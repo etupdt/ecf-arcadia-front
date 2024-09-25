@@ -38,7 +38,7 @@ export class HabitatFormComponent {
             if (this.itemsService.selectedIndex === -1) {
                 this.habitat = new Habitat()
             } else {
-                this.habitat = Habitat.deserialize(this.items[this.itemsService.selectedIndex], 2)
+                this.habitat = Habitat.deserialize(this.items[this.itemsService.selectedIndex], 1)
             }
             this.initForm()
         })

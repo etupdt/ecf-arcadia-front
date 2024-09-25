@@ -58,7 +58,7 @@ export class AnimalFormComponent implements OnInit, OnChanges {
     ngOnDestroy(): void {
     }
 
-    get items() {return this.itemsService.items}
+    get items() {console.log(typeof this.itemsService.items); return this.itemsService.items}
 
     breeds$: Observable<IBreed[]> = this.breedService.getItems('breeds')
     habitat$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')

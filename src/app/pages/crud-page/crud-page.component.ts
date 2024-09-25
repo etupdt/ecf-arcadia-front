@@ -29,6 +29,7 @@ export class CrudPageComponent<Tdata> implements OnInit {
         private modalService: NgbModal,
     ) {
         this.genericService = injector.get<string>(<any>route.snapshot.data['requiredService']);
+        this.genericService.selectedIndex = -1
         this.router.navigate([{ outlets: { list: [ 'list' ] }}], {relativeTo:this.route})
         .then(ok => this.router.navigate([{ outlets: { form: [ 'form' ] }}], {relativeTo:this.route}))
         effect(() => {
@@ -40,6 +41,7 @@ export class CrudPageComponent<Tdata> implements OnInit {
     uri: string = this.route.snapshot.data['feature']
     
     get items(): Tdata[] {return this.genericService.items}
+    set items(initial: Tdata[]) {this.genericService.items = initial}
     
     get selectedIndex(): number {return this.genericService.selectedIndex}
     set selectedIndex(index: number) {
