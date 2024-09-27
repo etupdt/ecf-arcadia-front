@@ -20,7 +20,7 @@ import { ViewsPageComponent } from './app/pages/views-page/views-page.component'
 import { AnimalFormComponent } from './app/components/animal-form/animal-form.component';
 import { FoodAnimalPageComponent } from './app/pages/food-animal-page/food-animal-page.component';
 import { ListComponent } from './app/components/list/list.component';
-import { AnimalFoodComponent } from './app/components/animal-food/animal-food.component';
+import { AnimalFoodFormComponent } from './app/components/animal-food-form/animal-food-form.component';
 import { UserFormComponent } from './app/components/user-form/user-form.component';
 import { HoursFormComponent } from './app/components/hours-form/hours-form.component';
 import { HabitatFormComponent } from './app/components/habitat-form/habitat-form.component';
@@ -297,7 +297,7 @@ bootstrapApplication(AppComponent, {
                 children: [
                     {
                         path: 'form',
-                        component: AnimalFoodComponent,
+                        component: AnimalFoodFormComponent,
                         outlet: 'form',
                         data: { 
                             requiredService: SERVICE,

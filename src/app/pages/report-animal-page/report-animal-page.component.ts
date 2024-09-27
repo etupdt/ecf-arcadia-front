@@ -3,7 +3,7 @@ import { Component, HostListener, Injector, OnDestroy, OnInit, effect } from '@a
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
-import { AnimalFoodComponent } from '../../components/animal-food/animal-food.component';
+import { AnimalFoodFormComponent } from '../../components/animal-food-form/animal-food-form.component';
 import { FormsModule } from '@angular/forms';
 import { Animal } from 'src/app/models/Animal';
 import { VeterinaryReport } from 'src/app/models/VeterinaryReport';
@@ -15,7 +15,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './report-animal-page.component.html',
   styleUrls: ['./report-animal-page.component.scss'],
   standalone: true,
-  imports: [AnimalFoodComponent, FormsModule, RouterOutlet]
+  imports: [AnimalFoodFormComponent, FormsModule, RouterOutlet]
 })
 export class ReportAnimalPageComponent implements OnInit {
 

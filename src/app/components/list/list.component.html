@@ -4,7 +4,7 @@
         <ul 
             class="list-group list-group-horizontal item-ul {{selectedIndex === index ? 'selected' : ''}}"
         >
-            <li (click)="selectedIndex = index" *ngFor="let field of fields" class="list-group-item item-li">{{ item[field] }}</li>
+            <li (click)="setSelectedIndex(index)" *ngFor="let field of fields" class="list-group-item item-li">{{ item[field] }}</li>
             <button *ngIf="user.role === 'ADMIN'" class="btn btn-outline-secondary ms-auto selected"
                 (click)="delete(index)"    
             >

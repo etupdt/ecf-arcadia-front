@@ -30,7 +30,7 @@ export class ListComponent<Tdata> implements OnInit {
     get items(): Tdata[] {return this.genericService.items}
 
     get selectedIndex(): number {return this.genericService.selectedIndex}
-    set selectedIndex(index: number) {
+    setSelectedIndex(index: number) {
         this.genericService.selectedIndex = index
         this.genericService.signalSelectedIndex.set(index)
     }    
@@ -46,8 +46,7 @@ export class ListComponent<Tdata> implements OnInit {
         this.apiService.getItems(this.uri).subscribe({
             next: (res: any[]) => {
                 this.genericService.items = res
-                this.selectedIndex = -1
-                this.selectedIndex = res.length > 0 ? 0 : -1
+                this.setSelectedIndex(res.length > 0 ? 0 : -1)
             },
             error: (error: { error: { message: any; }; }) => {
             }
@@ -59,9 +58,9 @@ export class ListComponent<Tdata> implements OnInit {
             next: (res: Tdata) => {
                 this.items.splice(index, 1)
                 if (this.items.length > 0) {
-                    this.selectedIndex = this.selectedIndex < this.items.length ? this.selectedIndex : this.items.length - 1
+                    this.setSelectedIndex(this.selectedIndex < this.items.length ? this.selectedIndex : this.items.length - 1)
                 } else {
-                    this.selectedIndex = -1
+                    this.setSelectedIndex(-1)
                 }        
             },        
             error: (error: { error: { message: any; }; }) => {

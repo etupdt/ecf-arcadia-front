@@ -4,15 +4,15 @@ import { IElementCrud } from '../interfaces/IElementCrud';
 @Injectable({
   providedIn: 'root'
 })
-export class ItemsService<Tdata> {
+export class ItemsService<Tdata, TsubData> {
 
     items!: Tdata[]
 
     updatedItem!: Tdata
     savedItem!: Tdata
 
-    // subUpdatedItem!: TsubData
-    // signalSubUpdatedItem!: TsubData
+    subUpdatedItem!: TsubData
+    subSavedItem!: TsubData
 
     isUpdatedItem: number = 0
     signalIsUpdatedItem = signal(this.isUpdatedItem)
@@ -20,9 +20,10 @@ export class ItemsService<Tdata> {
     selectedIndex: number = -1
     signalSelectedIndex = signal(this.selectedIndex)
 
+    subSelectedIndex: number = -1
+    signalSubSelectedIndex = signal(this.subSelectedIndex)
+
     signalIsUpdated = signal(false)
     signalIsValid = signal(false)
-
-    // get typeItems() {return }
 
 }

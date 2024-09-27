@@ -18,7 +18,8 @@ export class FoodAnimal implements IFoodAnimal {
             data.id,
             data.dateFood,
             data.gramage,
-            level > 0 ? Animal.deserialize(data.animal, level - 1) : new Animal()
+            level > 0 ? Animal.deserialize(data.animal, level - 1) : new Animal(),
+            level > 0 ? Food.deserialize(data.food, level - 1) : new Food()
         )
     }
 
