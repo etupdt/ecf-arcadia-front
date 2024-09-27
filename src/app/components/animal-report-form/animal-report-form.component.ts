@@ -9,15 +9,17 @@ import { VeterinaryReport } from 'src/app/models/VeterinaryReport';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { environment } from 'src/environments/environment';
+import { AnimalFoodListComponent } from "../animal-food-list/animal-food-list.component";
+import { FoodAnimal } from 'src/app/models/FoodAnimal';
 
 @Component({
-    selector: 'app-animal-report',
-    templateUrl: './animal-report.component.html',
-    styleUrls: ['./animal-report.component.scss'],
+    selector: 'app-animal-report-form',
+    templateUrl: './animal-report-form.component.html',
+    styleUrls: ['./animal-report-form.component.scss'],
     standalone: true,
-    imports: [NgFor, CommonModule, FormsModule, ReactiveFormsModule]
+    imports: [NgFor, CommonModule, FormsModule, ReactiveFormsModule, AnimalFoodListComponent]
 })
-export class AnimalReportComponent {
+export class AnimalReportFormComponent {
 
     useBackendImages: string = `${environment.useBackendImages}`
 
@@ -45,7 +47,7 @@ export class AnimalReportComponent {
         })
     }
 
-    date: string | null = this.datepipe.transform(Date.now(), 'y-MM-dd')
+    dateReport: string | null = this.datepipe.transform(Date.now(), 'y-MM-dd')
     foods$: Observable<Food[]> = this.foodService.getItems('foods')
     
     get selectedItem(): Animal { return this.itemsService.items[this.itemsService.selectedIndex]}
@@ -76,7 +78,7 @@ export class AnimalReportComponent {
                 this.veterinaryReport.food.id !== this.food.value 
             )
             this.itemsService.signalIsValid.set(this.animalForm.valid && this.food.value !== 0)
-            this.veterinaryReport.date = this.date!
+            this.veterinaryReport.date = this.dateReport!
             this.veterinaryReport.detail = this.detail.value
             this.veterinaryReport.gramage = this.gramage.value
             this.veterinaryReport.food.id = this.food.value
@@ -95,7 +97,7 @@ export class AnimalReportComponent {
 
     onChangeDateFood = () => {
 
-        const veterinaryReport = this.getVeterinaryReport(this.date!)
+        const veterinaryReport = this.getVeterinaryReport(this.dateReport!)
 
         if (veterinaryReport) {
             this.veterinaryReport = new VeterinaryReport (

@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
-import { Component, Injector, effect } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Injector, Input, effect } from '@angular/core';
+import { Animal } from 'src/app/models/Animal';
 import { FoodAnimal } from 'src/app/models/FoodAnimal';
 
 @Component({
@@ -12,24 +12,8 @@ import { FoodAnimal } from 'src/app/models/FoodAnimal';
 })
 export class AnimalFoodListComponent {
 
-    itemsService: any
-
-    constructor (
-        private injector: Injector,
-        private route: ActivatedRoute,
-    ) {
-        this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
-        effect(() => {
-            this.selectedIndex = this.itemsService.signalSelectedIndex()
-        })
-    }
-
-    selectedIndex: number = -1
-
-    get foodAnimals(): FoodAnimal[] {
-        return this.selectedIndex === -1 
-            ? []
-            : this.itemsService.items[this.selectedIndex].foodAnimals
-        }
-
+    @Input() animal!: Animal
+    
+    get foodAnimals() {return this.animal.foodAnimals.sort((a: FoodAnimal, b: FoodAnimal) => b.dateFood.localeCompare(a.dateFood))}
+    
 }

@@ -24,7 +24,7 @@ import { AnimalFoodFormComponent } from './app/components/animal-food-form/anima
 import { UserFormComponent } from './app/components/user-form/user-form.component';
 import { HoursFormComponent } from './app/components/hours-form/hours-form.component';
 import { HabitatFormComponent } from './app/components/habitat-form/habitat-form.component';
-import { AnimalReportComponent } from './app/components/animal-report/animal-report.component';
+import { AnimalReportFormComponent } from './app/components/animal-report-form/animal-report-form.component';
 import { ReportAnimalPageComponent } from './app/pages/report-animal-page/report-animal-page.component';
 import { AnimalFoodListComponent } from './app/components/animal-food-list/animal-food-list.component';
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
@@ -325,7 +325,7 @@ bootstrapApplication(AppComponent, {
                 children: [
                     {
                         path: 'form',
-                        component: AnimalReportComponent,
+                        component: AnimalReportFormComponent,
                         outlet: 'form',
                         data: { 
                             requiredService: SERVICE,

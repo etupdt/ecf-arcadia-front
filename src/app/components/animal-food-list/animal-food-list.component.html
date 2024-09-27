@@ -1,6 +1,19 @@
 
-<div class="card" *ngFor="let foodAnimal of foodAnimals">
-    <span>{{ foodAnimal.dateFood }}</span>
-    <span>{{ foodAnimal.food.name }}</span>
-    <span>{{ foodAnimal.gramage }}</span>
+<h4 class="text-center">Liste par jour des repas de {{ animal.firstname }}</h4>
+<div class="cards">
+    <div class="card" *ngFor="let foodAnimal of foodAnimals">
+        <h5 class="card-title ms-3 mt-2 mb-0 fw-bold">{{ foodAnimal.dateFood }}</h5>
+        <div class="card-body d-flex w-75 ms-5">
+            <div class="">
+                <div class="text-end">
+                    <p class="m-0">Nourriture</p>
+                    <p class="m-0">Quantité</p>
+                </div>
+            </div>
+            <div class="ps-2">
+                <p class="m-0 fw-bolder">{{ foodAnimal.food.name }}</p>
+                <p class="m-0 fw-bolder">{{ foodAnimal.gramage }}</p>
+            </div>
+        </div>
+    </div>
 </div>
