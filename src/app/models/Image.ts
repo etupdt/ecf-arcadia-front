@@ -9,4 +9,13 @@ export class Image implements IImage {
         public imageBlob : Blob
     ) {}
 
+    static deserialize  (data: any, level: number): Image {
+        return new Image(
+            data.id,
+            data.imageName,
+            data.hash,
+            data.imageBlob
+        )
+    }
+
 }

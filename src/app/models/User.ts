@@ -12,6 +12,17 @@ export class User implements IUser {
         public role: string = '',
     ) {}
 
+    static deserialize (data: any, level: number): User {
+        return new User(
+            data.id, 
+            data.email,
+            data.password,
+            data.firstname,
+            data.lastname,
+            data.role
+        )
+    }
+
     getApiItemBody (): any {
 
         return this

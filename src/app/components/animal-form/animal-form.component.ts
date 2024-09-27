@@ -28,6 +28,8 @@ export class AnimalFormComponent implements OnInit, OnChanges {
         
     animalForm!: FormGroup
 
+    imagesUpdated: boolean = false
+
     private itemsService: any
 
     constructor (
@@ -38,21 +40,12 @@ export class AnimalFormComponent implements OnInit, OnChanges {
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
+            const IsUpdatedItem = this.itemsService.signalIsUpdatedItem()
             const selectedIndex = this.itemsService.signalSelectedIndex()
-            if (selectedIndex === -1) {
-                this.animal = new Animal(0, '', '', '', new Breed(0, ''), new Habitat (0, '', '', '', [], []), [], [], [])
+            if (this.itemsService.selectedIndex === -1) {
+                this.animal = new Animal()
             } else {
-                this.animal = new Animal (
-                    this.selectedItem.id,
-                    this.selectedItem.firstname,
-                    this.selectedItem.health,
-                    this.selectedItem.description,
-                    this.selectedItem.breed,
-                    this.selectedItem.habitat,
-                    this.selectedItem.images,
-                    this.selectedItem.veterinaryReports,
-                    this.selectedItem.foodAnimals
-                )
+                this.animal = Animal.deserialize(this.items[this.itemsService.selectedIndex], 1)
             }
             this.initForm()
         })
@@ -65,11 +58,10 @@ export class AnimalFormComponent implements OnInit, OnChanges {
     ngOnDestroy(): void {
     }
 
+    get items() {console.log(typeof this.itemsService.items); return this.itemsService.items}
+
     breeds$: Observable<IBreed[]> = this.breedService.getItems('breeds')
     habitat$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
-
-    get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
-    set selectedItem(item: IAnimal) {this.itemsService.items[this.itemsService.selectedIndex]}
 
     get animal() { return this.itemsService.updatedItem }
     set animal(animal : IAnimal) { this.itemsService.updatedItem = animal }
@@ -102,9 +94,10 @@ export class AnimalFormComponent implements OnInit, OnChanges {
                 this.animal.health !== this.health.value ||
                 this.animal.description !== this.description.value ||
                 this.animal.breed.id !== this.breed.value ||
-                this.animal.habitat.id !== this.habitat.value
+                this.animal.habitat.id !== this.habitat.value ||
+                this.imagesUpdated
             )
-            this.itemsService.signalIsValid.set(this.animalForm.valid)
+            this.itemsService.signalIsValid.set(this.animalForm.valid && this.animal.images.length > 0)
             this.animal.firstname = this.firstname.value
             this.animal.health = this.health.value
             this.animal.description = this.description.value
@@ -115,10 +108,16 @@ export class AnimalFormComponent implements OnInit, OnChanges {
 
     onDeleteImage = (index: number) => {
         this.animal.images.splice(index,1)
+        this.imagesUpdated = true
+        this.itemsService.signalIsUpdated.set(true)
+        this.itemsService.signalIsValid.set(this.animalForm.valid && this.animal.images.length > 0)
     }
 
     onAddImage = (image: Image) => {
         this.animal.images.push(image)
+        this.imagesUpdated = true
+        this.itemsService.signalIsUpdated.set(true)
+        this.itemsService.signalIsValid.set(this.animalForm.valid && this.animal.images.length > 0)
     }    
 
 }

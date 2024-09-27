@@ -16,6 +16,18 @@ export class VeterinaryReport implements IVeterinaryReport {
         public food: Food = new Food(),
     ) {}
 
+    static deserialize (data: any, level: number): VeterinaryReport {
+        return new VeterinaryReport(
+            data.id,
+            data.date,
+            data.detail,
+            data.grammage,
+            level > 0 ? Animal.deserialize(data.animal, level - 1) : new Animal(),
+            level > 0 ? User.deserialize(data.user, level - 1) : new User(),
+            level > 0 ? Food.deserialize(data.food, level - 1) : new Food()
+        )
+    }
+
     getApiItemBody (): any {
 
         return this

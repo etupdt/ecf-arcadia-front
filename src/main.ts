@@ -20,7 +20,7 @@ import { ViewsPageComponent } from './app/pages/views-page/views-page.component'
 import { AnimalFormComponent } from './app/components/animal-form/animal-form.component';
 import { FoodAnimalPageComponent } from './app/pages/food-animal-page/food-animal-page.component';
 import { ListComponent } from './app/components/list/list.component';
-import { AnimalFoodComponent } from './app/components/animal-food/animal-food.component';
+import { AnimalFoodFormComponent } from './app/components/animal-food-form/animal-food-form.component';
 import { UserFormComponent } from './app/components/user-form/user-form.component';
 import { HoursFormComponent } from './app/components/hours-form/hours-form.component';
 import { HabitatFormComponent } from './app/components/habitat-form/habitat-form.component';
@@ -36,6 +36,7 @@ import { ErrorModalComponent } from './app/modals/error-modal/error-modal.compon
 import { DashboardPageComponent } from './app/pages/dashboard-page/dashboard-page.component';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { ContactPageComponent } from './app/pages/contact-page/contact-page.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -47,6 +48,7 @@ bootstrapApplication(AppComponent, {
         DatePipe,
         { provide: SERVICE, useClass: ItemsService },    
         provideCharts(withDefaultRegisterables()),
+        NgbActiveModal,
         provideRouter([
             {
                 path: 'error',
@@ -192,7 +194,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'users',
-                            fields: ['id', 'username', 'firstname', 'lastname'],
+                            fields: ['id', 'firstname', 'lastname', 'email'],
                         }
                     },            
                 ],
@@ -295,7 +297,7 @@ bootstrapApplication(AppComponent, {
                 children: [
                     {
                         path: 'form',
-                        component: AnimalFoodComponent,
+                        component: AnimalFoodFormComponent,
                         outlet: 'form',
                         data: { 
                             requiredService: SERVICE,

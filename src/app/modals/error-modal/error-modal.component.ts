@@ -1,6 +1,5 @@
-import { Component, Input, effect } from '@angular/core';
-import { HeaderService } from 'src/app/services/header.service';
-
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, effect } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'app-error-modal',
     standalone: true,
@@ -10,7 +9,13 @@ import { HeaderService } from 'src/app/services/header.service';
 })
 export class ErrorModalComponent {
 
+	@ViewChild('errorModal') errorModal!: ElementRef
+	
     @Input() message: string = ''
     @Input() display: string = ''
-  
+
+    constructor(
+        public activeModal: NgbActiveModal
+    ) {}
+
 }

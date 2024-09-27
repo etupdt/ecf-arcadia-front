@@ -13,6 +13,16 @@ export class FoodAnimal implements IFoodAnimal {
         public food: Food = new Food()
     ) {}
 
+    static deserialize (data: any, level: number): FoodAnimal {
+        return new FoodAnimal(
+            data.id,
+            data.dateFood,
+            data.gramage,
+            level > 0 ? Animal.deserialize(data.animal, level - 1) : new Animal(),
+            level > 0 ? Food.deserialize(data.food, level - 1) : new Food()
+        )
+    }
+
     getApiItemBody (): any {
 
         return this

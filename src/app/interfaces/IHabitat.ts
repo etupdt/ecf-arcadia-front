@@ -1,6 +1,6 @@
 import { Animal } from "../models/Animal";
+import { Image } from "../models/Image";
 import { IElement } from "./IElement";
-import { IImage } from "./IImage";
 
 export interface IHabitat extends IElement {
     id: number,
@@ -8,5 +8,5 @@ export interface IHabitat extends IElement {
     description: string,
     comment: string,
     animals: Animal[],
-    images: IImage[]
+    images: Image[]
 }

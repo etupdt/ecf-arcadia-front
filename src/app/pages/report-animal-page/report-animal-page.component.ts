@@ -3,17 +3,19 @@ import { Component, HostListener, Injector, OnDestroy, OnInit, effect } from '@a
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
-import { AnimalFoodComponent } from '../../components/animal-food/animal-food.component';
+import { AnimalFoodFormComponent } from '../../components/animal-food-form/animal-food-form.component';
 import { FormsModule } from '@angular/forms';
 import { Animal } from 'src/app/models/Animal';
 import { VeterinaryReport } from 'src/app/models/VeterinaryReport';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-veterinary-page',
   templateUrl: './report-animal-page.component.html',
   styleUrls: ['./report-animal-page.component.scss'],
   standalone: true,
-  imports: [AnimalFoodComponent, FormsModule, RouterOutlet]
+  imports: [AnimalFoodFormComponent, FormsModule, RouterOutlet]
 })
 export class ReportAnimalPageComponent implements OnInit {
 
@@ -26,7 +28,8 @@ export class ReportAnimalPageComponent implements OnInit {
         private veterinaryReportService: ApiService<VeterinaryReport>,
         private router: Router,
         private route: ActivatedRoute,
-        public datepipe: DatePipe
+        public datepipe: DatePipe,
+        private modalService: NgbModal
     ) {
         this.genericService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         this.router.navigate([{ outlets: { list: [ 'list' ] }}], {relativeTo:this.route})
@@ -79,8 +82,8 @@ export class ReportAnimalPageComponent implements OnInit {
                     this.items[this.selectedIndex].veterinaryReports!.push(res)
                 },
                 error: (error: { error: { message: any; }; }) => {
-                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                    this.headerService.signalModal.set(this.headerService.modal)
+                    const modal = this.modalService.open(ErrorModalComponent)
+                    modal.componentInstance.message = error.error.message;
                 }
             })
         } else {
@@ -91,8 +94,8 @@ export class ReportAnimalPageComponent implements OnInit {
                     this.items[this.selectedIndex].veterinaryReports![this.veterinaryReportIndex] = res
                 },
                 error: (error: { error: { message: any; }; }) => {
-                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                    this.headerService.signalModal.set(this.headerService.modal)
+                    const modal = this.modalService.open(ErrorModalComponent)
+                    modal.componentInstance.message = error.error.message;
                 }
             })
         }

@@ -1,6 +1,6 @@
 import { IElement } from "./IElement";
 
-export interface IAuth extends IElement {
+export interface IContact extends IElement {
     title: string
     description: string
     email: string,

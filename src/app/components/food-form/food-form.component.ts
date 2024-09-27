@@ -26,27 +26,27 @@ export class FoodFormComponent {
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
+            const IsUpdatedItem = this.itemsService.signalIsUpdatedItem()
             const selectedIndex = this.itemsService.signalSelectedIndex()
-            if (selectedIndex === -1) {
-                this.Food = new Food(0, '')
+            if (this.itemsService.selectedIndex === -1) {
+                this.food = new Food()
             } else {
-                this.Food = new Food(this.selectedItem.id, this.selectedItem.name)
+                this.food = Food.deserialize(this.items[this.itemsService.selectedIndex], 1)
             }
             this.initForm()
         })
     }    
 
-    get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
-    set selectedItem(item: IFood) {this.itemsService.items[this.itemsService.selectedIndex]}
+    get items() {return this.itemsService.items}
 
-    get Food() { return this.itemsService.updatedItem }
-    set Food(Food : IFood) { this.itemsService.updatedItem = Food }
+    get food() { return this.itemsService.updatedItem }
+    set food(food : IFood) { this.itemsService.updatedItem = food }
 
     get name() { return this.foodForm.get('name')! as FormControl }
 
     ngOnInit(): void {
 
-        this.Food = new Food(0, '')
+        this.food = new Food()
         
         this.initForm()
     
@@ -54,14 +54,14 @@ export class FoodFormComponent {
 
     initForm = () => {
         this.foodForm = new FormGroup({
-            name: new FormControl(this.Food.name, Validators.required),
+            name: new FormControl(this.food.name, Validators.required),
         });    
         this.foodForm.valueChanges.subscribe(changes => { 
             this.itemsService.signalIsUpdated.set(
-                this.Food.name !== this.name.value 
+                this.food.name !== this.name.value 
             )
             this.itemsService.signalIsValid.set(this.foodForm.valid)
-            this.Food.name = this.name.value
+            this.food.name = this.name.value
         })
     }
 

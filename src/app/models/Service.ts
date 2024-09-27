@@ -9,6 +9,14 @@ export class Service implements IService {
         public description: string = '',
     ) {}
 
+    static deserialize (data: any, level: number): Service {
+        return new Service(
+            data.id, 
+            data.name,
+            data.description
+        )
+    }
+
     getApiItemBody (): any {
 
         return this

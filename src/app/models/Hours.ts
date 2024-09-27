@@ -14,6 +14,19 @@ export class Hours implements IHours {
         public sunday: string = '',
     ) {}
 
+    static deserialize (data: any, level: number): Hours {
+        return new Hours(
+            data.id, 
+            data.monday,
+            data.tuesday,
+            data.wednesday,
+            data.thursday,
+            data.friday,
+            data.saturday,
+            data.sunday
+        )
+    }
+   
     getApiItemBody (): any {
 
         return this

@@ -27,17 +27,18 @@ export class UserFormComponent {
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
+            const IsUpdatedItem = this.itemsService.signalIsUpdatedItem()
             const selectedIndex = this.itemsService.signalSelectedIndex()
-            this.initItem(this.itemsService.selectedIndex)
-        })
-        effect(() => {
-            const nonValue = this.itemsService.signalIsUpdatedItem()
-            this.initItem(this.itemsService.selectedIndex)
+            if (this.itemsService.selectedIndex === -1) {
+                this.user = new User()
+            } else {
+                this.user = User.deserialize(this.items[this.itemsService.selectedIndex], 1)
+            }
+            this.initForm()
         })
     }    
 
-    get selectedItem() { return this.itemsService.items[this.itemsService.selectedIndex]}
-    set selectedItem(item: IUser) {this.itemsService.items[this.itemsService.selectedIndex]}
+    get items() {return this.itemsService.items}
 
     get user() { return this.itemsService.updatedItem }
     set user(user : IUser) { this.itemsService.updatedItem = user }
@@ -58,11 +59,11 @@ export class UserFormComponent {
 
     initForm = () => {
         this.userForm = new FormGroup({
-            email: new FormControl(this.user.email, Validators.required),
+            email: new FormControl(this.user.email, [Validators.required, Validators.email]),
             password: new FormControl(this.user.password, Validators.required),
             firstname: new FormControl(this.user.firstname, Validators.required),
             lastname: new FormControl(this.user.lastname, Validators.required),
-            role: new FormControl(this.user.role),
+            role: new FormControl(this.user.role, Validators.required),
         });    
         this.userForm.valueChanges.subscribe(changes => { 
             this.itemsService.signalIsUpdated.set(
@@ -79,21 +80,6 @@ export class UserFormComponent {
             this.user.lastname = this.lastname.value
             this.user.role = this.role.value
         })
-    }
-
-    initItem = (selectedIndex: number) => {
-        if (selectedIndex === -1) {
-            this.user = new User()
-        } else {
-            this.user = new User(this.selectedItem.id, 
-                this.selectedItem.email, 
-                this.selectedItem.password, 
-                this.selectedItem.firstname, 
-                this.selectedItem.lastname,
-                this.selectedItem.role
-            )
-        }
-        this.initForm()
     }
 
 }

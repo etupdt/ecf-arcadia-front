@@ -8,6 +8,10 @@ export class Food implements IFood {
         public name: string = '',
     ) {}
 
+    static deserialize (data: any, level: number): Food {
+        return new Food(data.id, data.name)
+    }
+
     getApiItemBody (): any {
 
         return this

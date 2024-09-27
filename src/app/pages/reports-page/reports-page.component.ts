@@ -10,6 +10,8 @@ import { AnimalFilterPipe } from "../../pipes/animal-filter.pipe";
 import { IDropdown } from 'src/app/interfaces/IDropdown';
 import { IAnimal } from 'src/app/interfaces/IAnimal';
 import { ActivatedRoute } from '@angular/router';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-reports-page',
@@ -23,7 +25,8 @@ export class ReportsPageComponent {
     constructor (
         private animalService: ApiService<IAnimal>,
         private route: ActivatedRoute,
-        private headerService: HeaderService
+        private headerService: HeaderService,
+        private modalService: NgbModal
     ) {}
 
     date: string = ""
@@ -67,9 +70,9 @@ export class ReportsPageComponent {
                 this.animalsSelected = animalsSelected
             },
             error: (error: { error: { message: any; }; }) => {
-                this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                this.headerService.signalModal.set(this.headerService.modal)
-            }
+                const modal = this.modalService.open(ErrorModalComponent)
+                modal.componentInstance.message = error.error.message;
+        }
         })
     
     }

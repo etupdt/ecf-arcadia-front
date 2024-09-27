@@ -8,6 +8,9 @@ export class AnimalStatistic {
         public qty: number = 1,
     ) {}
 
+    clone (level: number) {
+        return null
+    }
     getApiItemBody (): any {
 
         return this

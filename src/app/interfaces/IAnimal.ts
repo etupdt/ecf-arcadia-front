@@ -5,8 +5,10 @@ import { Image } from "../models/Image";
 import { Habitat } from "../models/Habitat";
 import { FoodAnimal } from "../models/FoodAnimal";
 import { VeterinaryReport } from "../models/VeterinaryReport";
+import { Animal } from "../models/Animal";
 
 export interface IAnimal extends IElement {
+
     id: number,
     firstname: string,
     description: string,
@@ -16,4 +18,5 @@ export interface IAnimal extends IElement {
     images: Image[],
     veterinaryReports: VeterinaryReport[]
     foodAnimals: FoodAnimal[]
+
 }

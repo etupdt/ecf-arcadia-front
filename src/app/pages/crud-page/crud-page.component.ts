@@ -4,6 +4,9 @@ import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/rou
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { ListComponent } from "../../components/list/list.component";
+import { ToastsService } from 'src/app/services/toasts.service';
+import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-crud-page',
@@ -21,9 +24,12 @@ export class CrudPageComponent<Tdata> implements OnInit {
         private route: ActivatedRoute,
         private injector: Injector,
         private headerService: HeaderService,
-        private apiService: ApiService<Tdata>
+        private apiService: ApiService<Tdata>,
+        private toastsService: ToastsService,
+        private modalService: NgbModal,
     ) {
         this.genericService = injector.get<string>(<any>route.snapshot.data['requiredService']);
+        this.genericService.selectedIndex = -1
         this.router.navigate([{ outlets: { list: [ 'list' ] }}], {relativeTo:this.route})
         .then(ok => this.router.navigate([{ outlets: { form: [ 'form' ] }}], {relativeTo:this.route}))
         effect(() => {
@@ -35,6 +41,7 @@ export class CrudPageComponent<Tdata> implements OnInit {
     uri: string = this.route.snapshot.data['feature']
     
     get items(): Tdata[] {return this.genericService.items}
+    set items(initial: Tdata[]) {this.genericService.items = initial}
     
     get selectedIndex(): number {return this.genericService.selectedIndex}
     set selectedIndex(index: number) {
@@ -64,27 +71,29 @@ export class CrudPageComponent<Tdata> implements OnInit {
     }
     
     update = () => {
-        if (this.genericService.updatedItem['id'] === 0) {
+        if (this.genericService.updatedItem.id === 0) {
             this.apiService.postItem(this.uri, this.genericService.updatedItem).subscribe({
-                next: (res: Tdata) => {
+                next: (res: any) => {
                     this.items.push(res)
                     this.selectedIndex = this.items.length - 1
-                    this.genericService.updatedItem['id'] = this.genericService.items[this.selectedIndex]['id']
+                    this.genericService.updatedItem['id'] = this.genericService.items[this.selectedIndex].id
+                    this.toastsService.show('l\'element a bien été créé !', 2000)
                 },    
                 error: (error: { error: { message: any; }; }) => {
-                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                    this.headerService.signalModal.set(this.headerService.modal)
+                    const modal = this.modalService.open(ErrorModalComponent)
+                    modal.componentInstance.message = error.error.message;
                 }    
             })    
         } else {
             this.apiService.putItem(this.uri, this.genericService.updatedItem['id'], this.genericService.updatedItem).subscribe({
-                next: (res: Tdata) => {
+                next: (res: any) => {
                     this.items[this.selectedIndex] = res
                     this.selectedIndex = this.selectedIndex
+                    this.toastsService.show('l\'element a bien été mis à jour !', 2000)
                 },    
                 error: (error: { error: { message: any; }; }) => {
-                    this.headerService.modal = {modal: 'error', message: error.error.message, display: "display: block;"}
-                    this.headerService.signalModal.set(this.headerService.modal)
+                    const modal = this.modalService.open(ErrorModalComponent)
+                    modal.componentInstance.message = error.error.message;
                 }    
             })    
         }    

@@ -70,10 +70,11 @@ export class ImageCropComponent {
     }
     
     fileChangeEvent(event: any): void {
-        if (!event || event.target.files[0]) {
+        if (event.target.files[0]) {
             this.savedImage = event.target.files[0]
             this.activeImage = event.target.files[0]
             this.targetImage = event.target.files[0]
+            event.target.value = ""
         }
     }
     
@@ -103,6 +104,8 @@ export class ImageCropComponent {
     
     addImage = () => {
         this.addCarouselImage.emit(new Image(0, this.targetImageBase64, '', this.targetImageBlob))
+        this.activeImage = ''
+        this.targetImage = ''
     }
 
     replaceImage = () => {

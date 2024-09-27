@@ -25,7 +25,6 @@ export class EmployeePageComponent {
         private headerService: HeaderService,
         private viewService: ApiService<IView>,
         private serviceService: ApiService<Service>,
-        private route: ActivatedRoute
     ) { }  
 
 

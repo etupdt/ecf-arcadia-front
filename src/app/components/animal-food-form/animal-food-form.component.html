@@ -1,15 +1,15 @@
 
-<div class="w-25">
-    <label for="dateFood" class="form-label">Date</label>
+<div class="input-group my-2">
+    <span class="input-group-text">Date de l'alimentation</span>
     <input 
     id="dateFood" 
     type="date" 
-    class="form-control m-1"
+    class="form-control"
     [(ngModel)]="dateFood" 
     (change)="onChangeDateFood()"
     >
 </div>
-<form *ngIf="animalForm" class="card w-100" [formGroup]="animalForm">
+<form *ngIf="animalFoodForm" class="card w-100" [formGroup]="animalFoodForm">
     <div class="card-body">
         <label for="food" class="form-label">Nouriture</label>
         <select
