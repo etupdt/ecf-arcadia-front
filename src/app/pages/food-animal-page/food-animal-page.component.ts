@@ -85,10 +85,7 @@ export class FoodAnimalPageComponent<Tdata> implements OnInit{
             this.foodAnimalService.postItem('foodanimals', FoodAnimal.deserialize(this.updatedItem, 1)).subscribe({
                 next: (res: FoodAnimal) => {
                     this.genericService.signalIsUpdated.set(false)
-                    console.log(res)
                     this.updatedItem.id = res.id
-                    // this.genericService.subSelectedIndex = this.items[this.selectedIndex].foodAnimals!.length - 1
-                    // this.genericService.signalSubSelectedIndex.set(this.genericService.subSelectedIndex)
                     this.toastsService.show('l\'element a bien été créé !', 2000)
                 },
                 error: (error: { error: { message: any; }; }) => {
