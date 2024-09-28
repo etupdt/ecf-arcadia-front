@@ -34,7 +34,7 @@ export class HabitatFormComponent {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
             const IsUpdatedItem = this.itemsService.signalIsUpdatedItem()
-            const selectedIndex = this.itemsService.signalSelectedIndex()
+            // const selectedIndex = this.itemsService.signalSelectedIndex()
             if (this.itemsService.selectedIndex === -1) {
                 this.habitat = new Habitat()
             } else {

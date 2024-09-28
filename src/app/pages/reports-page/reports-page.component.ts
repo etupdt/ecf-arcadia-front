@@ -12,6 +12,7 @@ import { IAnimal } from 'src/app/interfaces/IAnimal';
 import { ActivatedRoute } from '@angular/router';
 import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-reports-page',
@@ -24,6 +25,7 @@ export class ReportsPageComponent {
 
     constructor (
         private animalService: ApiService<IAnimal>,
+        private authService: AuthService,
         private route: ActivatedRoute,
         private headerService: HeaderService,
         private modalService: NgbModal
@@ -49,8 +51,8 @@ export class ReportsPageComponent {
 
     ngOnInit(): void {
 
-        this.headerService.selectedMenuItem =  this.headerService.user.role
-        this.headerService.signalItemSelected.set( this.headerService.user.role)
+        this.headerService.selectedMenuItem =  this.authService.user.role
+        this.headerService.signalItemSelected.set( this.authService.user.role)
         const path = this.route.snapshot.routeConfig ? this.route.snapshot.routeConfig.path : ''
         this.headerService.selectedSubMenuItem = path ? path : ''
         this.headerService.signalSubItemSelected.set(path ? path : '')

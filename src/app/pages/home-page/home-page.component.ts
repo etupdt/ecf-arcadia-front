@@ -39,20 +39,7 @@ export class HomePageComponent implements OnInit {
         private headerService: HeaderService
     ) { }
 
-    // habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
-    // errorsHabitats$ = this.habitats$.pipe(
-    //     ignoreElements(),
-    //     catchError((err: Error) => of(err))
-    // )
-
     habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
-    // .pipe(
-    //     catchError((e: HttpErrorResponse) => {
-    //         console.log('toto', e)
-    //         this.displayError('Application indisponible !')
-    //         return throwError(() => e.message)
-    //     })
-    // )
 
     services$: Observable<Service[]> = this.serviceService.getItems('services')
     views$: Observable<IView[]> = this.viewService.getItems('views')

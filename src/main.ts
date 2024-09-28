@@ -24,13 +24,12 @@ import { AnimalFoodFormComponent } from './app/components/animal-food-form/anima
 import { UserFormComponent } from './app/components/user-form/user-form.component';
 import { HoursFormComponent } from './app/components/hours-form/hours-form.component';
 import { HabitatFormComponent } from './app/components/habitat-form/habitat-form.component';
-import { AnimalReportComponent } from './app/components/animal-report/animal-report.component';
+import { AnimalReportFormComponent } from './app/components/animal-report-form/animal-report-form.component';
 import { ReportAnimalPageComponent } from './app/pages/report-animal-page/report-animal-page.component';
 import { AnimalFoodListComponent } from './app/components/animal-food-list/animal-food-list.component';
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
 import { BreedFormComponent } from './app/components/breed-form/breed-form.component';
 import { FoodFormComponent } from './app/components/food-form/food-form.component';
-import { AuthPageComponent } from './app/pages/auth-page/auth-page.component';
 import { tokenInterceptor } from './app/interceptors/token.interceptor';
 import { ErrorModalComponent } from './app/modals/error-modal/error-modal.component';
 import { DashboardPageComponent } from './app/pages/dashboard-page/dashboard-page.component';
@@ -82,10 +81,6 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'Reports',
                 component: ReportsPageComponent,
-            },            
-            {
-                path: 'Auth',
-                component: AuthPageComponent,
             },            
             {
                 path: 'ServicesAdmin',
@@ -325,7 +320,7 @@ bootstrapApplication(AppComponent, {
                 children: [
                     {
                         path: 'form',
-                        component: AnimalReportComponent,
+                        component: AnimalReportFormComponent,
                         outlet: 'form',
                         data: { 
                             requiredService: SERVICE,

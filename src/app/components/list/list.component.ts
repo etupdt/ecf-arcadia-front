@@ -3,6 +3,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IElementCrud } from 'src/app/interfaces/IElementCrud';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { ItemsService } from 'src/app/services/items.service';
 
@@ -22,7 +23,7 @@ export class ListComponent<Tdata> implements OnInit {
         private route: ActivatedRoute,
         private injector: Injector,
         private apiService: ApiService<Tdata>,
-        private headerService: HeaderService,
+        private authService: AuthService,
     ) {
         this.genericService = injector.get<string>(<any>route.snapshot.data['requiredService']);
     }
@@ -32,7 +33,9 @@ export class ListComponent<Tdata> implements OnInit {
     get selectedIndex(): number {return this.genericService.selectedIndex}
     setSelectedIndex(index: number) {
         this.genericService.selectedIndex = index
-        this.genericService.signalSelectedIndex.set(index)
+        this.genericService.isUpdatedItem++
+        this.genericService.signalIsUpdatedItem.set(this.genericService.isUpdatedItem)
+        // this.genericService.signalSelectedIndex.set(this.genericService.selectedIndex)
     }    
 
     fields!: (keyof Tdata)[]
@@ -68,6 +71,6 @@ export class ListComponent<Tdata> implements OnInit {
         })        
     }        
 
-    get user() {return this.headerService.user}
+    get user() {return this.authService.user}
 
 }

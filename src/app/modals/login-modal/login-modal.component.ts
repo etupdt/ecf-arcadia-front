@@ -7,6 +7,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Auth } from 'src/app/models/Auth';
 import { User } from 'src/app/models/User';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { ToastsService } from 'src/app/services/toasts.service';
 
@@ -27,7 +28,7 @@ export class LoginModalComponent {
 	return!: string
   
 	constructor (
-		private authService: ApiService<Auth>,
+		private authService: AuthService,
 		private userService: ApiService<User>,
 		private headerService: HeaderService,
 		private route: ActivatedRoute,
@@ -66,7 +67,7 @@ export class LoginModalComponent {
 	}
   
 	connexion() {
-		this.authService.postItem('auth/authenticate', this.auth).subscribe({
+		this.authService.authenticate(this.auth).subscribe({
 			next: (res: any) => {
 				localStorage.setItem('arcadia_tokens', JSON.stringify(res))
 				this.userService.getItem('users', this.helper.decodeToken(res.access_token).id).subscribe({
@@ -82,8 +83,8 @@ export class LoginModalComponent {
 	}
 
 	set user (user: User) {
-		this.headerService.user = user
-		this.headerService.signalUser.set(user)
+		this.authService.user = user
+		this.authService.signalUser.set(user)
 	}
 
 }

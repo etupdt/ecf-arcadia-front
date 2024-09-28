@@ -1,21 +1,19 @@
 
-<h2 class="pt-5">Gestion des rapports vétérinaires</h2>
+<h2 class="pt-5">Liste des rapports vétérinaires par animal</h2>
 
-<form class="d-flex col-12">
-    <div class="form-group col-4 p-2">
-        <label for="dateFood" class="form-label">Date</label>
+<form class="input-group d-flex col-12 my-2">
+    <div class="input-group">
+        <span class="input-group-text">Date</span>
         <input 
         id="dateFood" 
         name="dateFood" 
         type="date" 
-        class="form-control m-1"
+        class="form-control"
         [(ngModel)]="date" 
         >
-    </div>
-    <div class="form-group col-8 p-2">
-        <label for="animalList" class="form-label dropdown-label">Animaux</label>
-        <ng-multiselect-dropdown class="m-1"
-            [placeholder]="'Animal'"
+        <span class="input-group-text">Animaux</span>
+        <ng-multiselect-dropdown class="form-control"
+            [placeholder]="''"
             [settings]="dropdownSettings"
             [data]="animalList"
             [(ngModel)]="animalsSelected"

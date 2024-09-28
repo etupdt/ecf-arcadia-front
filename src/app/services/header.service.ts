@@ -12,9 +12,6 @@ export class HeaderService {
     selectedSubMenuItem: string = ''
     signalSubItemSelected = signal(this.selectedSubMenuItem)
 
-    user: User = new User()
-    signalUser = signal(this.user)
-
     collapseAnimals: number =  0
     signalCollapseAnimals = signal(this.collapseAnimals)
 

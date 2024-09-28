@@ -1,15 +1,11 @@
-import { Component, effect} from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { HeaderService } from 'src/app/services/header.service';
 import { LinksComponent } from '../links/links.component';
 import { Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
-import { User } from 'src/app/models/User';
-import { ApiService } from 'src/app/services/api.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { LoginModalComponent } from 'src/app/modals/login-modal/login-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
-import { ToastsService } from 'src/app/services/toasts.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -23,8 +19,6 @@ export class HeaderComponent {
     selectedItem: string = ''
     selectedSubItem: string = ''
 
-    user: User = new User()
-      
     get admin() {return this.user.role === 'ADMIN'}
     get employee() {return this.user.role === 'EMPLOYEE'}
     get veterinary() {return this.user.role === 'VETERINARY'}
@@ -47,46 +41,22 @@ export class HeaderComponent {
 
     dropDownItem: number = -1
 
-    get connected() {return this.admin || this.employee || this.veterinary}
-
-    helper = new JwtHelperService();
+    get user() {return this.authService.user}
+    get connected() {return this.user.role !== ''} 
 
     constructor (
         private headerService: HeaderService,
-        private userService: ApiService<User>,
+        private authService: AuthService,
         private router: Router,
         private modalService: NgbModal,
-        private toastsService: ToastsService
     ) {
+        this.authService.verifyConnection(0)    
         effect(() => {
+            if (this.authService.signalUser()) {
+            }
             this.selectedItem = this.headerService.signalItemSelected()
             this.selectedSubItem = this.headerService.signalSubItemSelected()
-            this.user = this.headerService.signalUser()
         })
-
-        const localUserTokens = localStorage.getItem('arcadia_tokens'); 
-
-        if (localUserTokens) {
-            const userTokens: any = this.helper.decodeToken(JSON.parse(localUserTokens).access_token)
-            if (Date.now() > userTokens.exp * 1000) {
-                headerService.user = new User()
-                headerService.signalUser.set(headerService.user)
-                localStorage.removeItem('arcadia_tokens')
-                this.router.navigate(['Accueil'])
-            } else {
-                this.userService.getItem('users', userTokens.id).subscribe({
-                    next: (res: User) => {
-                        this.headerService.user = res
-                        this.headerService.signalUser.set(res)
-                    },
-                    error: (error: any) => {
-                        console.log(error.status, error.message)
-                        this.user = new User()
-                    }    
-                })
-            }       
-        }
-        
     }
 
     login = () => {
@@ -94,16 +64,11 @@ export class HeaderComponent {
     }
 
     logout = () => {
-        this.headerService.user = new User()
-        this.headerService.signalUser.set(this.headerService.user)
-        localStorage.removeItem('arcadia_tokens')
-        if (this.selectedSubItem !== '') {
-            this.router.navigate(['Accueil'])
-        }
+        this.authService.logout()
     }
 
     navigateTo(index: number) { 
-        if (this.selectedItem !== this.headerService.user.role || this.dropDownItem !== index) {
+        if (this.selectedItem !== this.authService.user.role || this.dropDownItem !== index) {
             this.dropDownItem = index
             this.router.navigate([this.dropDownItems[index].link])
         }

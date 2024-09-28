@@ -9,45 +9,47 @@ import { VeterinaryReport } from 'src/app/models/VeterinaryReport';
 import { ApiService } from 'src/app/services/api.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { environment } from 'src/environments/environment';
+import { AnimalFoodListComponent } from "../animal-food-list/animal-food-list.component";
+import { FoodAnimal } from 'src/app/models/FoodAnimal';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-    selector: 'app-animal-report',
-    templateUrl: './animal-report.component.html',
-    styleUrls: ['./animal-report.component.scss'],
+    selector: 'app-animal-report-form',
+    templateUrl: './animal-report-form.component.html',
+    styleUrls: ['./animal-report-form.component.scss'],
     standalone: true,
-    imports: [NgFor, CommonModule, FormsModule, ReactiveFormsModule]
+    imports: [NgFor, CommonModule, FormsModule, ReactiveFormsModule, AnimalFoodListComponent]
 })
-export class AnimalReportComponent {
+export class AnimalReportFormComponent {
 
     useBackendImages: string = `${environment.useBackendImages}`
+    
+    dateReport: string | null = this.datepipe.transform(Date.now(), 'y-MM-dd')
+    foods$: Observable<Food[]> = this.foodService.getItems('foods')
 
     animalForm!: FormGroup
 
     private itemsService: any
-
+    
     constructor (
+
         private injector: Injector,
         private route: ActivatedRoute,
-        private headerService: HeaderService,
+        private authService: AuthService,
         private foodService: ApiService<Food>,
         public datepipe: DatePipe
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
             if (this.itemsService.signalIsUpdatedItem()) {
-                this.onChangeDateFood()
-            }
-        })
-        effect(() => {
-            if (this.itemsService.signalSelectedIndex() !== null) {
-                this.onChangeDateFood()
-            }
-        })
-    }
+                if (this.itemsService.selectedIndex !== -1) {
+                    this.dateReport = this.datepipe.transform(Date.now(), 'y-MM-dd')!
+                    this.onChangeDateReport()
+                }    
+            }    
+        })    
+    }    
 
-    date: string | null = this.datepipe.transform(Date.now(), 'y-MM-dd')
-    foods$: Observable<Food[]> = this.foodService.getItems('foods')
-    
     get selectedItem(): Animal { return this.itemsService.items[this.itemsService.selectedIndex]}
     set selectedItem(item: Animal) {this.itemsService.items[this.itemsService.selectedIndex]}
 
@@ -76,42 +78,32 @@ export class AnimalReportComponent {
                 this.veterinaryReport.food.id !== this.food.value 
             )
             this.itemsService.signalIsValid.set(this.animalForm.valid && this.food.value !== 0)
-            this.veterinaryReport.date = this.date!
+            this.veterinaryReport.date = this.dateReport!
             this.veterinaryReport.detail = this.detail.value
             this.veterinaryReport.gramage = this.gramage.value
             this.veterinaryReport.food.id = this.food.value
             this.veterinaryReport.animal.id = this.selectedItem.id
-            this.veterinaryReport.user = this.headerService.user
+            this.veterinaryReport.user = this.authService.user
         })
     }
 
-    getVeterinaryReport(date: string): VeterinaryReport | undefined {
+    getVeterinaryReport(date: string): number {
 
-        return this.selectedItem.veterinaryReports!.find((f: VeterinaryReport) => {
-            return f.date === date
+        return this.selectedItem.veterinaryReports!.findIndex((f: VeterinaryReport) => {
+            return f.date === this.dateReport
         })
         
     }
 
-    onChangeDateFood = () => {
+    onChangeDateReport = () => {
 
-        const veterinaryReport = this.getVeterinaryReport(this.date!)
+        this.itemsService.subSelectedIndex = this.getVeterinaryReport(this.dateReport!)
 
-        if (veterinaryReport) {
-            this.veterinaryReport = new VeterinaryReport (
-                veterinaryReport.id,
-                veterinaryReport.date,
-                veterinaryReport.detail,
-                veterinaryReport.gramage,
-                this.selectedItem,
-                this.headerService.user,
-                veterinaryReport.food
-            )
-
-        } else {
-
-            this.veterinaryReport = new VeterinaryReport()
-        }
+        if (this.itemsService.subSelectedIndex === -1) {
+            this.selectedItem.veterinaryReports.push(new VeterinaryReport())
+            this.itemsService.subSelectedIndex = this.selectedItem.veterinaryReports.length - 1
+        } 
+        this.veterinaryReport = this.selectedItem.veterinaryReports[this.itemsService.subSelectedIndex]
 
         this.initForm()
 
