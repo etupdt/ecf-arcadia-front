@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsService } from 'src/app/services/toasts.service';
 import { Food } from 'src/app/models/Food';
 import { IElement } from 'src/app/interfaces/IElement';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-food-animal-page',
@@ -25,6 +26,7 @@ export class FoodAnimalPageComponent<Tdata> implements OnInit{
 
     constructor (
         private headerService: HeaderService,
+        private authService: AuthService,
         private injector: Injector,
         private foodAnimalService: ApiService<FoodAnimal>,
         private router: Router,
@@ -47,11 +49,7 @@ export class FoodAnimalPageComponent<Tdata> implements OnInit{
     get items(): Animal[] {return this.genericService.items}
     
     get updatedItem(): FoodAnimal {return this.items[this.selectedIndex].foodAnimals[this.genericService.subSelectedIndex]}
-    // set updatedItem(foodAnimal: FoodAnimal) {
-    //     this.genericService.subUpdatedItem = foodAnimal
-    //     this.genericService.signalSubUpdatedItem.set(foodAnimal)
-    // }
-
+    
     get selectedIndex(): number {return this.genericService.selectedIndex}
     set selectedIndex(index: number) {
         this.inCreation = false
@@ -67,7 +65,7 @@ export class FoodAnimalPageComponent<Tdata> implements OnInit{
     
     ngOnInit(): void {
 
-        this.headerService.selectedMenuItem = this.headerService.user.role
+        this.headerService.selectedMenuItem = this.authService.user.role
         this.headerService.signalItemSelected.set(this.headerService.selectedMenuItem)
         const path = this.route.snapshot.routeConfig ? this.route.snapshot.routeConfig.path : ''
         this.headerService.selectedSubMenuItem = path ? path : ''
@@ -80,7 +78,6 @@ export class FoodAnimalPageComponent<Tdata> implements OnInit{
     }
     
     update = () => {
-        console.log(this.updatedItem)
         if (this.updatedItem.id === 0) {
             this.foodAnimalService.postItem('foodanimals', FoodAnimal.deserialize(this.updatedItem, 1)).subscribe({
                 next: (res: FoodAnimal) => {
@@ -108,7 +105,6 @@ export class FoodAnimalPageComponent<Tdata> implements OnInit{
     delete = () => {
         this.foodAnimalService.deleteItem('foodanimals', this.updatedItem.id).subscribe({
             next: (res: FoodAnimal) => {
-                console.log("delete = ", this.genericService.selectedIndex, this.genericService.subSelectedIndex)
                 this.genericService.signalIsUpdated.set(false)
                 const index = this.items[this.selectedIndex].foodAnimals!.findIndex((f: FoodAnimal) => {
                     return f.dateFood === this.updatedItem.dateFood
@@ -117,7 +113,6 @@ export class FoodAnimalPageComponent<Tdata> implements OnInit{
                 this.genericService.subSelectedIndex = this.items[this.selectedIndex].foodAnimals!.length > 0 ? 0 : -1
                 this.genericService.signalSubSelectedIndex.set(this.genericService.subSelectedIndex)
                 this.toastsService.show('l\'element a bien été supprimé !', 2000)
-                console.log("delete donne = ", this.genericService.selectedIndex, this.genericService.subSelectedIndex)
             },
             error: (error: any) => {
             }

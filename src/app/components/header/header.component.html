@@ -20,7 +20,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{selectedItem === 'Contact' ? 'active' : ''}}" routerLink="Contact">Contact</a>
                 </li>
-                <li *ngIf="admin || veterinary || employee" class="nav-item dropdown">
+                <li *ngIf="connected" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{selectedItem === user.role ? 'active' : ''}}" 
                         href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {{user.role.charAt(0).toUpperCase() + user.role.slice(1).toLowerCase()}}

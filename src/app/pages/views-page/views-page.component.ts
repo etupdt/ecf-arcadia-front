@@ -10,6 +10,7 @@ import { View } from 'src/app/models/View';
 import { ActivatedRoute } from '@angular/router';
 import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-views-page',
@@ -22,6 +23,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ViewsPageComponent implements OnInit{
 
     constructor (
+        private authService: AuthService,
         private viewService: ApiService<View>,
         private route: ActivatedRoute,
         private headerService: HeaderService,
@@ -34,8 +36,8 @@ export class ViewsPageComponent implements OnInit{
     
     ngOnInit(): void {
 
-        this.headerService.selectedMenuItem =  this.headerService.user.role
-        this.headerService.signalItemSelected.set( this.headerService.user.role)
+        this.headerService.selectedMenuItem =  this.authService.user.role
+        this.headerService.signalItemSelected.set( this.authService.user.role)
         const path = this.route.snapshot.routeConfig ? this.route.snapshot.routeConfig.path : ''
         this.headerService.selectedSubMenuItem = path ? path : ''
         this.headerService.signalSubItemSelected.set(path ? path : '')

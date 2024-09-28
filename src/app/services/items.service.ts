@@ -20,6 +20,9 @@ export class ItemsService<Tdata, TsubData> {
     selectedIndex: number = -1
     signalSelectedIndex = signal(this.selectedIndex)
 
+    isSubUpdatedItem: number = 0
+    signalSubIsUpdatedItem = signal(this.isSubUpdatedItem)
+
     subSelectedIndex: number = -1
     signalSubSelectedIndex = signal(this.subSelectedIndex)
 

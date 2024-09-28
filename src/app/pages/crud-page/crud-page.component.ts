@@ -7,6 +7,7 @@ import { ListComponent } from "../../components/list/list.component";
 import { ToastsService } from 'src/app/services/toasts.service';
 import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-crud-page',
@@ -24,6 +25,7 @@ export class CrudPageComponent<Tdata> implements OnInit {
         private route: ActivatedRoute,
         private injector: Injector,
         private headerService: HeaderService,
+        private authService: AuthService,
         private apiService: ApiService<Tdata>,
         private toastsService: ToastsService,
         private modalService: NgbModal,
@@ -57,8 +59,8 @@ export class CrudPageComponent<Tdata> implements OnInit {
     inCreation: number = -1
     
     ngOnInit(): void {
-        this.headerService.selectedMenuItem = this.headerService.user.role
-        this.headerService.signalItemSelected.set(this.headerService.user.role)
+        this.headerService.selectedMenuItem = this.authService.user.role
+        this.headerService.signalItemSelected.set(this.authService.user.role)
         const path = this.route.snapshot.routeConfig ? this.route.snapshot.routeConfig.path : ''
         this.headerService.selectedSubMenuItem = path ? path : ''
         this.headerService.signalSubItemSelected.set(path ? path : '')

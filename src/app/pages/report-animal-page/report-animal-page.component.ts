@@ -11,6 +11,7 @@ import { ErrorModalComponent } from 'src/app/modals/error-modal/error-modal.comp
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AnimalFoodListComponent } from "../../components/animal-food-list/animal-food-list.component";
 import { ToastsService } from 'src/app/services/toasts.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-veterinary-page',
@@ -25,6 +26,7 @@ export class ReportAnimalPageComponent implements OnInit {
 
     constructor (
         private headerService: HeaderService,
+        private authService: AuthService,
         private injector: Injector,
         private veterinaryReportService: ApiService<VeterinaryReport>,
         private router: Router,
@@ -64,8 +66,8 @@ export class ReportAnimalPageComponent implements OnInit {
     veterinaryReportIndex: number = -1
 
     ngOnInit(): void {
-        this.headerService.selectedMenuItem =  this.headerService.user.role
-        this.headerService.signalItemSelected.set( this.headerService.user.role)
+        this.headerService.selectedMenuItem =  this.authService.user.role
+        this.headerService.signalItemSelected.set( this.authService.user.role)
         const path = this.route.snapshot.routeConfig ? this.route.snapshot.routeConfig.path : ''
         this.headerService.selectedSubMenuItem = path ? path : ''
         this.headerService.signalSubItemSelected.set(path ? path : '')
@@ -81,7 +83,6 @@ export class ReportAnimalPageComponent implements OnInit {
                 next: (res: VeterinaryReport) => {
                     this.genericService.signalIsUpdated.set(false)
                     this.updatedItem.id = res.id
-                    // this.items[this.selectedIndex].veterinaryReports!.push(res)
                     this.toastsService.show('l\'element a bien été créé !', 2000)
                 },
                 error: (error: { error: { message: any; }; }) => {
@@ -91,7 +92,6 @@ export class ReportAnimalPageComponent implements OnInit {
 
             this.veterinaryReportService.putItem('veterinaryreports', this.updatedItem.id, this.updatedItem).subscribe({
                 next: (res: VeterinaryReport) => {
-                    console.log(this.updatedItem)
                     this.genericService.signalIsUpdated.set(false)
                     this.items[this.selectedIndex].veterinaryReports![this.veterinaryReportIndex] = res
                     this.toastsService.show('l\'element a bien été modifié !', 2000)

@@ -33,11 +33,11 @@ export class AnimalFoodFormComponent implements OnInit{
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
         effect(() => {
-            const noUse1 = this.itemsService.signalSubSelectedIndex()
-            const noUse2 = this.itemsService.signalSelectedIndex()
-            if (this.itemsService.selectedIndex !== -1) {
-                this.dateFood = this.datepipe.transform(Date.now(), 'y-MM-dd')!
-                this.onChangeDateFood()
+            if (this.itemsService.signalIsUpdatedItem()) {
+                if (this.itemsService.selectedIndex !== -1) {
+                    this.dateFood = this.datepipe.transform(Date.now(), 'y-MM-dd')!
+                    this.onChangeDateFood()
+                }
             }
         })
     }
@@ -50,8 +50,7 @@ export class AnimalFoodFormComponent implements OnInit{
     get selectedItem(): Animal { return this.itemsService.items[this.itemsService.selectedIndex]}
     // set selectedItem(item: Animal) {this.itemsService.items[this.itemsService.selectedIndex]}
 
-    get foodAnimal() { return this.selectedItem.foodAnimals[this.itemsService.subSelectedIndex] }
-    // set foodAnimal(foodAnimal : FoodAnimal) { this.itemsService.subUpdatedItem = foodAnimal }
+    foodAnimal!: FoodAnimal
     
     get food() { return this.animalFoodForm.get('food')! as FormControl }
     get gramage() { return this.animalFoodForm.get('gramage')! as FormControl }
@@ -71,16 +70,13 @@ export class AnimalFoodFormComponent implements OnInit{
             this.itemsService.signalIsValid.set(this.animalFoodForm.valid && this.food.value !== 0)
             this.foodAnimal.dateFood = this.foodAnimal.dateFood!
             this.foodAnimal.food.id = this.food.value
-            console.log(this.food.value)
             this.foodAnimal.gramage = this.gramage.value
             this.foodAnimal.animal = this.selectedItem
         })
     }
 
     getFoodAnimal(dateFood: string): number {
-        console.log(this.selectedItem)
         return this.selectedItem.foodAnimals!.findIndex((f: FoodAnimal) => {
-            console.log(f.dateFood)
             return f.dateFood === dateFood
         })
     }
@@ -90,11 +86,12 @@ export class AnimalFoodFormComponent implements OnInit{
         const indexFoodAnimal = this.getFoodAnimal(this.dateFood)
 
         this.itemsService.subSelectedIndex = indexFoodAnimal
-
+        
         if (this.itemsService.subSelectedIndex === -1) {
             this.selectedItem.foodAnimals.push(new FoodAnimal(0, this.dateFood, 0, this.selectedItem,  new Food(0, '')))
             this.itemsService.subSelectedIndex = this.selectedItem.foodAnimals.length - 1
         }
+        this.foodAnimal = this.selectedItem.foodAnimals[this.itemsService.subSelectedIndex]
 
         this.initForm()
 

@@ -69,7 +69,6 @@ export class ContactPageComponent {
                 this.toastsService.show(res, 2000)
             },
             error: (error: any) => {
-                console.log(error.status, error.message)
             }    
         })
     }

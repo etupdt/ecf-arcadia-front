@@ -30,7 +30,6 @@ import { AnimalFoodListComponent } from './app/components/animal-food-list/anima
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
 import { BreedFormComponent } from './app/components/breed-form/breed-form.component';
 import { FoodFormComponent } from './app/components/food-form/food-form.component';
-import { AuthPageComponent } from './app/pages/auth-page/auth-page.component';
 import { tokenInterceptor } from './app/interceptors/token.interceptor';
 import { ErrorModalComponent } from './app/modals/error-modal/error-modal.component';
 import { DashboardPageComponent } from './app/pages/dashboard-page/dashboard-page.component';
@@ -82,10 +81,6 @@ bootstrapApplication(AppComponent, {
             {
                 path: 'Reports',
                 component: ReportsPageComponent,
-            },            
-            {
-                path: 'Auth',
-                component: AuthPageComponent,
             },            
             {
                 path: 'ServicesAdmin',

@@ -1,41 +1,56 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { IToken } from '../interfaces/IToken';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { HeaderService } from '../services/header.service';
-import { ElementRef, inject } from '@angular/core';
-import { User } from '../models/User';
+import { inject } from '@angular/core';
 import { catchError, tap } from 'rxjs';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../services/auth.service';
+import { ToastsService } from '../services/toasts.service';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     
     const helper = new JwtHelperService();
-    const headerService: HeaderService = inject(HeaderService);
+    const authService: AuthService = inject(AuthService);
     const modalService: NgbModal = inject(NgbModal)
+    const toastsService: ToastsService = inject(ToastsService)
 
-    const localUserTokens: string = localStorage.getItem('arcadia_tokens')!
+    let tokens
 
-    let modifiedReq
-
-    if (localUserTokens) {
-        const userTokens: IToken = JSON.parse(localUserTokens)
-        if (Date.now() > helper.decodeToken(userTokens.access_token).exp * 1000) {
-            headerService.user = new User()
-            headerService.signalUser.set(headerService.user)
+    try {
+        tokens = JSON.parse(localStorage.getItem('arcadia_tokens')!)
+    } catch (error: any) {
+        if (localStorage.getItem('arcadia_tokens')) {
             localStorage.removeItem('arcadia_tokens')
-            modifiedReq = req
+        }
+    }
+    
+    let modifiedReq = req
+
+    if (tokens) {
+        if (Date.now() > helper.decodeToken(tokens.access_token).exp * 1000) {
+            localStorage.removeItem('arcadia_tokens')
+            authService.refreshToken(tokens.refresh_token).subscribe({
+                next: (res: any) => {
+                    localStorage.setItem('arcadia_tokens', JSON.stringify(res))
+                    toastsService.show('Votre connexion a été prolongée !', 2000)
+                    modifiedReq = req.clone({
+                        headers: req.headers.set('Authorization', `Bearer ${res.access_token}`),
+                    })
+                },
+                error: (error: any) => {
+                    authService.logout()
+                    toastsService.show('Erreur de connexion ou connexion expirée, veuillez réessayer de vous reconnecter !', 2000)
+                    throw error
+                }
+            })
         } else {
             modifiedReq = req.clone({
-                headers: req.headers.set('Authorization', `Bearer ${userTokens.access_token}`),
+                headers: req.headers.set('Authorization', `Bearer ${tokens.access_token}`),
             })
         }
-    } else {
-        modifiedReq = req
     }
    
     return next(modifiedReq).pipe(
-        // tap(event=> console.log('event', event)),
         catchError((error: HttpErrorResponse) => {
             let message: string = ''
             if (error) {
