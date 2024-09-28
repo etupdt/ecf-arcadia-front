@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HeaderService } from 'src/app/services/header.service';
 import { ToastsService } from 'src/app/services/toasts.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-login-modal',
@@ -56,7 +57,7 @@ export class LoginModalComponent {
 	initForm = () => {
 		this.authForm = new FormGroup({
 			email: new FormControl('', Validators.required),
-			password: new FormControl('', Validators.required),
+			password: new FormControl(environment.password ? environment.password : '', Validators.required),
 		});    
 		this.authForm.valueChanges.subscribe(changes => { 
 			this.isUpdated = this.auth.email !== (this.authForm.get('email')! as FormControl).value  ||

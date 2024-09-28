@@ -50,7 +50,8 @@ export class CrudPageComponent<Tdata> implements OnInit {
         this.inCreation = -1
         this.genericService.signalIsUpdated.set(false)
         this.genericService.selectedIndex = index
-        this.genericService.signalSelectedIndex.set(index)
+        this.genericService.isUpdatedItem++
+        this.genericService.signalIsUpdatedItem.set(this.genericService.isUpdatedItem)
     }    
     
     isUpdated: boolean = false
