@@ -76,6 +76,7 @@ export class LoginModalComponent {
 						this.user = res
 						this.initForm()
 						this.activeModal.close('Close click')
+						this.authService.endWarning = false
                         this.toastsService.show('Vous êtes maintenant connecté !', 2000)
 					}    
 				})
