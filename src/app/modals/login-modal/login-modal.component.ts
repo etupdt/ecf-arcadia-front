@@ -70,16 +70,9 @@ export class LoginModalComponent {
 	connexion() {
 		this.authService.authenticate(this.auth).subscribe({
 			next: (res: any) => {
-				localStorage.setItem('arcadia_tokens', JSON.stringify(res))
-				this.userService.getItem('users', this.helper.decodeToken(res.access_token).id).subscribe({
-					next: (res: User) => {
-						this.user = res
-						this.initForm()
-						this.activeModal.close('Close click')
-						this.authService.endWarning = false
-                        this.toastsService.show('Vous êtes maintenant connecté !', 2000)
-					}    
-				})
+				this.initForm()
+				this.activeModal.close('Close click')
+				this.toastsService.show('Vous êtes maintenant connecté !', 2000)
 			}
 		})
 	}
