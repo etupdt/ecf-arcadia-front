@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { inject } from '@angular/core';
 import { catchError, tap } from 'rxjs';
@@ -24,6 +24,8 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
         }
     }
     
+    console.log('aller', req.url)
+
     let modifiedReq = req
 
     if (tokens) {
@@ -36,6 +38,8 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                     modifiedReq = req.clone({
                         headers: req.headers.set('Authorization', `Bearer ${res.access_token}`),
                     })
+                    console.log(modifiedReq.url, modifiedReq.headers)
+                    authService.endWarning = false
                 },
                 error: (error: any) => {
                     authService.logout()
@@ -51,6 +55,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     }
    
     return next(modifiedReq).pipe(
+        tap((r: any)  => console.log('retour', r.url)),
         catchError((error: HttpErrorResponse) => {
             let message: string = ''
             if (error) {
