@@ -1,0 +1,13 @@
+
+<h2 class="pt-5">Gestion des avis</h2>
+<div *ngFor="let view of views$ | async">
+    <label class="col-form-label me-2" for="isVisible">Visible </label>
+    <input 
+        class="col-form-check-input me-1" 
+        type="checkbox"
+        id="isvisible" 
+        type="checkbox" 
+        [(ngModel)]="view.isVisible"
+        (click)="update(view)">
+    <app-view-form [view]="view" [updatable]="false"></app-view-form>
+</div>

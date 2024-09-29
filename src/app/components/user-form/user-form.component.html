@@ -1,0 +1,47 @@
+
+<form *ngIf="userForm" class="card w-100" [formGroup]="userForm">
+    <div class="card-body">
+        <label for="email" class="form-label">Email</label>
+        <input 
+        id="email"
+        formControlName="email"
+        type="text" 
+        class="form-control m-1"
+        >
+        <label for="password" class="form-label">Mot de passe</label>
+        <input 
+        id="password"
+        formControlName="password"
+        type="password" 
+        class="form-control m-1"
+        >
+        <label for="firstname" class="form-label">Nom</label>
+        <input 
+        id="firstname"
+        formControlName="firstname"
+        type="text" 
+        class="form-control m-1"
+        >
+        <label for="lastname" class="form-label">Prénom</label>
+        <input 
+        id="lastname"
+        formControlName="lastname"
+        type="text" 
+        class="form-control m-1"
+        >
+        <div>
+            <label for="role" class="form-label">Rôle</label>
+            <select
+                id="role" 
+                formControlName="role"
+                type="text" 
+                class="form-control m-1" 
+                >
+                <option *ngIf="role.value !== 'ADMIN'" class="form-control m-1" value=""></option>
+                <option *ngIf="role.value !== 'ADMIN'" class="form-control m-1" value="EMPLOYEE">Employé</option>
+                <option *ngIf="role.value !== 'ADMIN'" class="form-control m-1" value="VETERINARY">Véterinaire</option>
+                <option class="form-control m-1" disabled value="ADMIN">Administrateur</option>
+            </select>
+        </div>
+    </div>
+</form>

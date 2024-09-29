@@ -1,0 +1,30 @@
+
+<form *ngIf="habitatForm" class="card w-100" [formGroup]="habitatForm">
+    <div class="card-body">
+        <label for="name" class="form-label">Nom</label>
+        <input 
+        id="name"
+        formControlName="name"
+        type="text" 
+        class="form-control m-1"
+        >
+        <label for="description" class="form-label">Description</label>
+        <textarea 
+        id="description"
+        formControlName="description"
+        class="form-control m-1" 
+        rows="3"
+        >
+        </textarea>
+        <label for="comment" class="form-label">Commentaire</label>
+        <textarea 
+        id="comment"
+        formControlName="comment"
+        class="form-control m-1" 
+        rows="3"
+        >
+        </textarea>
+        <app-carousel [carousel]="habitat.images"  (deleteCarouselImage)="onDeleteImage($event)"></app-carousel>
+        <app-image-crop [carousel]="habitat.images!" (addCarouselImage)="onAddImage($event)"></app-image-crop>
+    </div>
+</form>

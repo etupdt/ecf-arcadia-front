@@ -1,0 +1,59 @@
+name: Deploy to OVH
+
+on:
+  push:
+    branches:
+      - preprod
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+    env:
+      USER: ${{ secrets.USER }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      HOST: ${{ secrets.HOST }}
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Install SSH Client
+        run: |
+          echo 'toto'
+          sudo apt-get update && sudo apt-get install openssh-client sshpass
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          build-args: |
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            SECRET_CRT=${{ secrets.SECRET_CRT }}
+
+      - name: copy docker compose file to target server
+        run: |
+          sshpass -p $PASSWORD scp -o StrictHostKeyChecking=no ./docker-compose-front-prod.yml ${USER}@${HOST}:.
+
+      - name: Deploy using docker-compose
+        run: |
+          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "echo ${{ secrets.GITHUB_TOKEN }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin"
+          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo docker compose -f docker-compose-front-prod.yml pull"
+          sshpass -p $PASSWORD ssh -o StrictHostKeyChecking=no ${USER}@${HOST} "sudo docker compose -f docker-compose-front-prod.yml up -d"
+ 

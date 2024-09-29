@@ -1,0 +1,42 @@
+
+img {
+    width: 40px;
+}
+
+.habitat {
+
+    background-color: white;
+    
+    img {
+        width: 340px;
+    }
+
+    h5 {
+        padding:20px;
+        min-width: 150px;
+        width: 100%;
+        text-align: center;
+    }
+    
+}
+
+.habitat-detail {
+
+    background-color: white;
+    width: 100%;
+    padding: 30px;
+
+}
+
+li {
+    display: flex;     
+    width: fit-content;
+}
+
+.hidden {
+    display: none;
+}
+
+app-animal-card {
+    width: 100%;
+}

@@ -1,23 +1,47 @@
-# EcfArcadiaFront
+# ecf-arcadia-back
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
+## Mise en place de l'environnement de demonstration
 
-## Development server
+Cet environnement de démonstration ne prend pas en charge la mise en place du chiffrement ssl. Seul l'environnement de production dispose de cette fonctionalité.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Il nécessite également un serveur ou poste de travail ayant docker et docker compose installés.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Running preprod
+- cloner les deux repo github (front et back)
 
 ```
-ng build --configurtion=preprod
-docker compose up
+git clone https://github.com/etupdt/ecf-arcadia-front.git
+git clone https://github.com/etupdt/ecf-arcadia-back.git
 ```
-to build the project in preprod container.
+
+- Editer le fichier **env.demo.properties** à la racine du répertoire du repo **ecf-arcadia-back**. Il faut y renseigner les variables suivantes (les autres variables ne doivent pas être modifiées):
+
+| Variable | Description | Exemple |
+| :--- | :--- | :--- |
+| DB_DATABASE | Nom de la database Postgres de l'application | arcadia |
+| DB_USER | Nom de l'utilisateur pour accès Postgres | arcadia |
+| DB_PASSWORD | Mot de passe de l'utilisateur Postgres | libre |
+| MONGO_INITDB_ROOT_USERNAME | Nom de l'utilisateur pour initialisation mongodb | libre |
+| MONGO_INITDB_ROOT_PASSWORD | Mot de passe pour initialisation mongodb | libre |
+| MONGO_DB | Nom de la database Postgres de l'application | arcadia |
+| MONGO_USER | Nom de l'utilisateur pour accès Postgres | arcadia |
+| MONGO_PASSWORD | Mot de passe de l'utilisateur Postgres | libre |
+| JWT_KEY | Clé secrète du jeton JWT | libre |
+
+- Builder, puis créer le container du front en lançant à la racine du répertoire **ecf-arcadia-front** les commandes :
+
+```
+docker compose build --no-cache
+docker compose up -d
+```
+- Builder, puis créer le container du back en lançant à la racine du répertoire **ecf-arcadia-back** les commandes :
+
+```
+docker compose build --no-cache
+docker compose --env-file env.demo.properties up -d
+```
+
+L'environnement est près. Accédez à l'application avec l'url :
+
+```
+http://localhost:4200
+```

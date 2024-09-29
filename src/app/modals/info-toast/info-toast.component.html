@@ -1,0 +1,16 @@
+
+<!-- <div class="toast-container top-50 start-50 translate-middle"></div> -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <ngb-toast
+        *ngFor="let toast of toastsService.toasts"
+        header="Info"
+        [delay]="toast.delay"
+        [autohide]="toast.autohide"
+        (mouseenter)="toast.autohide = false"
+        (mouseleave)="toast.autohide = true"
+        [class.bg-warning]="!toast.autohide"
+        (hide)="toastsService.remove(toast)"
+        >
+        <div>{{ toast.message }}</div>
+    </ngb-toast>
+</div>

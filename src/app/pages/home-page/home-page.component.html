@@ -20,24 +20,20 @@
     <h2 class="pt-5">Découvrez les animaux dans leur habitat</h2>
     <div class="enveloppe-div">
         <div class="content-div">
-            <app-habitat-card *ngFor="let habitat of habitats" [habitat]="habitat"></app-habitat-card>
+            <app-habitat-list *ngFor="let habitat of habitats$ | async" [habitat]="habitat"></app-habitat-list>
         </div>
     </div>
 </section>
 <section class="d-flex flex-column align-items-center">
     <h2 class="pt-5">Profitez des services mis à votre disposition</h2>
-    <div class="enveloppe-div">
-        <div class="content-div">
-            <app-service-card *ngFor="let service of services" [service]="service"></app-service-card>
-        </div>
-    </div>
+    <app-service-card *ngFor="let service of services$ | async" [service]="service"></app-service-card>
 </section>
 <section class="d-flex flex-column align-items-center">
     <h2 class="pt-5">Donnez votre avis sur le Zoo</h2>
-    <app-view-form class="enveloppe-div" (return)="onFormSubmit($event)" [view]="view"></app-view-form>
+    <app-view-form [view]="view" [updatable]="true"></app-view-form>
 </section>
 <section class="d-flex flex-column align-items-center">
     <h2 class="pt-5">Vos avis</h2>
-    <app-view-component class="enveloppe-div" *ngFor="let view of views" [view]="view"></app-view-component>
+    <app-view-form *ngFor="let view of views$ | async | viewFilter" [view]="view" [updatable]="false"></app-view-form>
 </section>
  

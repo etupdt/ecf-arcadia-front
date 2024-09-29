@@ -1,5 +1,6 @@
 
 export interface IImage {
     id: number,
-    imageName: string
+    imageName: string,
+    hash: string
 }

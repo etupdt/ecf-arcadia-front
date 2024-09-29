@@ -1,6 +1,33 @@
 
-#zone {
-    max-width: 1400px;
-    margin: auto;
-    background-color: #FBF1D8;
+header {
+    top: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}
+
+main{
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    max-width: 1320px;    
+    z-index: 0;
+}
+
+footer {
+
+    width: 100%;
+    background-color: #9AAD90;
+    margin-top: auto;
+
+    app-footer {
+
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        color: white;
+        font-size: 0.8rem;
+
+    }
+    
 }

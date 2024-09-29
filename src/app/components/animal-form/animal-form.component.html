@@ -1,0 +1,48 @@
+
+<form *ngIf="animalForm" class="card w-100" [formGroup]="animalForm">
+    <div class="card-body">
+        <label for="firstname" class="form-label">Prénom</label>
+        <input 
+        id="firstname" 
+        formControlName="firstname"
+        type="text" 
+        class="form-control m-1" 
+        >
+        <label for="health" class="form-label">Etat de santé</label>
+        <textarea 
+        id="health"
+        formControlName="health"
+        class="form-control m-1" 
+        rows="3"
+        >
+        </textarea>
+        <label for="description" class="form-label">Description</label>
+        <textarea 
+        id="description"
+        formControlName="description"
+        class="form-control m-1" 
+        rows="3"
+        >
+        </textarea>
+        <label for="breed" class="form-label">Race</label>
+        <select
+            id="breed" 
+            formControlName="breed"
+            type="text" 
+            class="form-control m-1" 
+        >
+            <option class="form-control m-1" *ngFor="let breed of breeds$ | async" [ngValue]="breed.id">{{breed.label}}</option>
+        </select>
+        <label for="habitat" class="form-label">Habitat</label>
+        <select
+            id="habitat" 
+            formControlName="habitat"
+            type="text" 
+            class="form-control m-1" 
+        >
+            <option class="form-control m-1" *ngFor="let habitat of habitat$ | async" [ngValue]="habitat.id">{{habitat.name}}</option>
+        </select>
+        <app-carousel [carousel]="animal.images"  (deleteCarouselImage)="onDeleteImage($event)"></app-carousel>
+        <app-image-crop [carousel]="animal.images" (addCarouselImage)="onAddImage($event)"></app-image-crop>
+    </div>
+</form>

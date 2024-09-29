@@ -1,0 +1,52 @@
+
+
+.animal {
+    
+    > img {
+        width: 40px;
+    }
+    
+    > div {
+
+        background-color: white;
+
+        img {
+            width: 250px;
+        }
+
+    }
+
+    h5 {
+        padding:20px;
+        min-width: 150px;
+        text-align: center;
+    }
+    
+}
+
+.animal-detail {
+
+    background-color: #FFE092;
+    padding: 20px !important;
+    font-size: 14px;
+    width: 100%;
+
+    ul {
+
+        li {
+
+            list-style: none;
+            
+            span:first-child {
+                width: 350px;
+            }
+
+        }
+
+    }
+
+}
+
+.hidden {
+    display: none;
+}

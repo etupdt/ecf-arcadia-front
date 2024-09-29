@@ -1,0 +1,19 @@
+
+ul {
+
+    margin: auto;
+    list-style: none;
+    padding: 0;
+
+    .active {
+        font-weight: 500;
+        color: white;
+        text-decoration: underline;
+        text-underline-offset: 6px;
+    }
+
+    .nav-link {
+        text-align: left;
+    }
+
+}

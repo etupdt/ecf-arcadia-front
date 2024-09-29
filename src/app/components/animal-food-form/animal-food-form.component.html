@@ -1,0 +1,33 @@
+
+<div class="input-group my-2">
+    <span class="input-group-text">Date de l'alimentation</span>
+    <input 
+    id="dateFood" 
+    type="date" 
+    class="form-control"
+    [(ngModel)]="dateFood" 
+    (change)="onChangeDateFood()"
+    >
+</div>
+<form *ngIf="animalFoodForm" class="card w-100" [formGroup]="animalFoodForm">
+    <div class="card-body">
+        <label for="food" class="form-label">Nouriture</label>
+        <select
+        id="food" 
+        formControlName="food"
+        type="text" 
+        class="form-control m-1" 
+        >
+            <option class="form-control m-1" *ngFor="let food of foods$ | async" [ngValue]="food.id">{{food.name}}</option>
+        </select>
+    </div>
+    <div class="card-body">
+        <label for="gramage" class="form-label">Quantité</label>
+        <input 
+        id="gramage" 
+        formControlName="gramage"
+        type="number" 
+        class="form-control m-1" 
+        >
+    </div>
+</form>

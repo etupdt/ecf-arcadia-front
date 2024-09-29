@@ -1,122 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import { Habitat } from 'src/app/interfaces/Habitat';
-import { Service } from 'src/app/interfaces/Service';
-import { View } from 'src/app/interfaces/View';
-import { HabitatService } from 'src/app/services/habitat.service';
-import { ServiceService } from 'src/app/services/service.service';
-import { ViewService } from 'src/app/services/view.service';
-import { ViewComponentComponent } from '../components/view-component/view-component.component';
-import { ViewFormComponent } from '../components/view-form/view-form.component';
-import { ServiceCardComponent } from '../components/service-card/service-card.component';
-import { HabitatCardComponent } from '../components/habitat-card/habitat-card.component';
-import { NgFor } from '@angular/common';
+import { IView } from 'src/app/interfaces/IView';
+import { ViewFormComponent } from '../../components/view-form/view-form.component';
+import { ServiceCardComponent } from '../../components/service-card/service-card.component';
+import { HabitatCardComponent } from '../../components/habitat-card/habitat-card.component';
+import { CommonModule, NgFor } from '@angular/common';
+import { HeaderService } from 'src/app/services/header.service';
+import { catchError, ignoreElements, Observable, of, tap, throwError } from 'rxjs';
+import { HabitatListComponent } from "../../components/habitat-list/habitat-list.component";
+import { IHabitat } from 'src/app/interfaces/IHabitat';
+import { ApiService } from 'src/app/services/api.service';
+import { View } from 'src/app/models/View';
+import { Service } from 'src/app/models/Service';
+import { ViewFilterPipe } from 'src/app/pipes/view-filter.pipe';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     standalone: true,
-    imports: [NgFor, HabitatCardComponent, ServiceCardComponent, ViewFormComponent, ViewComponentComponent],
-    providers: []
+    providers: [],
+    imports: [
+        NgFor,
+        CommonModule, 
+        HabitatCardComponent, 
+        ServiceCardComponent, 
+        ViewFormComponent, 
+        HabitatListComponent,
+        ViewFilterPipe
+    ]
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(
-    private habitatService: HabitatService,
-    private serviceService: ServiceService,
-    private viewService: ViewService
-  ) { }
+    constructor(
+        private habitatService: ApiService<IHabitat>,
+        private serviceService: ApiService<Service>,
+        private viewService: ApiService<IView>,
+        private headerService: HeaderService
+    ) { }
 
-  habitats: Habitat[] = []
+    habitats$: Observable<IHabitat[]> = this.habitatService.getItems('habitats')
 
-  services: Service[] = []
+    services$: Observable<Service[]> = this.serviceService.getItems('services')
+    views$: Observable<IView[]> = this.viewService.getItems('views')
 
-  view!: View
+    view: IView = new View(0, "", "", false)
 
-  views: View[] = []
+    ngOnInit(): void {
 
-  ngOnInit(): void {
+        this.headerService.selectedMenuItem = "Accueil"
+        this.headerService.signalItemSelected.set('Accueil')
 
-    this.view = this.initForm()
-
-    this.habitatService.getHabitats().subscribe({
-      next: (res: Habitat[]) => {
-        this.habitats = res
-      },
-      error: (error: { error: { message: any; }; }) => {
-        // this.dialog.open(MessageDialogComponent, {
-        //   data: {
-        //     type: 'Erreur',
-        //     message1: `Erreur lors de la lecture des options`,
-        //     message2: error.error.message,
-        //     delai: 0
-        //   }
-        // })
-      }
-    })
-
-    this.serviceService.getServices().subscribe({
-      next: (res: Service[]) => {
-        this.services = res
-      },
-      error: (error: { error: { message: any; }; }) => {
-        // this.dialog.open(MessageDialogComponent, {
-        //   data: {
-        //     type: 'Erreur',
-        //     message1: `Erreur lors de la lecture des options`,
-        //     message2: error.error.message,
-        //     delai: 0
-        //   }
-        // })
-      }
-    })
-
-    this.viewService.getViews().subscribe({
-      next: (res: View[]) => {
-        this.views = res
-      },
-      error: (error: { error: { message: any; }; }) => {
-        // this.dialog.open(MessageDialogComponent, {
-        //   data: {
-        //     type: 'Erreur',
-        //     message1: `Erreur lors de la lecture des options`,
-        //     message2: error.error.message,
-        //     delai: 0
-        //   }
-        // })
-      }
-    })
-
-  }
-
-  onFormSubmit = (view: View) => {
-
-    this.viewService.postView(view).subscribe({
-      next: (res: View[]) => {
-        this.view = this.initForm()
-        console.log(res)
-      },
-      error: (error: { error: { message: any; }; }) => {
-        // this.dialog.open(MessageDialogComponent, {
-        //   data: {
-        //     type: 'Erreur',
-        //     message1: `Erreur lors de la lecture des options`,
-        //     message2: error.error.message,
-        //     delai: 0
-        //   }
-        // })
-      }
-    })
-
-  }
-
-  initForm = (): View => {
-    return {
-      id : 0,
-      pseudo : "",
-      comment : "",
-      isVisible : false
     }
-  }
 
 }

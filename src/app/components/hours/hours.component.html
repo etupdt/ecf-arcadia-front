@@ -1,0 +1,33 @@
+
+<table>
+    <tbody *ngFor="let hours of hours$ | async">
+        <tr>
+            <td>Lundi</td>
+            <td> {{hours.monday}}</td>
+        </tr>
+        <tr>
+            <td>Mardi</td>
+            <td> {{hours.tuesday}}</td>
+        </tr>
+        <tr>
+            <td>Mercredi</td>
+            <td> {{hours.wednesday}}</td>
+        </tr>
+        <tr>
+            <td>Jeudi</td>
+            <td> {{hours.thursday}}</td>
+        </tr>
+        <tr>
+            <td>Vendredi</td>
+            <td> {{hours.friday}}</td>
+        </tr>
+        <tr>
+            <td>Samedi</td>
+            <td> {{hours.saturday}}</td>
+        </tr>
+        <tr>
+            <td>Dimanche</td>
+            <td> {{hours.sunday}}</td>
+        </tr>
+    </tbody>
+</table>

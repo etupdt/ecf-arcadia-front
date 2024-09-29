@@ -1,0 +1,36 @@
+<div class="modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true" style="display: block">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="d-flex justify-content-between w-100 p-2">
+                <h1 class="modal-title fs-5" id="loginModalLabel">Connexion</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeLoginModal (click)="activeModal.close('Close click')"></button>
+            </div>
+            <div class="modal-body card-body w-75">
+                <form *ngIf="authForm" class="d-flex flex-column justify-content- center align-items-center w-100" [formGroup]="authForm">
+                    <input 
+                    id="email"
+                    formControlName="email"
+                    type="text" 
+                    class="form-control border border-black rounded-2 m-2"
+                    placeholder="Email"
+                    >
+                    <input 
+                    id="password"
+                    formControlName="password"
+                    type="password" 
+                    class="form-control border border-black rounded-2 m-2"
+                    placeholder="Password"
+                    >
+                    <button 
+                        type="button" 
+                        (click)="connexion()"
+                        class="btn btn-primary border-black m-2 mt-4 w-100" 
+                        [disabled]="!isUpdated || !authForm.valid"
+                        >
+                        Connexion
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>

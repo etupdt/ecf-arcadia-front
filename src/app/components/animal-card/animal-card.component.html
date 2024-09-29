@@ -1,0 +1,20 @@
+
+<div class="d-flex py-2">
+    <div class="d-flex flex-row align-items-center ps-4 animal">
+        <img src="assets/images/{{ collapse ? 'droite_jaune.jpg' : 'bas_jaune.jpg'}}" (click)="toggleCollapse()" alt="animal collapse arrow"/>
+        <div class="d-flex flex-row align-items-center">
+            <img src="{{ useBackendImages }}/{{ animal.images![0].imageName }}" alt="Animal {{ animal.firstname }}">
+            <h5>{{ animal.firstname }}</h5>
+        </div>
+    </div>
+    <div class="animal-detail {{ collapse ? 'hidden' : '' }} p-2">
+        <ul>
+            <li><span>Race :</span><span> {{animal.breed!.label}}</span></li>
+            <li><span>Etat de l'animal :</span><span> {{animal.health}}</span></li>
+            <li><span>Nouriture proposée :</span><span> {{animal.veterinaryReports![0].food.name}}</span></li>
+            <li><span>Grammage de la nouriture :</span><span> {{animal.veterinaryReports![0].gramage}}</span></li>
+            <li><span>Date de passage :</span><span> {{animal.veterinaryReports![0].date}}</span></li>
+            <li><span>Détail de l'état :</span><span> {{animal.veterinaryReports![0].detail}}</span></li>
+        </ul>
+    </div>
+</div>
