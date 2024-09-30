@@ -58,22 +58,6 @@
                 }
               ]
             },
-<<<<<<< HEAD
-            "preprod": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "outputHashing": "all"
-=======
             "test": {
               "buildOptimizer": false,
               "optimization": false,
@@ -87,7 +71,6 @@
                   "with": "src/environments/environment.test.ts"
                 }
               ]
->>>>>>> feature/home-page
             },
             "development": {
               "buildOptimizer": false,
