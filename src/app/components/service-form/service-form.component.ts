@@ -51,6 +51,8 @@ export class ServiceFormComponent implements OnInit {
 
         this.service = new Service()
         
+        this.itemsService.signalIsUpdated.set(false)
+
         this.initForm()
     
     }        

@@ -76,6 +76,8 @@ export class AnimalFormComponent implements OnInit, OnChanges {
 
         this.animal = new Animal(0, '', '', '', new Breed(0, ''), new Habitat (0, '', '', '', [], []), [], [], [])
         
+        this.itemsService.signalIsUpdated.set(false)
+
         this.initForm()
     
     }        

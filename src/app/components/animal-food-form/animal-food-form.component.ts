@@ -41,7 +41,11 @@ export class AnimalFoodFormComponent implements OnInit{
             }
         })
     }
+
     ngOnInit(): void {
+
+        this.itemsService.signalIsUpdated.set(false)
+
     }
 
     foods$: Observable<Food[]> = this.foodService.getItems('foods')

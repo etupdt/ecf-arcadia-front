@@ -65,6 +65,11 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                         message = 'Erreur du serveur !'
                         break;
                     }
+                    case 0: {
+                        
+                        message = 'Application indisponible !' 
+                        break;
+                    }   
                     default: {
                         message = 'Application indisponible !' 
                         break;
