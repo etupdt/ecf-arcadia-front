@@ -43,7 +43,7 @@ bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(ReactiveFormsModule, BrowserModule, FormsModule),
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClient(withInterceptors([tokenInterceptor])),
+        provideHttpClient(withInterceptors([tokenInterceptor,])),
         DatePipe,
         { provide: SERVICE, useClass: ItemsService },    
         provideCharts(withDefaultRegisterables()),
