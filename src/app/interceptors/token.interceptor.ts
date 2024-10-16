@@ -1,11 +1,10 @@
-import { HttpErrorResponse, HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { inject } from '@angular/core';
-import { catchError, retry, switchMap, tap } from 'rxjs';
+import { catchError, retry, tap, timer } from 'rxjs';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
-import { ToastsService } from '../services/toasts.service';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     
@@ -13,12 +12,12 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     const authService: AuthService = inject(AuthService);
     const modalService: NgbModal = inject(NgbModal)
 
-    let reqSave = req.clone()
+    let isRefresh: boolean = false
 
-    let access_token
+    let access_token: string = ""
     
     try {
-        access_token = localStorage.getItem('access_token')
+        access_token = localStorage.getItem('access_token')!
     } catch (error: any) {
         if (localStorage.getItem('access_token')) {
             localStorage.removeItem('access_token')
@@ -29,7 +28,9 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
     if (access_token && !req.url.match(/\/auth\/refresh-token$/)) {
         modifiedReq = req.clone({
-            headers: req.headers.set('Authorization', `Bearer ${access_token}`),
+            setHeaders: {
+                Authorization: `Bearer ${access_token}`
+            }
         })    
     }    
     
@@ -52,20 +53,14 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                         } else {
                             // authService.refreshToken(next, req.clone())
                             authService.refreshToken().subscribe({
-                                    next: (resRefresh: any) => {
-                                    console.log('res', resRefresh)
-                                    console.log('reqsave', reqSave)
-                                    console.log('next', next)
-                                    return next(reqSave.clone({
+                                next: (res: any) => {
+                                    const req: HttpRequest<any> = modifiedReq.clone({
                                         setHeaders: {
-                                            Authorization: `Bearer ${resRefresh.access_token}`
+                                            Authorization: `Bearer ${access_token}`
                                         }
-                                    })).pipe(
-                                        catchError((error: HttpErrorResponse) => {
-                                            console.log('errror sur retry', error)
-                                            throw error
-                                        })
-                                    )
+                                    })
+                                    return next(req).pipe(
+                                        tap((r: any)  => console.log('pipe apres resend')))
                                 }
                             })
                         }
@@ -96,7 +91,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
             }
 
             throw error
-    
+
         })
 
     )

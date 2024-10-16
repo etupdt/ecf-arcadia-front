@@ -53,7 +53,6 @@ export class AuthService {
             auth
         ).pipe(
             tap((res: any) => {
-                console.log('auth ok')
                 localStorage.setItem('access_token', res.access_token)
                 localStorage.setItem('refresh_token', res.refresh_token)
                 this.userService.getItem('users', this.helper.decodeToken(res.access_token).id).subscribe({
@@ -67,26 +66,28 @@ export class AuthService {
 
     }
 
-    refreshToken(): Observable<any> {
+    refreshToken(request?: HttpRequest<any>, next?: HttpHandlerFn): Observable<any> {
         return this.http.post<any>(
             environment.useBackend + `/auth/refresh-token`,
             {},
             {'headers': new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('refresh_token')}`)}
         ).pipe(
             tap((res: any) => {
-                console.log('refresh token tap')
                 localStorage.setItem('access_token', res.access_token)
                 localStorage.setItem('refresh_token', res.refresh_token)
                 this.toastsService.toastRefresh = false
                 this.toastsService.show('Votre connexion a été prolongée !', 3000)
             }),
             catchError((error) => {
-                console.log('refresh token catcherror')
                 this.logout()
                 this.toastsService.show('Erreur de connexion ou connexion expirée, veuillez réessayer de vous reconnecter !', 3000)
                 throw error;
             })
         )
+    }
+
+    handleRefreshResponse(request: HttpRequest<any>, next: HttpHandlerFn) {
+
     }
 
     logout = () => {
@@ -120,7 +121,6 @@ export class AuthService {
                     } else {
                         if (Date.now() > (refresh_token.exp - 34) * 1000 && !this.endWarning) {
                             this.endWarning = true
-                            console.log('refresh toast debut', refresh_token.exp)
                             this.toastsService.toastRefresh = true
                         } else {
                             if (this.user.id === 0) {

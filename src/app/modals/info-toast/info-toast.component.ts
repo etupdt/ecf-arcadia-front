@@ -19,7 +19,6 @@ export class InfoToastComponent {
     ) {}
 
     refreshToken() {
-        console.log('appele refresh')
         this.authService.refreshToken()
     }
 

@@ -6,7 +6,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { InjectionToken, importProvidersFrom } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, withRouterConfig } from '@angular/router';
 import { HomePageComponent } from './app/pages/home-page/home-page.component';
@@ -36,6 +36,7 @@ import { DashboardPageComponent } from './app/pages/dashboard-page/dashboard-pag
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { ContactPageComponent } from './app/pages/contact-page/contact-page.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { OldInterceptor } from './app/interceptors/old.interceptor';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -43,7 +44,8 @@ bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(ReactiveFormsModule, BrowserModule, FormsModule),
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClient(withInterceptors([tokenInterceptor,])),
+        {provide: HTTP_INTERCEPTORS, useClass: OldInterceptor, multi: true},
+        // provideHttpClient(withInterceptors([tokenInterceptor])),
         DatePipe,
         { provide: SERVICE, useClass: ItemsService },    
         provideCharts(withDefaultRegisterables()),
