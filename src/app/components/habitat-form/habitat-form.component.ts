@@ -60,6 +60,8 @@ export class HabitatFormComponent {
 
         this.habitat = new Habitat ()
         
+        this.itemsService.signalIsUpdated.set(false)
+
         this.initForm()
     
     }        

@@ -1,23 +1,23 @@
-import { HttpErrorResponse, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { inject } from '@angular/core';
-import { catchError, switchMap, tap } from 'rxjs';
+import { catchError, retry, tap, timer } from 'rxjs';
 import { ErrorModalComponent } from '../modals/error-modal/error-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../services/auth.service';
-import { ToastsService } from '../services/toasts.service';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     
     const helper = new JwtHelperService();
     const authService: AuthService = inject(AuthService);
     const modalService: NgbModal = inject(NgbModal)
-    const toastsService: ToastsService = inject(ToastsService)
-    
-    let access_token
+
+    let isRefresh: boolean = false
+
+    let access_token: string = ""
     
     try {
-        access_token = localStorage.getItem('access_token')
+        access_token = localStorage.getItem('access_token')!
     } catch (error: any) {
         if (localStorage.getItem('access_token')) {
             localStorage.removeItem('access_token')
@@ -26,9 +26,11 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     
     let modifiedReq = req
 
-    if (access_token) {
+    if (access_token && !req.url.match(/\/auth\/refresh-token$/)) {
         modifiedReq = req.clone({
-            headers: req.headers.set('Authorization', `Bearer ${access_token}`),
+            setHeaders: {
+                Authorization: `Bearer ${access_token}`
+            }
         })    
     }    
     
@@ -46,15 +48,22 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                     }
                     case 401: {
                         message = ''
-                        authService.refreshToken().pipe(
-                            switchMap((res: any) => {
-                                return next(req.clone({
-                                    setHeaders: {
-                                      Authorization: `Bearer ${res.access_token}`
-                                    }
-                                }))
+                        if (req.url.match(/\/auth\/(refresh-token|authenticate)$/)) {
+                            message = error.error.message
+                        } else {
+                            // authService.refreshToken(next, req.clone())
+                            authService.refreshToken().subscribe({
+                                next: (res: any) => {
+                                    const req: HttpRequest<any> = modifiedReq.clone({
+                                        setHeaders: {
+                                            Authorization: `Bearer ${access_token}`
+                                        }
+                                    })
+                                    return next(req).pipe(
+                                        tap((r: any)  => console.log('pipe apres resend')))
+                                }
                             })
-                        )
+                        }
                         break;
                     }
                     case 403: {
@@ -65,6 +74,10 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                         message = 'Erreur du serveur !'
                         break;
                     }
+                    case 0: {
+                        message = 'Application indisponible !' 
+                        break;
+                    }   
                     default: {
                         message = 'Application indisponible !' 
                         break;
@@ -78,8 +91,9 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
             }
 
             throw error
-    
+
         })
+
     )
        
 }

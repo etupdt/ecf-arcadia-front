@@ -53,6 +53,8 @@ export class UserFormComponent {
 
         this.user = new User()
         
+        this.itemsService.signalIsUpdated.set(false)
+
         this.initForm()
     
     }        

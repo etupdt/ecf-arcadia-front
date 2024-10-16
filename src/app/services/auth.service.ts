@@ -1,7 +1,7 @@
-import { HttpClient, HttpEvent, HttpHandler, HttpHandlerFn, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHandlerFn, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit, signal } from '@angular/core';
 import { IAuth } from '../interfaces/IAuth';
-import { catchError, interval, Observable, Subscription, switchMap, tap, throwError } from 'rxjs';
+import { catchError, interval, Observable, of, Subscription, switchMap, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ToastsService } from './toasts.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -48,7 +48,6 @@ export class AuthService {
     }
 
     authenticate(auth: IAuth): Observable<any> {
-
         return this.http.post<any>(
             environment.useBackend + `/auth/authenticate`, 
             auth
@@ -67,25 +66,27 @@ export class AuthService {
 
     }
 
-    refreshToken(): Observable<any> {
-
-        return this.http.post(
+    refreshToken(request?: HttpRequest<any>, next?: HttpHandlerFn): Observable<any> {
+        return this.http.post<any>(
             environment.useBackend + `/auth/refresh-token`,
-            null,
+            {},
             {'headers': new HttpHeaders().append('Authorization', `Bearer ${localStorage.getItem('refresh_token')}`)}
         ).pipe(
             tap((res: any) => {
                 localStorage.setItem('access_token', res.access_token)
                 localStorage.setItem('refresh_token', res.refresh_token)
-                this.endWarning = false
-                this.toastsService.show('Votre connexion a été prolongée !', 2000)
+                this.toastsService.toastRefresh = false
+                this.toastsService.show('Votre connexion a été prolongée !', 3000)
             }),
             catchError((error) => {
                 this.logout()
-                this.toastsService.show('Erreur de connexion ou connexion expirée, veuillez réessayer de vous reconnecter !', 2000)
+                this.toastsService.show('Erreur de connexion ou connexion expirée, veuillez réessayer de vous reconnecter !', 3000)
                 throw error;
             })
         )
+    }
+
+    handleRefreshResponse(request: HttpRequest<any>, next: HttpHandlerFn) {
 
     }
 
@@ -113,12 +114,14 @@ export class AuthService {
             if (access_token) {
                 if (Date.now() > access_token.exp * 1000) {
                     if (Date.now() > refresh_token.exp * 1000) {
-                        this.toastsService.show('Connexion expirée, veuillez réessayer de vous reconnecter !', 2000)
+                        this.toastsService.toastRefresh = false
+                        this.toastsService.show('Connexion expirée !', 3000)
+                        this.endWarning = false
                         this.logout()
                     } else {
-                        if (Date.now() > (refresh_token.exp - 10) * 1000 && !this.endWarning) {
+                        if (Date.now() > (refresh_token.exp - 34) * 1000 && !this.endWarning) {
                             this.endWarning = true
-                            this.toastsService.show('Votre connexion va bientôt expirer !', 6000)
+                            this.toastsService.toastRefresh = true
                         } else {
                             if (this.user.id === 0) {
                                 this.userService.getItem('users', access_token.id).subscribe({

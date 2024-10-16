@@ -52,8 +52,6 @@ export class ViewsPageComponent implements OnInit{
             next: (res) => {
             },
             error: (error: { error: { message: any; }; }) => {
-                const modal = this.modalService.open(ErrorModalComponent)
-                modal.componentInstance.message = error.error.message;
         }
         })
 

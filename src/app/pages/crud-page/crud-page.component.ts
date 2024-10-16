@@ -83,8 +83,6 @@ export class CrudPageComponent<Tdata> implements OnInit {
                     this.toastsService.show('l\'element a bien été créé !', 2000)
                 },    
                 error: (error: { error: { message: any; }; }) => {
-                    const modal = this.modalService.open(ErrorModalComponent)
-                    modal.componentInstance.message = error.error.message;
                 }    
             })    
         } else {
@@ -95,8 +93,6 @@ export class CrudPageComponent<Tdata> implements OnInit {
                     this.toastsService.show('l\'element a bien été mis à jour !', 2000)
                 },    
                 error: (error: { error: { message: any; }; }) => {
-                    const modal = this.modalService.open(ErrorModalComponent)
-                    modal.componentInstance.message = error.error.message;
                 }    
             })    
         }    
