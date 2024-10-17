@@ -24,19 +24,20 @@ export class HeaderComponent {
     get veterinary() {return this.user.role === 'VETERINARY'}
     
     dropDownItems = [
-        {auth: 'ADMIN', label: 'Animaux', link: 'AnimalsAdmin'},
-        {auth: 'ADMIN', label: 'Habitats', link: 'HabitatsAdmin'},
-        {auth: 'ADMIN', label: 'Horaires', link: 'HoursAdmin'},
-        {auth: 'ADMIN', label: 'Races', link: 'BreedsAdmin'},
-        {auth: 'ADMIN', label: 'Nourriture', link: 'FoodsAdmin'},
-        {auth: 'ADMIN', label: 'Services', link: 'ServicesAdmin'},
-        {auth: 'ADMIN', label: 'Utilisateurs', link: 'UsersAdmin'},
-        {auth: 'ADMIN', label: 'Dashboard', link: 'DashboardAdmin'},
-        {auth: 'ADMIN', label: 'Rapports Veto', link: 'Reports'},
-        {auth: 'VETERINARY', label: 'Saisie rapports', link: 'ReportAnimalAdmin'},
-        {auth: 'EMPLOYEE', label: 'Saisie alimentation', link: 'FoodAnimalAdmin'},
-        {auth: 'EMPLOYEE', label: 'Rapports Veto', link: 'Reports'},
-        {auth: 'EMPLOYEE', label: 'Avis', link: 'Avis'},
+        {auth: ['ADMIN'], label: 'Animaux', link: 'AnimalsAdmin'},
+        {auth: ['ADMIN'], label: 'Habitats', link: 'HabitatsAdmin'},
+        {auth: ['ADMIN'], label: 'Horaires', link: 'HoursAdmin'},
+        {auth: ['ADMIN'], label: 'Races', link: 'BreedsAdmin'},
+        {auth: ['ADMIN'], label: 'Nourriture', link: 'FoodsAdmin'},
+        {auth: ['ADMIN'], label: 'Services', link: 'ServicesAdmin'},
+        {auth: ['ADMIN'], label: 'Utilisateurs', link: 'UsersAdmin'},
+        {auth: ['ADMIN'], label: 'Dashboard', link: 'DashboardAdmin'},
+        {auth: ['ADMIN'], label: 'Rapports Veto', link: 'Reports'},
+        {auth: ['VETERINARY'], label: 'Habitats', link: 'HabitatsVeterinary'},
+        {auth: ['VETERINARY'], label: 'Saisie rapports', link: 'ReportAnimalAdmin'},
+        {auth: ['EMPLOYEE'], label: 'Saisie alimentation', link: 'FoodAnimalAdmin'},
+        {auth: ['EMPLOYEE'], label: 'Rapports Veto', link: 'Reports'},
+        {auth: ['EMPLOYEE'], label: 'Avis', link: 'Avis'},
     ]
 
     dropDownItem: number = -1
