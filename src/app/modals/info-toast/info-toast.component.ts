@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { catchError, switchMap, tap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastsService } from 'src/app/services/toasts.service';
 
@@ -19,7 +20,13 @@ export class InfoToastComponent {
     ) {}
 
     refreshToken() {
-        this.authService.refreshToken()
+        this.authService.refreshToken().subscribe({
+            next: (res: any) => {
+                console.log('refresh subscribe')
+            },    
+            error: (error: { error: { message: any; }; }) => {
+            }    
+        })
     }
 
 }
