@@ -66,7 +66,7 @@ export class AuthService {
 
     }
 
-    refreshToken(request?: HttpRequest<any>, next?: HttpHandlerFn): Observable<any> {
+    refreshToken(): Observable<any> {
         return this.http.post<any>(
             environment.useBackend + `/auth/refresh-token`,
             {},
