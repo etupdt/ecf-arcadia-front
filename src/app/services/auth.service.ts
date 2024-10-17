@@ -75,6 +75,7 @@ export class AuthService {
             tap((res: any) => {
                 localStorage.setItem('access_token', res.access_token)
                 localStorage.setItem('refresh_token', res.refresh_token)
+                this.endWarning = false
                 this.toastsService.toastRefresh = false
                 this.toastsService.show('Votre connexion a été prolongée !', 3000)
             }),
@@ -140,35 +141,4 @@ export class AuthService {
         
     }
 
-    displayErrorMessage(status: number) {
-
-        let message: string = ''
-
-        switch (status) {
-            case 400: {
-                message = 'Erreur 400 !'
-                break;
-            }
-            case 401: {
-                message = 'Email ou password incorrect !'
-                break;
-            }
-            case 403: {
-                message = 'Habilitations insuffisantes pour effectuer cette opération !'
-                break;
-            }
-            case 500: {
-                message = 'Erreur du serveur !'
-                break;
-            }
-            default: {
-                message = 'Application indisponible !' 
-                break;
-            }   
-        
-        }
-    
-        const modal = this.modalService.open(ErrorModalComponent)
-        modal.componentInstance.message = message;
-    
-    }}
+}
