@@ -9,6 +9,7 @@ import { Image } from 'src/app/models/Image';
 import { Habitat } from 'src/app/models/Habitat';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { IHabitat } from 'src/app/interfaces/IHabitat';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-habitat-form',
@@ -29,6 +30,7 @@ export class HabitatFormComponent {
 
     constructor (
         private injector: Injector,
+        private authService: AuthService,
         private route: ActivatedRoute
     ) {
         this.itemsService = injector.get<string>(<any>route.snapshot.data['requiredService']);
@@ -68,9 +70,9 @@ export class HabitatFormComponent {
 
     initForm = () => {
         this.habitatForm = new FormGroup({
-            name: new FormControl(this.habitat.name, Validators.required),
-            description: new FormControl(this.habitat.description, Validators.required),
-            comment: new FormControl(this.habitat.comment, Validators.required),
+            name: new FormControl({value: this.habitat.name, disabled: this.user.role !== 'ADMIN'}, Validators.required),
+            description: new FormControl({value: this.habitat.description, disabled: this.user.role !== 'ADMIN'}, Validators.required),
+            comment: new FormControl({value: this.habitat.comment, disabled: this.user.role !== 'VETERINARY'}, Validators.required),
         });    
         this.habitatForm.valueChanges.subscribe(changes => { 
             this.itemsService.signalIsUpdated.set(
@@ -99,5 +101,7 @@ export class HabitatFormComponent {
         this.itemsService.signalIsUpdated.set(true)
         this.itemsService.signalIsValid.set(this.habitatForm.valid && this.habitat.images.length > 0)
     }    
+
+    get user() {return this.authService.user}
 
 }

@@ -108,4 +108,6 @@ export class CrudPageComponent<Tdata> implements OnInit {
         }
     }
 
+    get user() {return this.authService.user}
+
 }

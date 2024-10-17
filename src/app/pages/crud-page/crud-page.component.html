@@ -5,6 +5,6 @@
     <div class="d-flex w-100">
         <button type="button" (click)="update()" class="btn btn-primary border-black" [disabled]="!isUpdated || !isValid">Enregistrer</button>
         <button type="button" (click)="cancel()" class="btn btn-primary border-black" [disabled]="!isUpdated && inCreation === -1">Abandonner</button>
-        <button type="button" (click)="create()" class="btn btn-primary border-black ms-auto" [disabled]="isUpdated || inCreation !== -1">Ajouter</button>
+        <button *ngIf="user.role === 'ADMIN'" type="button" (click)="create()" class="btn btn-primary border-black ms-auto" [disabled]="isUpdated || inCreation !== -1">Ajouter</button>
     </div>
 </div>

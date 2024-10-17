@@ -257,6 +257,34 @@ bootstrapApplication(AppComponent, {
                 ],
             },            
             {
+                path: 'HabitatsVeterinary',
+                component: CrudPageComponent,
+                data: {
+                    feature: 'habitats/comment',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: HabitatFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'habitats',
+                            fields: ['id', 'name', "description"],
+                        }
+                    },            
+                ],
+            },            
+            {
                 path: 'AnimalsAdmin',
                 component: CrudPageComponent,
                 data: {
