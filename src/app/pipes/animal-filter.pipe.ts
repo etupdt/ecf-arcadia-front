@@ -10,6 +10,7 @@ export class AnimalFilterPipe implements PipeTransform {
 
     transform(animals: IAnimal[] | null, ...args: any[]): IAnimal[] {
 
+        console.log('filter animal', animals, args)
         let animalsToReturn = animals ? animals : []
 
         animalsToReturn = args[0] && args[0] !== '' ? animalsToReturn.filter(a => 
@@ -19,6 +20,7 @@ export class AnimalFilterPipe implements PipeTransform {
         animalsToReturn = args[1] && args[1].length > 0 ? _.intersectionBy(animalsToReturn, args[1], 'id') 
         : animalsToReturn.filter(a => a.veterinaryReports!.length > 0)
         
+        console.log('filter animalsToReturn', animalsToReturn)
         return animalsToReturn
 
     }
