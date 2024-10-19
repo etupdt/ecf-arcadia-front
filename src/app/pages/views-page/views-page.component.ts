@@ -51,8 +51,8 @@ export class ViewsPageComponent implements OnInit{
         this.viewService.putItem('views', view.id, new View(view.id, view.pseudo, view.comment, view.isVisible)).subscribe({
             next: (res) => {
             },
-            error: (error: { error: { message: any; }; }) => {
-        }
+                error: (error: { error: { message: any; }; }) => {
+            }
         })
 
     }
