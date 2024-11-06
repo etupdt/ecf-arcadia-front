@@ -45,11 +45,11 @@ export class OldInterceptor implements HttpInterceptor {
         return next.handle(req).pipe(
 
             catchError((error) => {
-                if (!req.url.match(/\/auth\/(refresh-token|authenticate)$/) &&
-                    error instanceof HttpErrorResponse &&
-                    error.status === 401
-                ) {
-                    return this.handle401Error(req, next);
+
+                if (error instanceof HttpErrorResponse && error.status === 401) {
+                    if (!req.url.match(/\/auth\/(refresh-token|authenticate)$/)) {
+                        return this.handle401Error(req, next);
+                    } 
                 } else {
                     this.displayErrorMessage(error)
                 }
