@@ -27,7 +27,7 @@ export class AnimalReportFormComponent {
     dateReport: string | null = this.datepipe.transform(Date.now(), 'y-MM-dd')
     foods$: Observable<Food[]> = this.foodService.getItems('foods')
 
-    animalForm!: FormGroup
+    animalReportForm!: FormGroup
 
     private itemsService: any
     
@@ -56,14 +56,15 @@ export class AnimalReportFormComponent {
     get veterinaryReport() { return this.itemsService.updatedItem }
     set veterinaryReport(veterinaryReport : VeterinaryReport) { this.itemsService.updatedItem = veterinaryReport }
     
-    get detail() { return this.animalForm.get('detail')! as FormControl }
-    get gramage() { return this.animalForm.get('gramage')! as FormControl }
-    get food() { return this.animalForm.get('food')! as FormControl }
+    get detail() { return this.animalReportForm.get('detail')! as FormControl }
+    get gramage() { return this.animalReportForm.get('gramage')! as FormControl }
+    get food() { return this.animalReportForm.get('food')! as FormControl }
     
     veterinaryReportIndex: number = -1
     
     initForm = () => {
-        this.animalForm = new FormGroup({
+        console.log(this.selectedItem.id, this.veterinaryReport)
+        this.animalReportForm = new FormGroup({
             food: new FormControl(this.veterinaryReport.food.id, Validators.required),
             detail: new FormControl(this.veterinaryReport.detail),
             gramage: new FormControl(
@@ -71,18 +72,18 @@ export class AnimalReportFormComponent {
                 Validators.required
             )
         })
-        this.animalForm.valueChanges.subscribe(changes => { 
+        this.animalReportForm.valueChanges.subscribe(changes => { 
             this.itemsService.signalIsUpdated.set(
                 this.veterinaryReport.detail !== this.detail.value ||
                 (this.veterinaryReport.gramage === 0 ? '' : this.veterinaryReport.gramage) !== this.gramage.value ||
                 this.veterinaryReport.food.id !== this.food.value 
             )
-            this.itemsService.signalIsValid.set(this.animalForm.valid && this.food.value !== 0)
+            this.itemsService.signalIsValid.set(this.animalReportForm.valid && this.food.value !== 0)
             this.veterinaryReport.date = this.dateReport!
             this.veterinaryReport.detail = this.detail.value
-            this.veterinaryReport.gramage = this.gramage.value
+            this.veterinaryReport.gramage = this.gramage.value === '' ? 0 : this.gramage.value
             this.veterinaryReport.food.id = this.food.value
-            this.veterinaryReport.animal.id = this.selectedItem.id
+            this.veterinaryReport.animal = this.selectedItem
             this.veterinaryReport.user = this.authService.user
         })
     }

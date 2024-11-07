@@ -90,7 +90,7 @@ export class ReportAnimalPageComponent implements OnInit {
             })
         } else {
 
-            this.veterinaryReportService.putItem('veterinaryreports', this.updatedItem.id, this.updatedItem).subscribe({
+            this.veterinaryReportService.putItem('veterinaryreports', this.updatedItem.id, VeterinaryReport.deserialize(this.updatedItem, 1)).subscribe({
                 next: (res: VeterinaryReport) => {
                     this.genericService.signalIsUpdated.set(false)
                     this.items[this.selectedIndex].veterinaryReports![this.veterinaryReportIndex] = res
