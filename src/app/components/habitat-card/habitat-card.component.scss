@@ -1,20 +1,22 @@
 
-img {
+.chevron {
     width: 40px;
 }
 
 .habitat {
 
     background-color: white;
+    // width: 300px;
     
     img {
-        width: 340px;
+        width: 100%;
+        max-width: 300px;
     }
 
     h5 {
         padding:20px;
         min-width: 150px;
-        width: 100%;
+        // width: 100%;
         text-align: center;
     }
     
@@ -24,7 +26,8 @@ img {
 
     background-color: white;
     width: 100%;
-    padding: 30px;
+    max-width: 300px;
+    padding: 10px;
 
 }
 
@@ -39,4 +42,15 @@ li {
 
 app-animal-card {
     width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+
+    .habitat-detail {
+
+        width: 100%;
+        padding: 30px;
+    
+    }
+    
 }

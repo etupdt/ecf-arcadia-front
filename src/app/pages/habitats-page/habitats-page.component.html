@@ -1,7 +1,9 @@
 
 <h1 class="px-3 px-sm-5">Retrouvez les animaux par habitat</h1>
-    <ul>
-        <li *ngFor="let habitat of habitats$ | async">
-            <app-habitat-card [habitat]="habitat"></app-habitat-card>
+<div class="m-0 m-md-auto col-12 col-md-12 col-lg-11 col-xl-9">
+    <ul class="d-flex flex-column align-items-start p-0 p-lg-3 ms-auto">
+        <li class="d-flex my-1 w-100" *ngFor="let habitat of habitats$ | async">
+            <app-habitat-card class="w-100" [habitat]="habitat"></app-habitat-card>
         </li>
     </ul>
+</div>
