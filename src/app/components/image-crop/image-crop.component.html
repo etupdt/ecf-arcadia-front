@@ -1,14 +1,14 @@
 
 <div lines="none" class="image-buttons">
-    <form class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-warning" [disabled]="user.role !== 'ADMIN'" (click)="fileInput.click()">load</button>
+    <form class="d-flex flex-wrap" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-warning border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="fileInput.click()">load</button>
         <input type="file" #fileInput (change)="fileChangeEvent($event)" hidden/>
-        <button type="button" class="btn btn-warning" [disabled]="user.role !== 'ADMIN'" (click)="replaceImage()">replace</button>
-        <button type="button" class="btn btn-warning" [disabled]="user.role !== 'ADMIN'" (click)="reinitImage()">reinit</button>
-        <button type="button" class="btn btn-warning" [disabled]="user.role !== 'ADMIN'" (click)="zoomIn()">zoom +</button>
-        <button type="button" class="btn btn-warning" [disabled]="user.role !== 'ADMIN'" (click)="zoomOut()">zoom -</button>
-        <button type="button" class="btn btn-warning" [disabled]="user.role !== 'ADMIN'" (click)="ratio()">rapport</button>
-        <button type="button" class="btn btn-warning" [disabled]="user.role !== 'ADMIN'" (click)="addImage()">ajouter</button>
+        <button type="button" class="btn btn-warning border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="replaceImage()">replace</button>
+        <button type="button" class="btn btn-warning border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="reinitImage()">reinit</button>
+        <button type="button" class="btn btn-warning border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="zoomIn()">zoom +</button>
+        <button type="button" class="btn btn-warning border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="zoomOut()">zoom -</button>
+        <button type="button" class="btn btn-warning border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="ratio()">rapport</button>
+        <button type="button" class="btn btn-warning border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="addImage()">ajouter</button>
         <!-- <button type="button" class="btn btn-warning" (click)="cancel()">cancel</button> -->
     </form>
 </div>
