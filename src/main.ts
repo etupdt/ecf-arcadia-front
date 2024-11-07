@@ -107,7 +107,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'services',
-                            fields: ['id', 'name', 'description'],
+                            fields: ['id', 'name'],
                         }
                     },            
                 ],
@@ -251,7 +251,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'habitats',
-                            fields: ['id', 'name', "description"],
+                            fields: ['id', 'name'],
                         }
                     },            
                 ],
@@ -279,7 +279,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'habitats',
-                            fields: ['id', 'name', "description"],
+                            fields: ['id', 'name'],
                         }
                     },            
                 ],
@@ -307,7 +307,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'animals',
-                            fields: ['id', 'firstname', "description"],
+                            fields: ['id', 'firstname'],
                         }
                     },            
                 ],
@@ -335,7 +335,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'animals',
-                            fields: ['id', 'firstname', "description"],
+                            fields: ['id', 'firstname'],
                         }
                     },            
                 ],
@@ -371,7 +371,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'animals',
-                            fields: ['id', 'firstname', "description"],
+                            fields: ['id', 'firstname'],
                         }
                     },            
                 ],
