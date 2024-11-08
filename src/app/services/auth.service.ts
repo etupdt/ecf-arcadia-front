@@ -113,26 +113,23 @@ export class AuthService {
             access_token = this.helper.decodeToken(localStorage.getItem('access_token')!)
             refresh_token = this.helper.decodeToken(localStorage.getItem('refresh_token')!)
             if (access_token) {
-                if (Date.now() > access_token.exp * 1000) {
-                    if (Date.now() > refresh_token.exp * 1000) {
-                        this.toastsService.toastRefresh = false
-                        this.toastsService.show('Connexion expirée !', 3000)
-                        this.endWarning = false
-                        this.logout()
-                    } else {
-                        if (Date.now() > (refresh_token.exp - 34) * 1000 && !this.endWarning) {
-                            this.endWarning = true
-                            this.toastsService.toastRefresh = true
-                        } else {
-                            if (this.user.id === 0) {
-                                this.userService.getItem('users', access_token.id).subscribe({
-                                    next: (res: User) => {
-                                        this.user = res
-                                    }    
-                                })
-                            }
-                        }
+                if (Date.now() > refresh_token.exp * 1000) {
+                    this.toastsService.toastRefresh = false
+                    this.toastsService.show('Connexion expirée !', 3000)
+                    this.endWarning = false
+                    this.logout()
+                } else {
+                    if (this.user.id === 0) {
+                        this.userService.getItem('users', access_token.id).subscribe({
+                            next: (res: User) => {
+                                this.user = res
+                            }    
+                        })
                     }
+                    if (Date.now() > (refresh_token.exp - 34) * 1000 && !this.endWarning) {
+                        this.endWarning = true
+                        this.toastsService.toastRefresh = true
+                    } 
                 }
             }
         } catch {
