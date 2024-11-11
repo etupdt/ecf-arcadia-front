@@ -66,9 +66,10 @@ export class ContactPageComponent {
     send() {
         this.contactService.postItem('contact', this.contact).subscribe({
             next: (res: any) => {
-                this.toastsService.show(res, 2000)
+                this.toastsService.show("Votre demande de contact a bien été envoyée !", 6000)
             },
             error: (error: any) => {
+                this.toastsService.show("Erreur lors de votre demande de contact !", 6000)
             }    
         })
     }

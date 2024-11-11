@@ -8,7 +8,7 @@
         [autohide]="toast.autohide"
         (mouseenter)="toast.autohide = false"
         (mouseleave)="toast.autohide = true"
-        [class.bg-warning]="!toast.autohide"
+        [class.bg-primary]="!toast.autohide"
         (hide)="toastsService.remove(toast)"
         >
         <div>{{ toast.message }}</div>

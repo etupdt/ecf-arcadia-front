@@ -1,5 +1,5 @@
 
-<div class="d-flex flex-nowrap carousel">
+<div class="d-flex flex-wrap carousel">
     <div *ngFor="let image of carousel; let index = index" class="images">
         <img class="" src="{{ getImageUrl(image) }}" alt="">
         <div class="delete-button" (click)="delete(index)">

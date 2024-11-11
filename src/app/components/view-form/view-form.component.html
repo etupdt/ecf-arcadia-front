@@ -3,14 +3,12 @@
     <div class="card-body">
         <label for="pseudo" class="form-label">Pseudo</label>
         <input 
-        id="pseudo" 
         formControlName="pseudo"
         type="text" 
         class="form-control m-1" 
         >
         <label for="comment" class="form-label">Avis</label>
         <textarea 
-        id="comment"
         formControlName="comment"
         class="form-control m-1" 
         rows="3"
@@ -18,6 +16,6 @@
         </textarea>
     </div>
     <div class="d-flex justify-content-end w-100 p-2">
-        <button type="button" id="button" class="btn btn-warning" (click)="update()">Enregistrer</button>
+        <button type="button" class="btn btn-primary border-black" (click)="update()">Enregistrer</button>
     </div>
 </form>

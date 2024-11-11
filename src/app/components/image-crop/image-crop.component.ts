@@ -29,7 +29,7 @@ export class ImageCropComponent {
     targetImageBase64: string = ''
     targetImageBlob!: Blob
 
-    buttonClass: string = `btn btn-warning ${this.user.role === 'ADMIN' ? 'dissabled' : ''}`
+    buttonClass: string = `btn btn-primary ${this.user.role === 'ADMIN' ? 'dissabled' : ''}`
 
     set targetImage(targetImage: any) {
         if (typeof targetImage === 'string') {

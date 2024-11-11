@@ -1,18 +1,18 @@
-<div class="d-flex py-2">
-    <div class="d-flex flex-row align-items-center">
-        <img src="assets/images/{{ collapse ? 'droite_jaune.jpg' : 'bas_jaune.jpg'}}" (click)="collapse = !collapse" alt="habitat collapse arrow"/>
-        <div class="d-flex flex-row align-items-center habitat">
+<div class="{{ collapse || headerService.collapseHabitats ===  0 ? 'd-block' : 'd-none' }}">
+    <div class="d-flex align-items-center py-2">
+        <img class="chevron" src="assets/images/{{ !collapse ? 'droite_jaune.jpg' : 'bas_jaune.jpg'}}" (click)="toggleCollapse()" alt="habitat collapse arrow"/>
+        <div class="d-flex flex-column flex-md-row align-items-center habitat">
             <img src="{{ useBackendImages }}/{{ habitat.images![0].imageName }}" alt="Habitat">
             <h5 class="card-title">{{ habitat.name }}</h5>
+            <div class="habitat-detail h-100 {{ collapse ? 'd-block' : 'd-none' }}">
+                <p class="mb-0" *ngFor="let line of habitat.description.split('\n')">{{ line }}</p>
+            </div>
         </div>
     </div>
-    <div class="habitat-detail {{ collapse ? 'hidden' : '' }}">
-        <p>{{ habitat.description }}</p>
-        <p>{{ habitat.comment }}</p>
-    </div>
+    <ul class="p-0 {{ collapse ? 'd-block' : 'd-none' }}">
+        <li class="w-100 " *ngFor="let animal of habitat.animals">
+            <app-animal-card [animal]="animal | uniqReport"></app-animal-card>
+        </li>
+    </ul>
 </div>
-<ul class="{{ collapse ? 'hidden' : '' }}">
-    <li class="w-100" *ngFor="let animal of habitat.animals">
-        <app-animal-card [animal]="animal | uniqReport"></app-animal-card>
-    </li>
-</ul>
+    
