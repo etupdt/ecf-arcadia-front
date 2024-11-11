@@ -48,6 +48,8 @@ export class FoodFormComponent {
 
         this.food = new Food()
         
+        this.itemsService.signalIsUpdated.set(false)
+
         this.initForm()
     
     }        

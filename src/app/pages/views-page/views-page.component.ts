@@ -51,10 +51,8 @@ export class ViewsPageComponent implements OnInit{
         this.viewService.putItem('views', view.id, new View(view.id, view.pseudo, view.comment, view.isVisible)).subscribe({
             next: (res) => {
             },
-            error: (error: { error: { message: any; }; }) => {
-                const modal = this.modalService.open(ErrorModalComponent)
-                modal.componentInstance.message = error.error.message;
-        }
+                error: (error: { error: { message: any; }; }) => {
+            }
         })
 
     }

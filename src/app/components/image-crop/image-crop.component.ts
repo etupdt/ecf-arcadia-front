@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Dimensions, ImageCroppedEvent, ImageCropperModule, ImageTransform, LoadedImage } from 'ngx-image-cropper';
 import { IImage } from 'src/app/interfaces/IImage';
 import { Image } from 'src/app/models/Image';
+import { AuthService } from 'src/app/services/auth.service';
 import { ImageService } from 'src/app/services/image.service';
 import { environment } from 'src/environments/environment';
 
@@ -16,7 +17,8 @@ import { environment } from 'src/environments/environment';
 export class ImageCropComponent {
 
     constructor(
-        private imageService: ImageService
+        private imageService: ImageService,
+        private authService: AuthService
     ) { }
 
     useBackendImages: string = `${environment.useBackendImages}`
@@ -26,6 +28,8 @@ export class ImageCropComponent {
 
     targetImageBase64: string = ''
     targetImageBlob!: Blob
+
+    buttonClass: string = `btn btn-primary ${this.user.role === 'ADMIN' ? 'dissabled' : ''}`
 
     set targetImage(targetImage: any) {
         if (typeof targetImage === 'string') {
@@ -125,4 +129,6 @@ export class ImageCropComponent {
        
     }
         
+    get user() {return this.authService.user}
+
 }

@@ -6,7 +6,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { InjectionToken, importProvidersFrom } from '@angular/core';
 import { AppComponent } from './app/app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, withRouterConfig } from '@angular/router';
 import { HomePageComponent } from './app/pages/home-page/home-page.component';
@@ -30,12 +30,12 @@ import { AnimalFoodListComponent } from './app/components/animal-food-list/anima
 import { ReportsPageComponent } from './app/pages/reports-page/reports-page.component';
 import { BreedFormComponent } from './app/components/breed-form/breed-form.component';
 import { FoodFormComponent } from './app/components/food-form/food-form.component';
-import { tokenInterceptor } from './app/interceptors/token.interceptor';
 import { ErrorModalComponent } from './app/modals/error-modal/error-modal.component';
 import { DashboardPageComponent } from './app/pages/dashboard-page/dashboard-page.component';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { ContactPageComponent } from './app/pages/contact-page/contact-page.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { OldInterceptor } from './app/interceptors/old.interceptor';
 
 const SERVICE = new InjectionToken<string>('ServiceService');
 
@@ -43,7 +43,8 @@ bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(ReactiveFormsModule, BrowserModule, FormsModule),
         provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClient(withInterceptors([tokenInterceptor])),
+        {provide: HTTP_INTERCEPTORS, useClass: OldInterceptor, multi: true},
+        // provideHttpClient(withInterceptors([tokenInterceptor])),
         DatePipe,
         { provide: SERVICE, useClass: ItemsService },    
         provideCharts(withDefaultRegisterables()),
@@ -105,7 +106,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'services',
-                            fields: ['id', 'name', 'description'],
+                            fields: ['id', 'name'],
                         }
                     },            
                 ],
@@ -249,7 +250,35 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'habitats',
-                            fields: ['id', 'name', "description"],
+                            fields: ['id', 'name'],
+                        }
+                    },            
+                ],
+            },            
+            {
+                path: 'HabitatsVeterinary',
+                component: CrudPageComponent,
+                data: {
+                    feature: 'habitats/comment',
+                    requiredService: SERVICE
+                },
+                children: [
+                    {
+                        path: 'form',
+                        component: HabitatFormComponent,
+                        outlet: 'form',
+                        data: { 
+                            requiredService: SERVICE,
+                        }
+                    },            
+                    {
+                        path: 'list',
+                        component: ListComponent,
+                        outlet: 'list',
+                        data: { 
+                            requiredService: SERVICE,
+                            feature: 'habitats',
+                            fields: ['id', 'name'],
                         }
                     },            
                 ],
@@ -277,7 +306,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'animals',
-                            fields: ['id', 'firstname', "description"],
+                            fields: ['id', 'firstname'],
                         }
                     },            
                 ],
@@ -305,7 +334,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'animals',
-                            fields: ['id', 'firstname', "description"],
+                            fields: ['id', 'firstname'],
                         }
                     },            
                 ],
@@ -341,7 +370,7 @@ bootstrapApplication(AppComponent, {
                         data: { 
                             requiredService: SERVICE,
                             feature: 'animals',
-                            fields: ['id', 'firstname', "description"],
+                            fields: ['id', 'firstname'],
                         }
                     },            
                 ],

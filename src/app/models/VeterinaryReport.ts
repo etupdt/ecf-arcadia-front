@@ -21,7 +21,7 @@ export class VeterinaryReport implements IVeterinaryReport {
             data.id,
             data.date,
             data.detail,
-            data.grammage,
+            data.gramage,
             level > 0 ? Animal.deserialize(data.animal, level - 1) : new Animal(),
             level > 0 ? User.deserialize(data.user, level - 1) : new User(),
             level > 0 ? Food.deserialize(data.food, level - 1) : new Food()

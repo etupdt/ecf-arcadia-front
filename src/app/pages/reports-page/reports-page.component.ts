@@ -72,9 +72,7 @@ export class ReportsPageComponent {
                 this.animalsSelected = animalsSelected
             },
             error: (error: { error: { message: any; }; }) => {
-                const modal = this.modalService.open(ErrorModalComponent)
-                modal.componentInstance.message = error.error.message;
-        }
+            }
         })
     
     }

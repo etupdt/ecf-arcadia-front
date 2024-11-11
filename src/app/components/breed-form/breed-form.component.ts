@@ -52,6 +52,8 @@ export class BreedFormComponent {
 
         this.breed = new Breed(0, '')
         
+        this.itemsService.signalIsUpdated.set(false)
+
         this.initForm()
     
     }        

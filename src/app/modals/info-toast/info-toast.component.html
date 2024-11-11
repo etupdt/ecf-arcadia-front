@@ -8,9 +8,19 @@
         [autohide]="toast.autohide"
         (mouseenter)="toast.autohide = false"
         (mouseleave)="toast.autohide = true"
-        [class.bg-warning]="!toast.autohide"
+        [class.bg-primary]="!toast.autohide"
         (hide)="toastsService.remove(toast)"
         >
         <div>{{ toast.message }}</div>
+    </ngb-toast>
+    <ngb-toast
+        *ngIf="toastsService.toastRefresh"
+        header="Info"
+        [autohide]="false"
+        >
+        <div>Votre connexion va bientôt expirer !</div>
+        <div class="mt-2 pt-2 border-top">
+            <button type="button" class="btn btn-secondary btn-sm" (click)="refreshToken()" data-bs-dismiss="toast">Refresh</button>
+        </div>
     </ngb-toast>
 </div>

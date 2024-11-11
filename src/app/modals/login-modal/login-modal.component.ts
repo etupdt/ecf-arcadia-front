@@ -73,7 +73,8 @@ export class LoginModalComponent {
 				this.initForm()
 				this.activeModal.close('Close click')
 				this.toastsService.show('Vous êtes maintenant connecté !', 2000)
-			}
+			},
+			error: (error: any) => {}
 		})
 	}
 

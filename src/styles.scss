@@ -2,9 +2,14 @@
 
 $primary: #ffc107;
 
+:root {
+    --headline-test: "Rajdhani", sans-serif; 
+}
+
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 //@import '~bootstrap/dist/css/bootstrap.min.css';
+
 
 html, body {
     height: 100%;
@@ -27,3 +32,6 @@ app-root {
     min-height: 100vh;
 }
 
+h1, h2, h3, h4, h5, label, a, button, th, td {
+    font-family: var(--headline-test);
+}
