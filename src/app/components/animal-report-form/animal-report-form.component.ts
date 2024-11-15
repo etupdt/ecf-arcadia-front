@@ -63,7 +63,6 @@ export class AnimalReportFormComponent {
     veterinaryReportIndex: number = -1
     
     initForm = () => {
-        console.log(this.selectedItem.id, this.veterinaryReport)
         this.animalReportForm = new FormGroup({
             food: new FormControl(this.veterinaryReport.food.id, Validators.required),
             detail: new FormControl(this.veterinaryReport.detail),

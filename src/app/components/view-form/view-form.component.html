@@ -7,6 +7,17 @@
         type="text" 
         class="form-control m-1" 
         >
+        <div class="alert alert-danger py-1 ms-1" *ngIf="pseudo.invalid && (pseudo.dirty || pseudo.touched)">
+            <div *ngIf="pseudo.errors?.['required']">
+                Pour ajouter un avis, vous devez saisir votre pseudo
+            </div>    
+            <div *ngIf="pseudo.errors?.['minlength']">
+                Un pseudo doit avoir au moins trois caractères
+            </div>    
+            <div *ngIf="pseudo.errors?.['pattern']">
+                Un pseudo ne peut commencer que par une lettre ou un chiffre
+            </div>    
+        </div>
         <label for="comment" class="form-label">Avis</label>
         <textarea 
         formControlName="comment"
@@ -14,8 +25,13 @@
         rows="3"
         >
         </textarea>
+        <div class="alert alert-danger p-1" *ngIf="comment.invalid && (comment.dirty || comment.touched)">
+            <div class="ms-2" *ngIf="comment.errors?.['required']">
+                Pour ajouter un avis, vous devez saisir ce champ
+            </div>    
+        </div>
     </div>
     <div class="d-flex justify-content-end w-100 p-2">
-        <button type="button" class="btn btn-primary border-black" (click)="update()">Enregistrer</button>
+        <button type="button" class="btn btn-primary border-black" [disabled]="!viewForm.valid" (click)="update()">Enregistrer</button>
     </div>
 </form>
