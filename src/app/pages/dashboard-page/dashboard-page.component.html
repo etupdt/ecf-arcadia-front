@@ -3,7 +3,9 @@
 <div class="d-flex justify-content-around p-3">
     <div class="col-7 border border-black m-2 p-2 bg-light rounded-2">
         <app-dashboard-chart [type]="'bar'" [labels]="animalsLabels" [datasets]="animalsDatasets" [options]="{
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
+            responsive: true,
+            aspectRatio: 1,
             plugins: {
                 colors: {
                     enabled: false,
@@ -31,7 +33,9 @@
 <div class="d-flex justify-content-around p-3">
     <div class="col-8 border border-black m-2 p-2 bg-light rounded-2">
         <app-dashboard-mixed-chart [type]="'bar'" [labels]="datesLabels" [datasets]="datesDatasets" [options]="{
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
+            responsive: true,
+            aspectRatio: 1,
             plugins: {
                 colors: {
                     forceOverride: true

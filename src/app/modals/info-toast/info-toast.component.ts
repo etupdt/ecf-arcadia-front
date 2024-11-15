@@ -22,7 +22,6 @@ export class InfoToastComponent {
     refreshToken() {
         this.authService.refreshToken().subscribe({
             next: (res: any) => {
-                console.log('refresh subscribe')
             },    
             error: (error: { error: { message: any; }; }) => {
             }    
