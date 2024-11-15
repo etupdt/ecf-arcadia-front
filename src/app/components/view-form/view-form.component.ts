@@ -3,13 +3,14 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ApiService } from 'src/app/services/api.service';
 import { IView } from 'src/app/interfaces/IView';
 import { View } from 'src/app/models/View';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-view-form',
     templateUrl: './view-form.component.html',
     styleUrls: ['./view-form.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule]
+    imports: [NgIf, FormsModule, ReactiveFormsModule]
 })
 export class ViewFormComponent implements OnInit {
 
@@ -32,7 +33,11 @@ export class ViewFormComponent implements OnInit {
 
     initForm(): void {
         this.viewForm = new FormGroup({
-            pseudo: new FormControl(this.view.pseudo, Validators.required),
+            pseudo: new FormControl(this.view.pseudo, [
+                Validators.required, 
+                Validators.minLength(3),
+                Validators.pattern(/^[a-zA-Z0-9]/)
+            ]),
             comment: new FormControl(this.view.comment, Validators.required),
             isVisible: new FormControl(this.view.isVisible, Validators.required),
         });    

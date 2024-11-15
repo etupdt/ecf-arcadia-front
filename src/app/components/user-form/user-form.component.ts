@@ -62,7 +62,11 @@ export class UserFormComponent {
     initForm = () => {
         this.userForm = new FormGroup({
             email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-            password: new FormControl(this.user.password, Validators.required),
+            password: new FormControl(this.user.password, [
+                Validators.required, 
+                Validators.minLength(9),
+                Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*\-+]).{8,}$/)
+            ]),
             firstname: new FormControl(this.user.firstname, Validators.required),
             lastname: new FormControl(this.user.lastname, Validators.required),
             role: new FormControl(this.user.role, Validators.required),

@@ -49,9 +49,17 @@ export class ContactPageComponent {
 
     initForm = () => {
         this.contactForm = new FormGroup({
-            title: new FormControl(this.contact.title, Validators.required),
-            description: new FormControl(this.contact.description, Validators.required),
-            email: new FormControl(this.contact.email, Validators.required),
+            title: new FormControl(this.contact.title, [
+                Validators.required, 
+                Validators.minLength(3),
+                Validators.pattern(/^[a-zA-Z0-9]/)
+            ]),
+            description: new FormControl(this.contact.description, [
+                Validators.required, 
+                Validators.minLength(3),
+                Validators.pattern(/^[a-zA-Z0-9]/)
+            ]),
+            email: new FormControl(this.contact.email, [Validators.required, Validators.email]),
         });    
         this.contactForm.valueChanges.subscribe(changes => { 
             this.isUpdated = this.contact.email !== this.email.value  ||
@@ -64,6 +72,7 @@ export class ContactPageComponent {
     }
 
     send() {
+        this.toastsService.show("Votre demande de contact est en cours de traitement, vous pouvez poursuivre votre visite du site !", 6000)
         this.contactService.postItem('contact', this.contact).subscribe({
             next: (res: any) => {
                 this.toastsService.show("Votre demande de contact a bien été envoyée !", 6000)

@@ -15,3 +15,19 @@ form {
     }
 
 }
+
+.messages {
+    min-height: 1.9em;
+
+    div {
+        vertical-align: top; 
+    } 
+}
+
+input, textarea {
+    margin: 0;
+}
+
+small {
+    font-size: 0.7em;
+}
