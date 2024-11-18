@@ -1,10 +1,10 @@
 # ecf-arcadia-front
 
-## Mise en place de l'environnement de demonstration
+## Mise en place de l'environnement de demonstration du front-end
 
-Cet environnement de démonstration ne prend pas en charge la mise en place du chiffrement ssl. Seul l'environnement de production dispose de cette fonctionalité.
+Cet environnement de démonstration ne prend pas en charge la mise en place du chiffrement TLS. Seul l'environnement de production dispose de cette fonctionalité.
 
-Il nécessite également un serveur ou poste de travail ayant docker et docker compose installés.
+Il nécessite également un serveur ou poste de travail ayant docker installé.
 
 - cloner le repo github (front)
 
@@ -12,14 +12,14 @@ Il nécessite également un serveur ou poste de travail ayant docker et docker c
 git clone https://github.com/etupdt/ecf-arcadia-front.git
 ```
 
-- Builder, puis créer le container du front en lançant à la racine du répertoire **ecf-arcadia-front** les commandes :
+-  Sur la branche main lancer, à la racine du répertoire **ecf-arcadia-front**, la commande de création du container du front :
 
 ```
-docker compose build --no-cache
-docker compose up -d
+docker compose -f docker-compose-front-demo.yml up -d
 ```
 
-Il faut maintenant installer la partie back de l'application (voir le README du repo **ecf-arcadia-back**), l'environnement sera alors près. Vous pourrez accéder à l'application avec l'url :
+La partie front-end est maintenant installée, elle communioque avec le back-end sur le port 8083.
+Il faut maintenant installer la partie back de l'application (voir le README du repo **ecf-arcadia-back**), vous pourrez alors accéder à l'application avec l'url :
 
 ```
 http://localhost:4200
