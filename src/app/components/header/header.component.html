@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+        <img src="assets/images/logo3.jpg" alt="Logo zoo Arcadia">
+
+        <a class="navbar-brand" href="#">Zoo Arcadia</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse mb-3 mb-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {{selectedItem === 'Accueil' ? 'active' : ''}}" routerLink="Accueil">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{selectedItem === 'Services' ? 'active' : ''}}" routerLink="Services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{selectedItem === 'Habitats' ? 'active' : ''}}" routerLink="Habitats">Habitats</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{selectedItem === 'Contact' ? 'active' : ''}}" routerLink="Contact">Contact</a>
+                </li>
+                <li *ngIf="connected" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{selectedItem === user.role ? 'active' : ''}}" 
+                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{roles.get(user.role)}}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let item of dropDownItems; let index = index">
+                            <a *ngIf="item.auth.includes(user.role)" class="dropdown-item " (click)="navigateTo(index)">{{ item.label }}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <button *ngIf="!connected" class="btn btn-outline-light" type="button" (click)="login()">Connexion</button>
+                <button *ngIf="connected" type="button" class="btn btn-outline-light" (click)="logout()">Déconnexion</button>
+                <div class="navbar-nav">                    
+                    <a *ngIf="connected" class="nav-link">{{user.email}}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>

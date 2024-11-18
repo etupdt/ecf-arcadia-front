@@ -1,0 +1,40 @@
+
+<div lines="none" class="image-buttons">
+    <form class="d-flex flex-wrap" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="fileInput.click()">load</button>
+        <input type="file" #fileInput (change)="fileChangeEvent($event)" hidden/>
+        <button type="button" class="btn btn-primary border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="replaceImage()">replace</button>
+        <button type="button" class="btn btn-primary border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="reinitImage()">reinit</button>
+        <button type="button" class="btn btn-primary border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="zoomIn()">zoom +</button>
+        <button type="button" class="btn btn-primary border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="zoomOut()">zoom -</button>
+        <button type="button" class="btn btn-primary border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="ratio()">rapport</button>
+        <button type="button" class="btn btn-primary border-black rounded-2" [disabled]="user.role !== 'ADMIN'" (click)="addImage()">ajouter</button>
+        <!-- <button type="button" class="btn btn-primary" (click)="cancel()">cancel</button> -->
+    </form>
+</div>
+<div class="d-flex justify-content-evenly align-items-center">
+    <div class="image" [style.width.px]="imageWidth">
+        <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [output]="'blob'"
+        [imageFile]="activeImage"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="ratio1 / ratio2"
+        [resizeToWidth]="360"
+        [cropperMinWidth]="34"
+        [onlyScaleDown]="true"
+        [transform]="transform"
+        [roundCropper]="false"
+        [alignImage]="'left'"
+        [style.display]="showCropper ? null : 'none'"
+        format="webp"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded($event)"
+        (cropperReady)="cropperReady($event)"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+    </div>
+    <div class="image" [style.width.px]="imageWidth">
+        <img [src]="targetImageBase64" [style.border]="'1px solid black'" [style.width.%]="100" />
+    </div>
+</div>

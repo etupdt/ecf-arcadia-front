@@ -1,0 +1,45 @@
+
+<h2 class="pt-md-5 pt-3">Liste des rapports vétérinaires par animal</h2>
+
+<form class="d-flex flex-sm-nowrap flex-wrap col-12 my-2">
+    <div class="input-group">
+        <span class="input-group-text">Date</span>
+        <input 
+        id="dateFood" 
+        name="dateFood" 
+        type="date" 
+        class="form-control"
+        [(ngModel)]="date" 
+        >
+    </div>
+    <div class="input-group">
+        <span class="input-group-text">Animaux</span>
+        <ng-multiselect-dropdown class="form-control"
+            [placeholder]="''"
+            [settings]="dropdownSettings"
+            [data]="animalList"
+            [(ngModel)]="animalsSelected"
+            id="animalList"
+            name="animalList"
+        >
+        </ng-multiselect-dropdown>
+    </div>
+</form>
+<div class="card d-flex flex-column pb-3 col-12" *ngFor="let animal of animals$ | async | animalFilter:date:animalsSelected">
+    <div class="d-flex flex-row justify-content-evenly col-12  titre-animal">
+        <p class=""><b>Prénom</b> {{ animal.firstname }}</p> 
+        <p class=""><b>Race</b> {{ animal.breed.label }}</p>
+    </div>
+    <div class="report-line mx-auto col-xl-8 col-lg-10 col-md-11 col-sm-8 col-11">
+        <div class="d-md-flex d-none">
+            <div class="col-md-2 col-12 fw-bolder">Date</div>
+            <div class="col-md-3 col-12 fw-bolder">Nourriture</div>
+            <div class="col-md-7 col-12 fw-bolder">Etat</div>
+        </div>
+        <div class="d-flex flex-column flex-md-row border-top border-black" *ngFor="let veterinaryReport of animal.veterinaryReports! | reportFilter:date">
+            <div class="col-md-2 col-12 align-text-top ">{{ veterinaryReport.date }}</div>
+            <div class="col-md-3 col-12 align-text-top">{{ veterinaryReport.food.name }} {{ veterinaryReport.gramage }} g</div>
+            <div class="col-md-7 col-12 align-text-top">{{ veterinaryReport.detail }}</div>
+        </div>
+    </div>
+</div>

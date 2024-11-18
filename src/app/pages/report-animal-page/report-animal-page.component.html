@@ -1,0 +1,11 @@
+
+<div class="d-flex flex-column w-100">
+    <router-outlet name="list"></router-outlet>
+    <router-outlet *ngIf="items && items.length > 0" name="form"></router-outlet>
+    <div class="d-flex w-100">
+        <button type="button" id="button" (click)="update()" class="btn btn-primary border-black" [disabled]="!isUpdated || !isValid">Enregistrer</button>
+        <button type="button" id="button" (click)="cancel()" class="btn btn-primary border-black" [disabled]="!isUpdated && !inCreation">Abandonner</button>
+        <!-- <button type="button" id="button" (click)="create()" class="btn btn-outline-secondary ms-auto" [disabled]="isUpdated || inCreation !== -1">Ajouter</button> -->
+    </div>
+    <app-animal-food-list *ngIf="this.selectedIndex !== -1" class="w-100 p-3" [animal]="items[this.selectedIndex]"></app-animal-food-list>
+</div>

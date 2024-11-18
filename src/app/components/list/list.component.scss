@@ -1,0 +1,30 @@
+
+.selected {
+    background-color: var(--primary);
+}
+
+button {
+    background-color: var(--primary);
+}
+
+.items-ul {
+    list-style: none;
+    width: 100%;
+}
+
+.item-ul {
+    border: 1px lightgray solid;
+    width: 100%;
+}
+
+.item-li {
+
+    width: 33%;
+    background-color: transparent;
+    border: none;
+
+}
+
+.item-li:first-child {
+    width: 50px;
+}

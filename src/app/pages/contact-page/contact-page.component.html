@@ -1,0 +1,70 @@
+<form *ngIf="contactForm" class="d-flex flex-column justify-content- center align-items-center col-12" [formGroup]="contactForm">
+    <div class="card-body col-xl-6 col-md-8 col-10">
+        <input 
+        id="title"
+        formControlName="title"
+        type="text" 
+        class="form-control border border-black rounded-2"
+        placeholder="Titre"
+        >
+        <div class="messages">
+            <div class="text-danger m-0" *ngIf="title.invalid && (title.dirty || title.touched)">
+                <small *ngIf="title.errors?.['required']">
+                    Pour envoyer une demande de contact, vous devez saisir un titre
+                </small>    
+                <small *ngIf="title.errors?.['minlength']">
+                    Un titre doit avoir au moins trois caractères
+                </small>    
+                <small *ngIf="title.errors?.['pattern']">
+                    Un titre ne peut commencer que par une lettre ou un chiffre
+                </small>    
+            </div>
+        </div>
+        <textarea 
+        id="description"
+        formControlName="description"
+        type="text" 
+        class="form-control border border-black rounded-2"
+        placeholder="Description"
+        ></textarea>
+        <div class="messages">
+            <div class="text-danger m-0 " *ngIf="description.invalid && (description.dirty || description.touched)">
+                <small *ngIf="description.errors?.['required']">
+                    Pour envoyer une demande de contact, vous devez saisir un description
+                </small>    
+                <small *ngIf="description.errors?.['minlength']">
+                    Une description doit avoir au moins trois caractères
+                </small>    
+                <small *ngIf="description.errors?.['pattern']">
+                    Une description ne peut commencer que par une lettre ou un chiffre
+                </small>    
+            </div>
+        </div>
+        <input 
+        id="email"
+        formControlName="email"
+        type="email" 
+        class="form-control border border-black rounded-2"
+        placeholder="Email"
+        >
+        <div class="messages">
+            <div class="text-danger m-0" *ngIf="email.invalid && (email.dirty || email.touched)">
+                <small *ngIf="email.errors?.['required']">
+                    Ce champ doit être saisi
+                </small>    
+                <small *ngIf="email.errors?.['email']">
+                    L'adresse mail saisie n'est pas valide
+                </small>    
+            </div>
+        </div>
+        <button 
+            type="button" 
+            id="button" 
+            (click)="send()"
+            class="btn btn-primary border-black my-2 mt-4 w-100" 
+            [disabled]="!isUpdated || !contactForm.valid"
+            >
+            Envoi
+        </button>
+    </div>
+</form>

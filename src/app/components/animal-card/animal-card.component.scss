@@ -1,0 +1,65 @@
+
+
+.chevron {
+    height: 40px;
+}
+
+.animal {
+    
+    // width: 290px;
+    background-color: white;
+
+
+    background-color: white;
+
+    img {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    h5 {
+        min-width: 100px;
+        text-align: center;
+    }
+    
+}
+
+.animal-detail {
+
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+
+    ul {
+
+        li {
+
+            list-style: none;
+            
+            // span:first-child {
+            //     width: 350px;
+            // }
+
+        }
+
+    }
+
+}
+
+.hidden {
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+
+    .animal {
+        width: 100%;
+    }
+
+    .animal-detail {
+
+        width: 100%;
+    
+    }
+    
+}

@@ -1,0 +1,47 @@
+
+nav {
+
+    padding: 0;
+    background-color: #9AAD90 !important;
+    height: 80px;
+    z-index: 99;
+
+    > div {
+        
+        background-color: inherit;
+
+        > img {
+            height: 80px;
+        }
+
+        a {
+            color: white; // #FBF1D8;
+            background-color: transparent !important;
+        }
+
+        ul {
+
+            margin: auto;
+            background-color: #9AAD90 !important;
+
+            a {
+                font-size: 18px;
+            }
+
+            .active {
+                font-weight: 500;
+                color: white;
+                text-decoration: underline;
+                text-underline-offset: 6px;
+            }
+
+            li {
+                margin: 0 10px;
+                background-color: inherit;
+            }
+
+        }
+
+    }
+
+}

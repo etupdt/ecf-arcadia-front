@@ -1,0 +1,33 @@
+button {
+    height: 3rem;
+}
+
+form {
+
+    margin-top: 20vh;
+    
+    > div {
+
+        input {
+            height: 3rem;
+        }
+              
+    }
+
+}
+
+.messages {
+    min-height: 1.9em;
+
+    div {
+        vertical-align: top; 
+    } 
+}
+
+input, textarea {
+    margin: 0;
+}
+
+small {
+    font-size: 0.7em;
+}

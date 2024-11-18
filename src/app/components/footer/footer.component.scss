@@ -1,0 +1,24 @@
+
+div:last-child {
+    text-align: left;
+    span {
+        margin: 0 8px;
+    }
+}
+
+div {
+    text-align: center;
+    // padding: 0 30px;
+    margin: 8px 0;
+}
+
+span {
+    font-weight: 600;
+}
+
+app-hours {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+}

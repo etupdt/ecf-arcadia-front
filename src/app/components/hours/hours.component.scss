@@ -1,0 +1,26 @@
+
+table {
+
+    color: inherit;
+
+    tr {
+
+        border: none;
+
+        td {
+            background-color: transparent;
+            padding: 0;
+            font-size: 0.5rem;
+            text-align: left;
+            color: inherit;
+            border: none;
+            padding: 0 5px;
+        }
+
+        td:first-child {
+            text-align: right;
+        }    
+    
+    }    
+
+}
