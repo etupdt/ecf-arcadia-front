@@ -72,13 +72,13 @@ export class ContactPageComponent {
     }
 
     send() {
-        this.toastsService.show("Votre demande de contact est en cours de traitement, vous pouvez poursuivre votre visite du site !", 6000)
+        this.toastsService.show("Votre demande de contact est en cours de traitement, vous pouvez poursuivre la visite du site !", 6000)
         this.contactService.postItem('contact', this.contact).subscribe({
             next: (res: any) => {
                 this.toastsService.show("Votre demande de contact a bien été envoyée !", 6000)
             },
             error: (error: any) => {
-                this.toastsService.show("Erreur lors de votre demande de contact !", 6000)
+                this.toastsService.show("Erreur lors de votre demande de contact. Elle n'a pas pu aboutir !", 6000)
             }    
         })
     }
