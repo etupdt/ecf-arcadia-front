@@ -1,7 +1,6 @@
 <form *ngIf="contactForm" class="d-flex flex-column justify-content- center align-items-center col-12" [formGroup]="contactForm">
     <div class="card-body col-xl-6 col-md-8 col-10">
         <input 
-        id="title"
         formControlName="title"
         type="text" 
         class="form-control border border-black rounded-2"
@@ -21,7 +20,6 @@
             </div>
         </div>
         <textarea 
-        id="description"
         formControlName="description"
         type="text" 
         class="form-control border border-black rounded-2"
@@ -41,7 +39,6 @@
             </div>
         </div>
         <input 
-        id="email"
         formControlName="email"
         type="email" 
         class="form-control border border-black rounded-2"
@@ -59,7 +56,6 @@
         </div>
         <button 
             type="button" 
-            id="button" 
             (click)="send()"
             class="btn btn-primary border-black my-2 mt-4 w-100" 
             [disabled]="!isUpdated || !contactForm.valid"
