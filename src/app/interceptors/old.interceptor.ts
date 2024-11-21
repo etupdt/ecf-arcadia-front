@@ -50,6 +50,7 @@ export class OldInterceptor implements HttpInterceptor {
                     if (!req.url.match(/\/auth\/(refresh-token|authenticate)$/)) {
                         return this.handle401Error(req, next);
                     } 
+                    this.displayErrorMessage(error)
                 } else {
                     this.displayErrorMessage(error)
                 }
